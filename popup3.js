@@ -139,9 +139,8 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
 
 	// send to blog
 	async function sendInfo() {
-		let info = updateStats()
 		var price = Number(document.getElementById("price").value)
-		const cogs = Number(document.getElementById("cogsInput").value)
+		var cogs = Number(document.getElementById("cogsInput").value)
 		var sourceURL = document.getElementById("SourceUrl").value
 		var notes = document.getElementById("notes").value
 		var refPer = Number(document.getElementById("refPer").value)
