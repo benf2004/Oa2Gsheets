@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+
+  "name": "GSHEETS3",
+  "description": "Sends profit info from Amazon webpage to Google Sheets.",
+  "version": "0.3",
+
+  "action": {
+    "default_popup": "popup3.html"
+  },
+  "content_scripts": [
+   {
+     "matches": ["https://*.amazon.com/dp/*"],
+     "js": ["AMZscript.js"]
+   }
+ ],
+ "host_permissions": ["https://www.bensthattype.com/*"],
+  "permissions": [
+    "activeTab"
+  ]
+}
