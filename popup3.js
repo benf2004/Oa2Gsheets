@@ -140,6 +140,11 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
 	// send to blog
 	async function sendInfo() {
 		let info = updateStats()
+		var price = Number(document.getElementById("price").value)
+		const cogs = Number(document.getElementById("cogsInput").value)
+		var sourceURL = document.getElementById("SourceUrl").value
+		var notes = document.getElementById("notes").value
+		var refPer = Number(document.getElementById("refPer").value)
 		let refURL = "https://www.bensthattype.com/p/oa-to-gsheets.html?asin=" + asin + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&notes=" + notes + "&price=" + price;
 		let codeURL = encodeURI(refURL)
 		document.getElementById("frame").src = codeURL
