@@ -163,7 +163,7 @@ async function top1(checker1) {
 
     // accesses Google Sheets API to check how many rows have content. Returns row number to send data to.
     async function getRowNum() {
-        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/1eWtPhT4EJZZZW9JMLgTvWMeVrDesRsx3gAIf_JTuDxs/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y")
+        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/1eWtPhT4EJZZZW9JMLgTvWMeVrDesRsx3gAIf_JTuDxs/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=" + google_key)
         const data2 = await response.json()
         let rowNum = data2["values"].length + 1
         return rowNum;
@@ -216,7 +216,7 @@ async function top1(checker1) {
 
 // Sign in and access APIs
 function initClient() {
-    var API_KEY = 'AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y';
+    var API_KEY = google_key;
 
     var CLIENT_ID = '654389885336-d2pk15omntsnv2tittukrke8vbf7dsoa.apps.googleusercontent.com';
 
