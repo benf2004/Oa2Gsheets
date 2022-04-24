@@ -52,75 +52,8 @@
     console.log("source url is: " + sourceURL)	
 	var notes = decodeURI(urlParams.get("notes"))
     console.log("notes is: " + notes)
-      
-	// Determines Refferal Percentage (refPer) by cycling through categories and checking name
-	function detrmRefPer(price,cats2){
-      const eightPer = [
-          'Camera & Photo', 'Full-Size Appliances', "Cell Phone Devices",
-          "Consumer Electronics", "Personal Computers", "Video Game Consoles"
-      ];
-      const groceryFee = ["Grocery & Gourmet Foods"];
-      const twelvePer = ["3D Printed Products", "Automotive & Powersports", "Industrial & Scientific", "Food Service", "Janitorial & Scientific"];
-      const specialFee = [
-          "Electronics Accessories", "Furniture", "Compact Appliances",
-          "Collectible Coins"
-      ];
-      const switch10 = ["Baby", "Beauty", "Health & Personal Care"];
-      const fifteenPer = [
-          "Books",
-          "Industrial & Scientific",
-          "Home & Garden",
-          "Kitchen & Dining",
-          "Mattresses",
-          "Music",
-          "Musical Instruments",
-          "Office Prodcuts",
-          "Outdoors",
-          "Pet Supplies",
-          "Software & Computer",
-          "Video Games",
-          "Sports",
-          "Tools & Home Improvement",
-          "Toys & Games",
-          "Video & DVD",
-          "Cell Phones & Accessories",
-          "Everything Else",
-          "Luggage & Travel Accessories",
-          "Shoes, Handbags & Sunglasses",
-      ]; 
-      var refPer = 0
-      for (let each in cats2){
-      var catName = cats2[each]["name"]
-      console.log(catName)
-      for (let each1 in twelvePer){
-          if (catName == twelvePer[each1]){
-          refPer = .12
-          }
-      }
-      for (let each1 in fifteenPer){
-          if (catName == fifteenPer[each1]){
-          refPer = .15
-      };
-      }
-      for (let each1 in eightPer){
-          if (catName == eightPer[each1]){
-          refPer = .12
-          }
-      }
-      for (let each1 in switch10){
-          if (catName == eightPer[each1]){
-          if (price < 10){
-              refPer = 0.8
-          }
-          if (price >= 10){
-              refPer = .15
-          }
-          }
-      }
-      }
-      return refPer
-	}; // end of determine refferal percentage function
-          
+  var refPer = decodeURI(urlParams.get("refPer"))
+    console.log("refPer is: " + refPer) 
 
 	// Sets dynamic statistic array to send to spreadsheet. requires row number. 
 	function dynamStats(rowStr){
