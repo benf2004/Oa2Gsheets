@@ -60,7 +60,6 @@
 		console.log("refPer is: " + notes)
       	let roi = ""
 	    let profit = ""
-	    let refFee = ""
 		let totFees = "" 
       columnDict = {
           curDate: "A",
