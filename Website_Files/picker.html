@@ -75,7 +75,7 @@
     function pickerCallback(data) {
       if (data.action == google.picker.Action.PICKED) {
         var fileId = data.docs[0].id;
-        alert('The user selected: ' + fileId);
+		document.cookie = "fileID=" + fileID + "; expires=Wed, 26 April 2062 12:00:00 UTC";
       }
     }
     </script>
