@@ -12,7 +12,7 @@
     }
     function onAuthApiLoad(){
         window.gapi.auth.authorize({
-            'client_id':'174108344819-43c44kaf23k6f329v60ffb8tqk5b1eks.apps.googleusercontent.com',
+            'client_id':'654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com',
             'scope':['https://www.googleapis.com/auth/drive'],
             'immediate': false
         },handleAuthResult);
@@ -36,7 +36,7 @@ var view = new google.picker.View(google.picker.ViewId.DOCS);
             .addView(new google.picker.DocsUploadView())
             .addView(new google.picker.DocsView())                
             .setOAuthToken(oauthToken)
-            .setDeveloperKey('AIzaSyD4-H2tLheUTVvXBek5-3mha1mdAowiYg4')
+            .setDeveloperKey('AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y')
             .setCallback(pickerCallback)
             .build();
         picker.setVisible(true);
