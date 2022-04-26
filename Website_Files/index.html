@@ -1,71 +1,104 @@
-//save the file in index.php
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Google Picker Example</title>
- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
- <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script>
-    function onApiLoad(){
-        gapi.load('auth',{'callback':onAuthApiLoad}); 
-        gapi.load('picker', {'callback': onPickerApiLoad});
-    }
-    function onAuthApiLoad(){
-        window.gapi.auth.authorize({
-            'client_id':'654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com',
-            'scope':['https://www.googleapis.com/auth/drive'],
-            'immediate': false
-        },handleAuthResult);
-    } 
-    function onPickerApiLoad() {
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <!-- Add the standard Google Style Sheet. -->
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+  
+  <script type="text/javascript">
+    var DIALOG_DIMENSIONS = {
+        width: 600,
+        height: 425
+    };
+    var pickerApiLoaded = false;
+
+
+    function onApiLoad() {
+        gapi.load('picker', {
+            'callback': function() {
                 pickerApiLoaded = true;
-                createPicker();
             }
-    var oauthToken;
-    function handleAuthResult(authResult){
-        if(authResult && !authResult.error){
-            oauthToken = authResult.access_token;
-            createPicker();
+        });
+        google.script.run.withSuccessHandler(createPicker).withFailureHandler(showError).getOAuthToken();
+    }
+
+
+    function createPicker(token) {
+
+        if (pickerApiLoaded && token) {
+
+            var docsView = new google.picker.DocsView()
+                .setIncludeFolders(true)
+                .setMimeTypes('application/vnd.google-apps.folder')
+                .setSelectFolderEnabled(true);
+
+            var picker = new google.picker.PickerBuilder()
+                .addView(docsView)
+                .enableFeature(google.picker.Feature.NAV_HIDDEN)
+                .hideTitleBar()
+                .setSize(DIALOG_DIMENSIONS.width - 2, DIALOG_DIMENSIONS.height - 2)
+                .setOAuthToken(token)
+                .setCallback(pickerCallback)
+                .setOrigin('https://docs.google.com')
+                .build();
+
+            picker.setVisible(true);
+
+        } else {
+            showError('Unable to load the file picker.');
         }
     }
-    function createPicker(){    
-        if (pickerApiLoaded && oauthToken) {
-var view = new google.picker.View(google.picker.ViewId.DOCS);
-        view.setMimeTypes("text/html");
-        var picker = new google.picker.PickerBuilder()
-            .addView(new google.picker.DocsUploadView())
-            .addView(new google.picker.DocsView())                
-            .setOAuthToken(oauthToken)
-            .setDeveloperKey('AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y')
-            .setCallback(pickerCallback)
-            .build();
-        picker.setVisible(true);
+
+
+    
+    /*
+    Function used as SuccessHandler for 'pickerCallback' so will only close dialogue
+    box if that codes runs correctly.
+    */
+    function folderInserted(){
+        google.script.host.close();
     }
-}
-
-
+    
+    
+    /**
+     * A callback function that extracts the chosen document's metadata from the
+     * response object. For details on the response object, see
+     * https://developers.google.com/picker/docs/result
+     *
+     * @param {object} data The response object.
+     */
     function pickerCallback(data) {
-                var url = 'nothing';
-                var name = 'nothing';
-                if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-                    var doc = data[google.picker.Response.DOCUMENTS][0];
-                    url = doc[google.picker.Document.URL];
-                    name = doc.name;
-                    var param = {'fileId': doc.id, 'oAuthToken': oauthToken, 'name': name}
-                    console.log(param);
-                    document.getElementById('result').innerHTML = "Downloading...";
-                    $.post('down.php', param,
-                            function (returnedData) {
-                                document.getElementById('result').innerHTML = "Download completed";
-                            });
-                            }
-                        }
+        var action = data[google.picker.Response.ACTION];
+        if (action == google.picker.Action.PICKED) {
+            var doc = data[google.picker.Response.DOCUMENTS][0];
+            var id = doc[google.picker.Document.ID];
 
-</script>
-  </head>
-  <body>
-  <button onclick="onApiLoad()">Pick From Google Drive</button>
-    <div id="result"></div>
-    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
-  </body>
+
+            /*
+            Runs Apps Script Function 'insertFolderURL' and passes in item Id from Google Picker.
+            A failure to run will trigger below 'showError' Function.
+            A success run will trigger above 'folderInserted' Function and close dialogue box.
+            */
+            google.script.run.withSuccessHandler(folderInserted).withFailureHandler(showError).insertFolderURL(id);
+
+
+        }
+        else if (action == google.picker.Action.CANCEL) {
+            google.script.host.close();
+        }
+    }
+
+    function showError(message) {
+        document.getElementById('result').innerHTML = 'Error: ' + message;
+    }
+  </script>
+  
+</head>
+
+<body>
+    <div>
+        <p id='result'></p>
+    </div>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+</body>
 </html>
