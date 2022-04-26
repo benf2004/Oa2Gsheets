@@ -1,104 +1,47 @@
-<!DOCTYPE html>
+
 <html>
 <head>
-  
-  <!-- Add the standard Google Style Sheet. -->
-  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
-  
-  <script type="text/javascript">
-    var DIALOG_DIMENSIONS = {
-        width: 600,
-        height: 425
-    };
-    var pickerApiLoaded = false;
-
-
-    function onApiLoad() {
-        gapi.load('picker', {
-            'callback': function() {
-                pickerApiLoaded = true;
-            }
-        });
-        google.script.run.withSuccessHandler(createPicker).withFailureHandler(showError).getOAuthToken();
+	<meta charset="utf-8"></meta>
+	<title>Amazon OA to Gsheets extension</title>
+	<!--February 26, 2022-->
+  	<style>
+      #my-signin2	{size: 12pt}
+  </style>
+</head>
+<body>
+  	<script defer="" src ="OA_Script.js">
+    </script>
+  	<meta name="google-signin-client_id" content="654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com">
+	<div id="my-signin2"></div>
+  <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
     }
-
-
-    function createPicker(token) {
-
-        if (pickerApiLoaded && token) {
-
-            var docsView = new google.picker.DocsView()
-                .setIncludeFolders(true)
-                .setMimeTypes('application/vnd.google-apps.folder')
-                .setSelectFolderEnabled(true);
-
-            var picker = new google.picker.PickerBuilder()
-                .addView(docsView)
-                .enableFeature(google.picker.Feature.NAV_HIDDEN)
-                .hideTitleBar()
-                .setSize(DIALOG_DIMENSIONS.width - 2, DIALOG_DIMENSIONS.height - 2)
-                .setOAuthToken(token)
-                .setCallback(pickerCallback)
-                .setOrigin('https://docs.google.com')
-                .build();
-
-            picker.setVisible(true);
-
-        } else {
-            showError('Unable to load the file picker.');
-        }
+    function onFailure(error) {
+      console.log(error);
     }
-
-
-    
-    /*
-    Function used as SuccessHandler for 'pickerCallback' so will only close dialogue
-    box if that codes runs correctly.
-    */
-    function folderInserted(){
-        google.script.host.close();
-    }
-    
-    
-    /**
-     * A callback function that extracts the chosen document's metadata from the
-     * response object. For details on the response object, see
-     * https://developers.google.com/picker/docs/result
-     *
-     * @param {object} data The response object.
-     */
-    function pickerCallback(data) {
-        var action = data[google.picker.Response.ACTION];
-        if (action == google.picker.Action.PICKED) {
-            var doc = data[google.picker.Response.DOCUMENTS][0];
-            var id = doc[google.picker.Document.ID];
-
-
-            /*
-            Runs Apps Script Function 'insertFolderURL' and passes in item Id from Google Picker.
-            A failure to run will trigger below 'showError' Function.
-            A success run will trigger above 'folderInserted' Function and close dialogue box.
-            */
-            google.script.run.withSuccessHandler(folderInserted).withFailureHandler(showError).insertFolderURL(id);
-
-
-        }
-        else if (action == google.picker.Action.CANCEL) {
-            google.script.host.close();
-        }
-    }
-
-    function showError(message) {
-        document.getElementById('result').innerHTML = 'Error: ' + message;
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 340,
+        'height': 100,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
     }
   </script>
-  
-</head>
+  <a href="#" onclick="signOut();">Sign out</a>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
 
-<body>
-    <div>
-        <p id='result'></p>
-    </div>
-    <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>
