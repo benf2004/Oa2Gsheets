@@ -56,12 +56,9 @@
 
 	// Sets dynamic statistic array to send to spreadsheet. requires row number. 
 	function dynamStats(rowStr){
-		var refPer = decodeURI(urlParams.get("refPer"))
-		console.log("refPer is: " + notes)
-      	let roi = ""
-	    let profit = ""
-		let totFees = "" 
-      columnDict = {
+	    var refPer = decodeURI(urlParams.get("refPer"))
+	    console.log("refPer is: " + refPer)
+      var columnDict = {
           curDate: "A",
           asinLink: "B",
           title: "C",
@@ -80,8 +77,8 @@
           sellLink: "P"
           };
       var refFee = "=" + columnDict['price'] + rowStr + "*" + columnDict['refPer'] + rowStr;
-      var profit = "=" + columnDict['price'] + rowStr + "-" + columnDict['totFees'] + rowStr + "-" + columnDict['cogs'] + rowStr;
-      var totFees = "=" + columnDict['refFee'] + rowStr + "+" + columnDict['pickPack'] + rowStr;
+      let profit = "=" + columnDict['price'] + rowStr + "-" + columnDict['totFees'] + rowStr + "-" + columnDict['cogs'] + rowStr;
+      let totFees = "=" + columnDict['refFee'] + rowStr + "+" + columnDict['pickPack'] + rowStr;
       //var margin = "=" + columnDict['profit'] + rowStr + "/" + columnDict['price'] + rowStr;
       var roi = "=" + columnDict['profit'] + rowStr + "/" + columnDict['cogs'] + rowStr;
       //var proceeds = "=" + columnDict['price'] + "-" + columnDict['totFees'] + rowStr;
