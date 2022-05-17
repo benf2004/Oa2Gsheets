@@ -3,6 +3,13 @@
     const urlParams = new URLSearchParams(url);
    	var asin = decodeURI(urlParams.get("asin"))
     console.log("asin is: " + asin)
+
+    function getFileID() {
+        let cooks = document.cookie
+        console.log(cooks)
+    };
+
+    getFileID();
    
     // remove header & other elements 
     // TODO: Figure out how to remove remaining elements (comments, suggested articles, share, footer)
@@ -96,14 +103,6 @@
         let rowNum = data2["values"].length + 1
         return rowNum;
     };
-
-
-    function getFileID() {
-        let cooks = document.cookie
-        console.log(cooks)
-    };
-
-    getFileID();
 
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
