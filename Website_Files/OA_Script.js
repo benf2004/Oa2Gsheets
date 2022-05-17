@@ -13,7 +13,7 @@
   
   //Sample usage
   var cookieValue = getCook('fileID');
-  
+  console.log(cookieValue)
   console.log("made it")
   
     // alert("COOKIES" + document.cookie)
