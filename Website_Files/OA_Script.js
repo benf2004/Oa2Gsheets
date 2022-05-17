@@ -47,13 +47,13 @@
     
     // decodes & recieves variables sent from query attributes in url
     var price = decodeURI(urlParams.get("price"))
-    console.log("price is: " + price)
+    // console.log("price is: " + price)
 	var cogs = decodeURI(urlParams.get("cogs"))
-    console.log("cogs is: " + cogs)	
+    // console.log("cogs is: " + cogs)	
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
-    console.log("source url is: " + sourceURL)	
+    // console.log("source url is: " + sourceURL)	
 	var notes = decodeURI(urlParams.get("notes"))
-    console.log("notes is: " + notes)
+    // console.log("notes is: " + notes)
           
 
 	// Sets dynamic statistic array to send to spreadsheet. requires row number. 
