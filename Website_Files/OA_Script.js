@@ -14,6 +14,7 @@ const parseCookie = str =>
     }, {});
     
   let cooks_array = parseCookie(document.cookie);
+  console.log(cooks_array)
   
     // alert("COOKIES" + document.cookie)
    
