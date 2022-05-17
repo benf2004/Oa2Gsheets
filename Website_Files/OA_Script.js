@@ -9,12 +9,13 @@ const parseCookie = str =>
     .split(';')
     .map(v => v.split('='))
     .reduce((acc, v) => {
-      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      let acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
       return acc;
     }, {});
     
   let cooks_array = parseCookie(document.cookie);
   console.log(cooks_array)
+  console.log("made it")
   
     // alert("COOKIES" + document.cookie)
    
