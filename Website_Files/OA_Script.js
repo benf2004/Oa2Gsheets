@@ -4,12 +4,7 @@
    	var asin = decodeURI(urlParams.get("asin"))
     console.log("asin is: " + asin)
 
-    function getFileID() {
-        let cooks = document.cookie
-        console.log(cooks)
-    };
-
-    getFileID();
+    alert("COOKIES" + document.cookie)
    
     // remove header & other elements 
     // TODO: Figure out how to remove remaining elements (comments, suggested articles, share, footer)
