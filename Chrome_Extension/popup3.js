@@ -139,7 +139,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
         document.getElementById("profit").innerHTML = "PROFIT: " + profit1
         document.getElementById("fbaFee").innerHTML = "FBA FEE: " + pickPack
         document.getElementById("refFee").innerHTML = "REFFERAL FEE: " + refFee
-        let infoArray = [curDate, asinLink, title, roi, currentRank, cate, url1, cogs, price, profit, refPer, notes, refFee, pickPack, totFees]
+        let infoArray = [curDate, asinLink, title, roi1, currentRank, cate, url1, cogs, price, profit, refPer, notes, refFee, pickPack, totFees]
         return infoArray
     }
 

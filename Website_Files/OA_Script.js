@@ -98,6 +98,13 @@
     };
 
 
+    function getFileID() {
+        let cooks = document.cookie
+        console.log(cooks)
+    };
+
+    getFileID();
+
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
         var params = {
