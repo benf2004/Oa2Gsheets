@@ -1,9 +1,21 @@
     // setup url parsing and create variable with ASIN
     let url = window.location.search 
     const urlParams = new URLSearchParams(url);
-    alert("COOKIES" + document.cookie)
    	var asin = decodeURI(urlParams.get("asin"))
     console.log("asin is: " + asin)
+
+const parseCookie = str =>
+    str
+    .split(';')
+    .map(v => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+    
+  let cooks_array = parseCookie(document.cookie);
+  
+    // alert("COOKIES" + document.cookie)
    
     // remove header & other elements 
     // TODO: Figure out how to remove remaining elements (comments, suggested articles, share, footer)
