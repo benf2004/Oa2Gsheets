@@ -1,7 +1,7 @@
     // setup url parsing and create variable with ASIN
     let url = window.location.search 
     const urlParams = new URLSearchParams(url);
-    alert("COOKIES" + document.cookie)
+    alert("COOKIES" + Document.cookie)
    	var asin = decodeURI(urlParams.get("asin"))
     console.log("asin is: " + asin)
    
