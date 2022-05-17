@@ -4,17 +4,16 @@
    	var asin = decodeURI(urlParams.get("asin"))
     console.log("asin is: " + asin)
 
-const parseCookie = str =>
-    str
-    .split(';')
-    .map(v => v.split('='))
-    .reduce((acc, v) => {
-      let acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-      return acc;
-    }, {});
-    
-  let cooks_array = parseCookie(document.cookie);
-  console.log(cooks_array)
+    function getCook(cookiename){
+        // Get name followed by anything except a semicolon
+        var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
+        // Return everything after the equal sign, or an empty string if the cookie name not found
+        return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+    }
+  
+  //Sample usage
+  var cookieValue = getCook('fileID');
+  
   console.log("made it")
   
     // alert("COOKIES" + document.cookie)
