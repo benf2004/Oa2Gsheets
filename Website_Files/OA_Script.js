@@ -3,22 +3,10 @@
     const urlParams = new URLSearchParams(url);
    	var asin = decodeURI(urlParams.get("asin"))
     console.log("asin is: " + asin)
-
-    function getCook(cookiename){
-        // Get name followed by anything except a semicolon
-        var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
-        // Return everything after the equal sign, or an empty string if the cookie name not found
-        return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
-    }
-  
-  //Sample usage
-  var cookieValue = getCook('fileID');
-  console.log(cookieValue)
-  console.log("made it")
   
     // alert("COOKIES" + document.cookie)
    
-    // remove header & other elements 
+    // remove header & other elements (blogger hosting)
     // TODO: Figure out how to remove remaining elements (comments, suggested articles, share, footer)
 	// const e = document.querySelector("header")
 	// e.parentElement.removeChild(e)
@@ -110,12 +98,12 @@
         let rowNum = data2["values"].length + 1
         return rowNum;
     };
-
+    
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
         var params = {
             // The ID of the spreadsheet to update.
-            spreadsheetId: '1eWtPhT4EJZZZW9JMLgTvWMeVrDesRsx3gAIf_JTuDxs',
+            spreadsheetId: fileID,
 
             // The A1 notation of the values to update.
             range: range,  //
@@ -139,17 +127,26 @@
         });
     }
 
+    // gets requested cookie by name
+    function getCook(cookiename){
+        // Get name followed by anything except a semicolon
+        var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
+        // Return everything after the equal sign, or an empty string if the cookie name not found
+        return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+    }
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin != "") {
         let rowFin = await getRowNum(); // gets row number
         let data1 = await main(rowFin); // gets statistics 
         var range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
-        console.log("range1 is " + range1);
-        console.log("data 1 is" + data1);
+        var fileID = getCook('fileID').toString;
+        console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         sendToSheets(data1, range1); // sends data to gsheets
-    } else {
+    } 
+    else {
         console.log("error: no parameters recieved") // logs error in console if no ASIN is recieved in URL
     }
     ;
 }; // end of top1
+top1()
