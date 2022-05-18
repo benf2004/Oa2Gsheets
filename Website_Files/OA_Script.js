@@ -93,7 +93,7 @@
 
     // accesses Google Sheets API to check how many rows have content. Returns row number to send data to.
     async function getRowNum() {
-        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/1eWtPhT4EJZZZW9JMLgTvWMeVrDesRsx3gAIf_JTuDxs/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y")
+        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/" + fileID + "/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y")
         const data2 = await response.json()
         let rowNum = data2["values"].length + 1
         return rowNum;
@@ -137,11 +137,11 @@
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin != "") {
+        var fileID = getCook('fileID');
+        console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await getRowNum(); // gets row number
         let data1 = await main(rowFin); // gets statistics 
         var range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
-        var fileID = getCook('fileID');
-        console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         sendToSheets(data1, range1); // sends data to gsheets
     } 
     else {
