@@ -141,7 +141,7 @@
         let data1 = await main(rowFin); // gets statistics 
         var range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
         var fileID = getCook('fileID');
-        console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
+        window.alert("spreadsheet id:" + fileID)  // gets spreadsheet id num
         sendToSheets(data1, range1); // sends data to gsheets
     } 
     else {
