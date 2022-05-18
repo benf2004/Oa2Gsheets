@@ -100,7 +100,7 @@
     };
     
     // sends info to Google Sheets via Gsheets API
-    function sendToSheets(send, range) {
+    async function sendToSheets(send, range) {
         var params = {
             // The ID of the spreadsheet to update.
             spreadsheetId: fileID,
