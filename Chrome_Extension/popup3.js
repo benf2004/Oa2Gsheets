@@ -151,7 +151,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
         var notes = document.getElementById("notes").value
         var refPer = Number(document.getElementById("refPer").value)
         console.log("ref per is(extension) : " + refPer)
-        let refURL = "https://oa2gsheets.com/Website_Files/index.html?asin=" + asin + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+        let refURL = "https://oa2gsheets.com/Website/index.html?asin=" + asin + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
         let codeURL = encodeURI(refURL)
         document.getElementById("frame").src = codeURL
     }
