@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "GSHEETS3",
+  "name": "OA2Gsheets",
   "description": "Sends profit info from Amazon webpage to Google Sheets.",
   "version": "0.3",
   "action": {
