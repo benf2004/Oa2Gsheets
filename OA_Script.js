@@ -101,9 +101,10 @@
     
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
-        var values = [[send[0]], [send[1]], [send[2]], [send[3]], [send[4]], [send[5]], [send[6]], [send[7]], [send[8]], [send[9]], [send[10]], [send[11]], [send[12]], [send[13]], [send[14]], [send[15]]];
+        var values = [send];
         var body = {
-        values: values
+        values: values,
+        majorDimension : "COLUMNS"
         };
         gapi.client.sheets.spreadsheets.values.update({
         spreadsheetId: fileID,
