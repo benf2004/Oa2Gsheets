@@ -1,6 +1,15 @@
 chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (tabs) {
     var url1 = tabs[0].url;
     var urlArray1 = url1.split("/")
+    for (let each in urlArray1) {
+        if (urlArray[each] == "oa2gsheets.com") {
+            chrome.cookies.get({"url":"oa2gsheets.com", "name", "fileID"}, function(cookie){
+                if(callback){
+                }
+            })
+           });
+        }
+    }
 
     async function getASIN(url) {
         var urlArray = url.split('/')

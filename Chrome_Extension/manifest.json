@@ -17,9 +17,10 @@
     }
   ],
   "host_permissions": [
-    "https://www.bensthattype.com/*"
+    "https://www.oa2gsheets.com/*"
   ],
   "permissions": [
+    "cookies",
     "storage",
     "activeTab"
   ]
