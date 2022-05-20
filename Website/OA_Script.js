@@ -101,19 +101,29 @@
     
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
-        var values = [send];
-        var body = {
-        values: values,
-        "majorDimension" : "COLUMNS"
-        };
-        gapi.client.sheets.spreadsheets.values.update({
-        spreadsheetId: fileID,
-        range: range,
-        valueInputOption: 'USER_ENTERED',
-        resource: body
-        }).then((response) => {
-        var result = response.result;
-        console.log(`${result.updatedCells} cells updated.`);
+        var params = {
+            // The ID of the spreadsheet to update.
+            spreadsheetId: fileID,  
+
+            // The A1 notation of the values to update.
+            range: range,  // 
+
+            // How the input data should be interpreted.
+            valueInputOption: 'USER_ENTERED', 
+        }
+
+        var valueRangeBody = {
+            "majorDimension": "COLUMNS",
+            "range": range,
+            "values": [send]
+        }
+
+        var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
+        console.log(request);
+        request.then(function(response) {
+            console.log(response.result);
+        }, function(reason) {
+            console.error('error: ' + reason.result.error.message);
         });
     }
 
