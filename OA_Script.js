@@ -104,11 +104,11 @@
         var values = [send];
         var body = {
         values: values,
-        majorDimension : "COLUMNS"
         };
         gapi.client.sheets.spreadsheets.values.update({
         spreadsheetId: fileID,
         range: range,
+        majorDimension : "COLUMNS",
         valueInputOption: 'USER_ENTERED',
         resource: body
         }).then((response) => {
