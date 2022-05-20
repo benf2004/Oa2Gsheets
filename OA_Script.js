@@ -147,7 +147,7 @@
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin != "") {
         var fileID = getCook('fileID');
-        // console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
+        console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await getRowNum(); // gets row number
         let data1 = await main(rowFin); // gets statistics 
         var range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
