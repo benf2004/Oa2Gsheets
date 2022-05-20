@@ -115,7 +115,7 @@
         var valueRangeBody = {
             "majorDimension": "COLUMNS",
             "range": range,
-            "values": [send]
+            "values": send
         }
 
         var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
