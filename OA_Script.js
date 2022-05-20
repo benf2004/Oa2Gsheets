@@ -93,7 +93,7 @@
 
     // accesses Google Sheets API to check how many rows have content. Returns row number to send data to.
     async function getRowNum() {
-        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/1eWtPhT4EJZZZW9JMLgTvWMeVrDesRsx3gAIf_JTuDxs/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y")
+        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/" + fileID + "/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y")
         const data2 = await response.json()
         let rowNum = data2["values"].length + 1
         return rowNum;
@@ -101,29 +101,18 @@
     
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
-        var params = {
-            // The ID of the spreadsheet to update.
-            spreadsheetId: fileID,
-
-            // The A1 notation of the values to update.
-            range: range,  //
-
-            // How the input data should be interpreted.
-            valueInputOption: 'USER_ENTERED',
-        }
-
-        var valueRangeBody = {
-            "majorDimension": "COLUMNS",
-            "range": range,
-            "values": [send]
-        }
-
-        var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-        console.log(request);
-        request.then(function (response) {
-            console.log(response.result);
-        }, function (reason) {
-            console.error('error: ' + reason.result.error.message);
+        var values = [[send[0]], [send[1]], [send[2]], [send[3]], [send[4]], [send[5]], [send[6]], [send[7]], [send[8]], [send[9]], [send[10]], [send[11]], [send[12]], [send[13]], [send[14]], [send[15]]];
+        var body = {
+        values: values
+        };
+        gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId: fileID,
+        range: range,
+        valueInputOption: 'USER_ENTERED',
+        resource: body
+        }).then((response) => {
+        var result = response.result;
+        console.log(`${result.updatedCells} cells updated.`);
         });
     }
 
@@ -137,10 +126,11 @@
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin != "") {
+        var fileID = getCook('fileID');
+        // console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await getRowNum(); // gets row number
         let data1 = await main(rowFin); // gets statistics 
         var range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
-        var fileID = getCook('fileID');
         sendToSheets(data1, range1); // sends data to gsheets
     } 
     else {
