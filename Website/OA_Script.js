@@ -113,7 +113,7 @@
         }
 
         var valueRangeBody = {
-            "majorDimension": "COLUMNS",
+            "majorDimension": "ROWS",
             "range": range,
             "values": send
         }
