@@ -92,7 +92,7 @@
           each = _pj_a[_pj_c];
           new_list = new_list + [[my_list[each]]];
         }
-        console.log(new_list)
+        console.log("new list" + new_list)
         return new_list
 
 	}; // end of dynamic stats function
