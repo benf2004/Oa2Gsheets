@@ -3,24 +3,40 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
     var urlArray1 = url1.split("/")
     for (let each in urlArray1) {
         if (urlArray1[each] == "oa2gsheets.com") {
-            var ID;
+            const cookieUrl = 'http://oa2gsheets.com'
+            const cookieName = 'fileID'
 
-            function getCookies(domain, name){
-                chrome.cookies.get({"url": domain, "name": name}, function(cookie) {
-                    ID = cookie.value;
-                    showId();
+            const myFunction = async () => {
+                try {
+                    let cookieValue = await checkCookie(cookieUrl,cookieName)
+                    console.log('cookie is present',cookieValue )
+            
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            } 
+            function checkCookie(url, name){
+                return new Promise((resolve, reject) => {
+                    chrome.cookies.get({
+                        url: url,
+                        name: name
+                    },
+                    function (cookie) {
+                        if (cookie) {
+                            console.log('cookieValue',cookie.value)
+                            resolve(cookie.value)
+                        }
+                        else {
+                            reject('Can\'t get cookie! Check the name!')
+                        }
+                    })
                 });
             }
-
-            function showId() {
-                alert(ID);
-            }
-
-            getCookies("http://www.oa2gsheets.com", "fileID")  
-                    
-                }
-            }
-
+            
+            myFunction()
+        }
+    }
     async function getASIN(url) {
         var urlArray = url.split('/')
 
@@ -180,4 +196,4 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
     document.getElementById("cogsInput").addEventListener("input", updateStats);
     document.getElementById("notes").addEventListener("input", updateStats);
     document.getElementById("export").addEventListener("click", sendInfo);
-});
+})
