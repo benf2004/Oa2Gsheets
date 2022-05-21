@@ -17,7 +17,7 @@
     }
   ],
   "host_permissions": [
-    "https://www.oa2gsheets.com/*"
+    "*://*.oa2gsheets.com/*"
   ],
   "permissions": [
     "cookies",
