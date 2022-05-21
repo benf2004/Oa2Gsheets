@@ -85,15 +85,7 @@
       var roi1 = "=" + columnDict['profit'] + rowStr + "/" + columnDict['cogs'] + rowStr;
       //var proceeds = "=" + columnDict['price'] + "-" + columnDict['totFees'] + rowStr;
       const my_list = [curDate, asinLink, title, roi1, currentRank, cate, sourceURL, cogs, price, profit1, refPer, notes, refFee1, pickPack, totFees1, sellLink];
-      // var new_item, new_list;
-      // new_list = [];
-        //
-      // for (var each, _pj_c = 0, _pj_a = my_list, _pj_b = _pj_a.length; _pj_c < _pj_b; _pj_c += 1) {
-      //  each = _pj_a[_pj_c];
-      //  new_list = new_list + [[my_list[each]]];
-      // }
-      // console.log("new list" + new_list)
-        return my_list
+    return my_list
 	}; // end of dynamic stats function
 
 	var infoSend = dynamStats(checker)
