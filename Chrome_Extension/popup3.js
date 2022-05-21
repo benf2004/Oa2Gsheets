@@ -3,11 +3,19 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
     var urlArray1 = url1.split("/")
     for (let each in urlArray1) {
         if (urlArray[each] == "oa2gsheets.com") {
-            chrome.cookies.get({"url":"oa2gsheets.com", "name", "fileID"}, function(cookie){
-                if(callback){
-                }
-            })
-           });
+            function getCookies(domain, name, callback) {
+                chrome.cookies.get({"url": domain, "name": name}, function(cookie) {
+                    if(callback) {
+                        callback(cookie.value);
+                    }
+                });
+            }
+            
+            //usage:
+            getCookies("http://www.oa2gsheets.com", "fileID", function(id) {
+                window.alert(id);
+            });
+            
         }
     }
 
