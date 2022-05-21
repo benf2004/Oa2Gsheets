@@ -76,6 +76,7 @@
       if (data.action == google.picker.Action.PICKED) {
         var fileId = data.docs[0].id;
 		document.cookie = "fileID=" + fileId + "; expires=Wed, 26 April 2062 12:00:00 UTC";
+    localStorage.fileID = fileID
       }
     }
     </script>
