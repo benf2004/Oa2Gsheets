@@ -3,7 +3,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
     var urlArray1 = url1.split("/")
     for (let each in urlArray1) {
         if (urlArray1[each] == "oa2gsheets.com") {
-            const cookieUrl = 'http://oa2gsheets.com'
+            const cookieUrl = 'https://oa2gsheets.com'
             const cookieName = 'fileID'
 
             const myFunction = async () => {
