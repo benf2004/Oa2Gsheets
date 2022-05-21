@@ -155,7 +155,6 @@
     } 
     else {
         console.log("error: no parameters recieved") // logs error in console if no ASIN is recieved in URL
+    };
     }
-    ;
-}; // end of top1
-top1()
+setTimeout(() => {top1()}, 2000)
