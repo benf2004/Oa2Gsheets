@@ -2,7 +2,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
     var url1 = tabs[0].url;
     var urlArray1 = url1.split("/")
     for (let each in urlArray1) {
-        if (urlArray[each] == "oa2gsheets.com") {
+        if (urlArray1[each] == "oa2gsheets.com") {
             function getCookies(domain, name, callback) {
                 chrome.cookies.get({"url": domain, "name": name}, function(cookie) {
                     if(callback) {
