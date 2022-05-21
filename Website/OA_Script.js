@@ -146,7 +146,7 @@
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin != "") {
-        var fileID = getCook('fileID');
+        var fileID = decodeURI(urlParams.get("fileID"))
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await getRowNum(); // gets row number
         let data1 = await main(rowFin); // gets statistics 

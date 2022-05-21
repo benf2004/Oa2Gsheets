@@ -3,38 +3,25 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
     var urlArray1 = url1.split("/")
     for (let each in urlArray1) {
         if (urlArray1[each] == "oa2gsheets.com") {
-            const cookieUrl = 'https://oa2gsheets.com'
+            const cookieUrl = 'http://oa2gsheets.com/Website'
             const cookieName = 'fileID'
 
-            const myFunction = async () => {
-                try {
-                    let cookieValue = await checkCookie(cookieUrl,cookieName)
-                    console.log('cookie is present',cookieValue )
-            
-                }
-                catch (err) {
-                    console.log(err)
-                }
-            } 
-            function checkCookie(url, name){
-                return new Promise((resolve, reject) => {
-                    chrome.cookies.get({
-                        url: url,
-                        name: name
-                    },
-                    function (cookie) {
-                        if (cookie) {
-                            console.log('cookieValue',cookie.value)
-                            resolve(cookie.value)
-                        }
-                        else {
-                            reject('Can\'t get cookie! Check the name!')
-                        }
-                    })
+            function getCookies(domain, name, callback) {
+                chrome.cookies.get({"url": domain, "name": name}, function(cookie) {
+                    if(callback) {
+                        callback(cookie.value);
+                    }
                 });
             }
             
-            myFunction()
+            //usage:
+            getCookies(cookieUrl, cookieName, function(id) {
+                console.log(id);
+                chrome.storage.sync.set({fileID: id}, function() {
+                    console.log('Value is set to ' + id);
+                });
+            });
+            
         }
     }
     async function getASIN(url) {
@@ -181,15 +168,19 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
 
     // send to blog
     async function sendInfo() {
-        var price = Number(document.getElementById("price").value)
-        var cogs = Number(document.getElementById("cogsInput").value)
-        var sourceURL = document.getElementById("SourceUrl").value
-        var notes = document.getElementById("notes").value
-        var refPer = Number(document.getElementById("refPer").value)
-        console.log("ref per is(extension) : " + refPer)
-        let refURL = "https://oa2gsheets.com/Website/index1.html?asin=" + asin + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
-        let codeURL = encodeURI(refURL)
-        document.getElementById("frame").src = codeURL
+        chrome.storage.sync.get(['fileID'], function(result) {
+            console.log('Value currently is ' + result.fileID);
+            const fileID1 = result.fileID
+            var price = Number(document.getElementById("price").value)
+            var cogs = Number(document.getElementById("cogsInput").value)
+            var sourceURL = document.getElementById("SourceUrl").value
+            var notes = document.getElementById("notes").value
+            var refPer = Number(document.getElementById("refPer").value)
+            console.log("ref per is(extension) : " + refPer)
+            var refURL = "https://oa2gsheets.com/Website/index1.html?asin=" + asin + "&fileID=" + fileID1 + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+            var codeURL = encodeURI(refURL)
+            document.getElementById("frame").src = codeURL
+        });
     }
     document.getElementById("refPer").addEventListener("input", updateStats);
     document.getElementById("price").addEventListener("input", updateStats);
