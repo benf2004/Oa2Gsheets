@@ -19,6 +19,9 @@
   "host_permissions": [
     "*://*.oa2gsheets.com/*"
   ],
+  "web_accessible_resources": [
+    "amz.html"
+ ],
   "permissions": [
     "cookies",
     "storage",
