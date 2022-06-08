@@ -3,7 +3,7 @@ CORE TODO:
 - [ ] Transition to new Google Login (sign in button styling)
 - [ ] Fix Google Picker to not try to log person in
 - [ ] Figure out basic formatting for input page
-- [ ] Fix spreasheet ID formatting
+- [ ] Fix spreasheet ID handling
 - [ ] Properly inject iFrame of input.html into Amazon product page
 - [ ] Format basic website pages
 - [ ] Hide/Encrypt Keepa & Google API Keys
