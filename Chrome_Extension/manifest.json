@@ -20,7 +20,10 @@
     "*://*.oa2gsheets.com/*"
   ],
   "web_accessible_resources": [
-    "amz.html"
+    {
+      "resources": ["amz.html"],
+      "matches": ["https://www.amazon.com/*"]
+    }
  ],
   "permissions": [
     "cookies",

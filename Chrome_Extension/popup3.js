@@ -7,23 +7,24 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
             const cookieName = 'fileID'
 
             function getCookies(domain, name, callback) {
-                chrome.cookies.get({"url": domain, "name": name}, function(cookie) {
-                    if(callback) {
+                chrome.cookies.get({"url": domain, "name": name}, function (cookie) {
+                    if (callback) {
                         callback(cookie.value);
                     }
                 });
             }
-            
+
             //usage:
-            getCookies(cookieUrl, cookieName, function(id) {
+            getCookies(cookieUrl, cookieName, function (id) {
                 console.log(id);
-                chrome.storage.sync.set({fileID: id}, function() {
+                chrome.storage.sync.set({fileID: id}, function () {
                     console.log('Value is set to ' + id);
                 });
             });
-            
+
         }
     }
+
     async function getASIN(url) {
         var urlArray = url.split('/')
 
@@ -88,7 +89,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
             "Luggage & Travel Accessories",
             "Shoes, Handbags & Sunglasses",
         ];
-        var refPer = 0
+        var refPer = 0.15
         for (let each in cats2) {
             var catName = cats2[each]["name"]
             console.log("CATEGORY NAME IS: " + catName)
@@ -142,7 +143,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
         var currentRank = currentStats[3];
         var fbaFees = product["fbaFees"];
         var pickPack = fbaFees['pickAndPackFee'] / 100;
-        var cate = cats2[1]['name']
+        var cate = cats2[0]['name']
         var today = new Date();
         var curDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
@@ -168,7 +169,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
 
     // send to blog
     async function sendInfo() {
-        chrome.storage.sync.get(['fileID'], function(result) {
+        chrome.storage.sync.get(['fileID'], function (result) {
             console.log('Value currently is ' + result.fileID);
             const fileID1 = result.fileID
             var price = Number(document.getElementById("price").value)
@@ -182,7 +183,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
             document.getElementById("frame").src = codeURL
         });
     }
-    document.getElementById("refPer").addEventListener("input", updateStats);
+
     document.getElementById("price").addEventListener("input", updateStats);
     document.getElementById("cogsInput").addEventListener("input", updateStats);
     document.getElementById("notes").addEventListener("input", updateStats);
