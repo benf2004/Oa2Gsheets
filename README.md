@@ -10,7 +10,7 @@ CORE TODO:
 
 LAUNCH TODO:
 
-- [ ] Setup pricing (through gumroad & Google Groups?)
+- [ ] Setup pricing (through Gumroad & Google Groups?)
 - [ ] Submit extension to Google Chrome Webstore
 - [ ] Register app in Google API
 
