@@ -3,17 +3,7 @@
     const urlParams = new URLSearchParams(url);
    	var asin = decodeURI(urlParams.get("asin"))
     console.log("asin is: " + asin)
-  
-    // alert("COOKIES" + document.cookie)
-   
-    // remove header & other elements (blogger hosting)
-    // TODO: Figure out how to remove remaining elements (comments, suggested articles, share, footer)
-	// const e = document.querySelector("header")
-	// e.parentElement.removeChild(e)
-	// const f = document.querySelector(".post-title-container")
-	// f.parentElement.removeChild(f)
-    // const g = document.querySelector(".post-header-container.container")
-	// g.parentElement.removeChild(g)
+
 	
       
 	// define nested functions. All main operations take place in top1. 

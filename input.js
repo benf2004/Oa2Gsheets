@@ -74,14 +74,7 @@ function detrmRefPer(price, cats2) {
     return refPer
 } // end of determine refferal percentage function
 
-const object1 = await keepa(asin);
-const product = object1['products'][0];
-var cats2 = product["categoryTree"];
-const currentStats = object1['products'][0]['stats']['current'];
-var price = currentStats[1] / 100;
-var refPer = detrmRefPer(price, cats2)
-document.getElementById("price").value = price;
-
+// updates neccesary stats
 async function updateStats() {
     // vars from docuent
     var price = Number(document.getElementById("price").value)
@@ -119,3 +112,34 @@ async function updateStats() {
     let infoArray = [curDate, asinLink, title, roi1, currentRank, cate, url1, cogs, price, profit, refPer, notes, refFee, pickPack, totFees]
     return infoArray
 }
+
+// sets asin and fileID vars from URL
+const asin = decodeURI(urlParams.get("asin"))
+const fileID = decodeURI(urlParams.get("fileID"))
+
+
+const object1 = await keepa(asin);
+const product = object1['products'][0];
+let cats2 = product["categoryTree"];
+const currentStats = object1['products'][0]['stats']['current'];
+let price = currentStats[1] / 100;
+let refPer = detrmRefPer(price, cats2)
+document.getElementById("price").value = price;
+
+async function sendInfo() {
+    console.log('Value currently is ' + fileID);
+    let price = Number(document.getElementById("price").value)
+    let cogs = Number(document.getElementById("cogsInput").value)
+    let sourceURL = document.getElementById("SourceUrl").value
+    let notes = document.getElementById("notes").value
+    let refPer = Number(document.getElementById("refPer").value)
+    console.log("ref per is(extension) : " + refPer)
+    let refURL = "https://oa2gsheets.com/Website/index.html?asin=" + asin + "&fileID=" + fileID + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+    let codeURL = encodeURI(refURL)
+    document.getElementById("frame").src = codeURL
+}
+
+document.getElementById("price").addEventListener("input", updateStats);
+document.getElementById("cogsInput").addEventListener("input", updateStats);
+document.getElementById("notes").addEventListener("input", updateStats);
+document.getElementById("export").addEventListener("click", sendInfo);
