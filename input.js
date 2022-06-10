@@ -77,6 +77,8 @@ async function main() {
 
 // updates neccesary stats
     async function updateStats() {
+        //TODO: Determine what other stats to show (sales rank etc)
+
         // vars from docuent
         var price = Number(document.getElementById("price").value)
         const cogs = Number(document.getElementById("cogsInput").value)
@@ -108,9 +110,7 @@ async function main() {
         document.getElementById("roi").innerHTML = "ROI: " + roiPer;
         document.getElementById("profit").innerHTML = "PROFIT: " + profit1
         document.getElementById("fbaFee").innerHTML = "FBA FEE: " + pickPack
-        document.getElementById("refFee").innerHTML = "REFFERAL FEE: " + refFee
-        let infoArray = [curDate, asinLink, title, roi1, currentRank, cate, url1, cogs, price, profit, refPer, notes, refFee, pickPack, totFees]
-        return infoArray
+        document.getElementById("refFee").innerHTML = "REFERRAL FEE: " + refFee
     } // end update stats
 
 // sets asin and fileID vars from URL
