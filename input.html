@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Input</title>
-    <!--June 8, 2022-->
+    <meta charset="utf-8">
+    <title>Amazon OA to Gsheets extension</title>
+    <!--February 26, 2022-->
     <style>
         body {
             margin: 0 !important;
@@ -12,7 +12,7 @@
         }
 
         input {
-            width: 120px;
+            width: 150px;
         }
 
         #frame {
@@ -25,33 +25,24 @@
 </head>
 <body>
 <div id="div1" class="container mt-3">
-    <div>
-        <section id="top_left" style="float:right">
-            ASIN:<div id="asin"></div> <br/>
-            BSR:<div id="BSR"></div> <br/>
-            Category:<div id="category"></div>
-        </section>
-    </div>
-    <div>
-        <section style="float:left; width:300px">
-            COGS: <input id="cogsInput" type="text" value="" class="inputs"/> &emsp;
-            Price: <input id="price" type="text" class="inputs"/> <br/> <br/>
-        </section>
-        <section style="float:right">
-            <p id="roi">ROI:</p>
-            <p id="profit">PROFIT: </p>
-            <p id="refFee">REFERRAL FEE:</p>
-            <p id="fbaFee">FBA FEE:</p>
-            <br/>
-        </section>
-        <section>
-            Notes: <input id="notes" type="text" value="" class="inputs"/> &emsp;
-            Source URL: <input id="SourceUrl" type="text" value="" class="inputs"/>
-            <button id="export">Export Sheets</button> <br/>
-        </section>
-    </div>
+    <section style="float:left; width:300px">
+        COGS: <input id="cogsInput" type="text" value="" class="inputs"/> <br/> <br/>
+        Price: <input id="price" type="text" class="inputs"/> <br/> <br/>
+        Notes: <input id="notes" type="text" value="" class="inputs"/> <br/> <br/>
+        Source URL: <input id="SourceUrl" type="text" value="" class="inputs"/> <br/> <br/>
+    </section>
+    <section style="float:right">
+        <p id="roi">ROI:</p>
+        <p id="profit">PROFIT: </p>
+        <p id="refFee">REFERRAL FEE:</p>
+        <p id="fbaFee">FBA FEE:</p>
+        <button id="export">Export Sheets</button>
+        <br/>
+    </section>
+
 </div>
 <iframe src="" id="frame"></iframe>
-<script src='input.js'></script>
+<script src="popup3.js">
+</script>
 </body>
 </html>
