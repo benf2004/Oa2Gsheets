@@ -29,7 +29,7 @@
 
 <br/>
 
-<!--Change to button-->
+<!--Change to button (Sign Out)-->
 <a href="#" onclick="signOut();">Sign out</a>
 <script>
   function signOut() {
@@ -39,6 +39,15 @@
     });
   }
 </script>
+<a href="#" onclick="revokeScopes();">Revoke Access to Google Account</a>
+<script>
+  function revokeScopes() {
+    var revokeAllScopes = function () {
+      gapi.auth2.getAuthInstance().disconnect();
+    }
+  }
+</script>
+
 
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
