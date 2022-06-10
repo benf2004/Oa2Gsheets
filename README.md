@@ -1,6 +1,6 @@
 CORE TODO:
 
-- [ ] Transition to new Google Login (sign in button styling)
+- [x] Transition to new Google Login (sign in button styling)
 - [ ] Fix Google Picker to not try to log person in
 - [ ] Figure out basic formatting for input page
 - [ ] Fix spreasheet ID handling
