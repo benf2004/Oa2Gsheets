@@ -112,9 +112,11 @@ async function main() {
         document.getElementById("refFee").innerHTML = "REFFERAL FEE: " + refFee
         let infoArray = [curDate, asinLink, title, roi1, currentRank, cate, url1, cogs, price, profit, refPer, notes, refFee, pickPack, totFees]
         return infoArray
-    }
+    } // end update stats
 
 // sets asin and fileID vars from URL
+    let url = window.location.search
+    const urlParams = new URLSearchParams(url);
     const asin = decodeURI(urlParams.get("asin"))
     const fileID = decodeURI(urlParams.get("fileID"))
 
