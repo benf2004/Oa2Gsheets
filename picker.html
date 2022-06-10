@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Picker API Quickstart</title>
+    <title>Google Sheets Integration</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="redips_table/style.css" type="text/css" media="screen" />
+    <!-- REDIPS.drag -->
+    <script type="text/javascript" src="redips_table/redips-drag-source.js"></script>
+    <!-- load jQuery -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <!-- local script -->
+    <script type="text/javascript" src="redips_table/script.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
 <nav>
@@ -17,6 +25,40 @@
 <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
 <pre id="content" style="white-space: pre-wrap;"></pre>
+
+<div id="redips-drag">
+    <table>
+        <colgroup>
+            <col/>
+            <col/>
+            <col/>
+        </colgroup>
+        <tbody>
+
+        <tr>
+            <td><div class="redips-drag">Date</div></td>
+            <td><div class="redips-drag">ASIN</div></td>
+            <td><div class="redips-drag">Product Name</div></td>
+            <td><div class="redips-drag">ROI</div></td>
+            <td><div class="redips-drag">Sales Rank</div></td>
+            <td><div class="redips-drag">Category name</div></td>
+            <td><div class="redips-drag">URL</div></td>
+            <td><div class="redips-drag">COGS</div></td>
+            <td><div class="redips-drag">Price</div></td>
+            <td><div class="redips-drag">Profit</div></td>
+            <td><div class="redips-drag">refPer</div></td>
+            <td><div class="redips-drag">Notes</div></td>
+            <td><div class="redips-drag">Ref Fee</div></td>
+            <td><div class="redips-drag">Pick Pack</div></td>
+            <td><div class="redips-drag">Total Fee</div></td>
+            <td><div class="redips-drag">List link</div></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- here will be new table loaded -->
+    <span id="load_content"/>
+</div>
 
 <script type="text/javascript">
     /* exported gapiLoaded */
