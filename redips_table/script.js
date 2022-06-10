@@ -43,6 +43,8 @@ redips.load_table = function (button) {
 	});
 };
 
+// shift table content after element is dropped or moved to trash cell
+REDIPS.drag.dropMode = 'shift';
 
 // add onload event listener
 if (window.addEventListener) {
