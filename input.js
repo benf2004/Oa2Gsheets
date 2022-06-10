@@ -82,7 +82,6 @@ async function main() {
         const cogs = Number(document.getElementById("cogsInput").value)
         var sourceURL = document.getElementById("SourceUrl").value
         var notes = document.getElementById("notes").value
-        var refPer = Number(document.getElementById("refPer").value)
 
         // vars from keepa
         const currentStats = object1['products'][0]['stats']['current'];
@@ -126,7 +125,7 @@ async function main() {
     let cats2 = product["categoryTree"];
     const currentStats = object1['products'][0]['stats']['current'];
     let price = currentStats[1] / 100;
-    let refPer = detrmRefPer(price, cats2)
+    const refPer = detrmRefPer(price, cats2)
     document.getElementById("price").value = price;
 
     async function sendInfo() {
@@ -135,7 +134,6 @@ async function main() {
         let cogs = Number(document.getElementById("cogsInput").value)
         let sourceURL = document.getElementById("SourceUrl").value
         let notes = document.getElementById("notes").value
-        let refPer = Number(document.getElementById("refPer").value)
         console.log("ref per is(extension) : " + refPer)
         let refURL = "https://oa2gsheets.com/Website/index.html?asin=" + asin + "&fileID=" + fileID + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
         let codeURL = encodeURI(refURL)
