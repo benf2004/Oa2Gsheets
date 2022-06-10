@@ -1,7 +1,7 @@
 CORE TODO:
 
 - [x] Transition to new Google Login (sign in button styling)
-- [ ] Fix Google Picker to not try to log person in
+- [x] Fix Google Picker
 - [ ] Figure out basic formatting for input page
 - [ ] Fix spreasheet ID handling
 - [ ] Properly inject iFrame of input.html into Amazon product page
