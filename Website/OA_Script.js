@@ -68,12 +68,12 @@
             totFees: "O",
             sellLink: "P"
         };
-      var refFee1 = "=" + columnDict['price'] + rowStr + "*" + columnDict['refPer'] + rowStr;
+      let refFee1 = "=" + columnDict['price'] + rowStr + "*" + columnDict['refPer'] + rowStr;
       let profit1 = "=" + columnDict['price'] + rowStr + "-" + columnDict['totFees'] + rowStr + "-" + columnDict['cogs'] + rowStr;
       let totFees1 = "=" + columnDict['refFee'] + rowStr + "+" + columnDict['pickPack'] + rowStr;
-      //var margin = "=" + columnDict['profit'] + rowStr + "/" + columnDict['price'] + rowStr;
+      // var margin = "=" + columnDict['profit'] + rowStr + "/" + columnDict['price'] + rowStr;
       var roi1 = "=" + columnDict['profit'] + rowStr + "/" + columnDict['cogs'] + rowStr;
-      //var proceeds = "=" + columnDict['price'] + "-" + columnDict['totFees'] + rowStr;
+      // var proceeds = "=" + columnDict['price'] + "-" + columnDict['totFees'] + rowStr;
       const my_list = [curDate, asinLink, title, roi1, currentRank, cate, sourceURL, cogs, price, profit1, refPer, notes, refFee1, pickPack, totFees1, sellLink];
     return my_list
 	}; // end of dynamic stats function
