@@ -25,21 +25,22 @@
 </head>
 <body>
 <div id="div1" class="container mt-3">
-    <div class="col-sm">
-        COGS: <input id="cogsInput" type="text" value="" class="inputs"/> <br/> <br/>
-        Price: <input id="price" type="text" class="inputs"/> <br/> <br/>
-        Notes: <input id="notes" type="text" value="" class="inputs"/> <br/> <br/>
-        Source URL: <input id="SourceUrl" type="text" value="" class="inputs"/> <br/> <br/>
+    <div class="row">
+        <div class="col-sm">
+            COGS: <input id="cogsInput" type="text" value="" class="inputs"/> <br/> <br/>
+            Price: <input id="price" type="text" class="inputs"/> <br/> <br/>
+            Notes: <input id="notes" type="text" value="" class="inputs"/> <br/> <br/>
+            Source URL: <input id="SourceUrl" type="text" value="" class="inputs"/> <br/> <br/>
+        </div>
+        <div class="col-sm">
+            <p id="roi">ROI:</p>
+            <p id="profit">PROFIT: </p>
+            <p id="refFee">REFERRAL FEE:</p>
+            <p id="fbaFee">FBA FEE:</p>
+            <button id="export">Export Sheets</button>
+            <br/>
+        </div>
     </div>
-    <div class="col-sm">
-        <p id="roi">ROI:</p>
-        <p id="profit">PROFIT: </p>
-        <p id="refFee">REFERRAL FEE:</p>
-        <p id="fbaFee">FBA FEE:</p>
-        <button id="export">Export Sheets</button>
-        <br/>
-    </div>
-
 </div>
 <iframe src="" id="frame"></iframe>
 <script src="input.js">
