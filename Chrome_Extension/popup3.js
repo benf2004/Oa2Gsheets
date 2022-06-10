@@ -178,7 +178,7 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
             var notes = document.getElementById("notes").value
             var refPer = Number(document.getElementById("refPer").value)
             console.log("ref per is(extension) : " + refPer)
-            var refURL = "https://oa2gsheets.com/Website/index1.html?asin=" + asin + "&fileID=" + fileID1 + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+            var refURL = "https://oa2gsheets.com/Website/index.html?asin=" + asin + "&fileID=" + fileID1 + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
             var codeURL = encodeURI(refURL)
             document.getElementById("frame").src = codeURL
         });
