@@ -46,7 +46,8 @@
     // console.log("notes is: " + notes)
           
 
-	// Sets dynamic statistic array to send to spreadsheet. requires row number. 
+	// Sets dynamic statistic array to send to spreadsheet. requires row number.
+        // TODO: build new columnDict with order
 	function dynamStats(rowStr){
         var refPer = decodeURI(urlParams.get("refPer"))
 	    console.log("refPer is: " + refPer)
@@ -69,12 +70,14 @@
             sellLink: "P"
         };
       let refFee1 = "=" + columnDict['price'] + rowStr + "*" + columnDict['refPer'] + rowStr;
+      var other_fees = 0;
       let profit1 = "=" + columnDict['price'] + rowStr + "-" + columnDict['totFees'] + rowStr + "-" + columnDict['cogs'] + rowStr;
       let totFees1 = "=" + columnDict['refFee'] + rowStr + "+" + columnDict['pickPack'] + rowStr;
-      // var margin = "=" + columnDict['profit'] + rowStr + "/" + columnDict['price'] + rowStr;
+      var margin = "=" + columnDict['profit'] + rowStr + "/" + columnDict['price'] + rowStr;
+      var sales_tax = 0;
       var roi1 = "=" + columnDict['profit'] + rowStr + "/" + columnDict['cogs'] + rowStr;
-      // var proceeds = "=" + columnDict['price'] + "-" + columnDict['totFees'] + rowStr;
-      const my_list = [curDate, asinLink, title, roi1, currentRank, cate, sourceURL, cogs, price, profit1, refPer, notes, refFee1, pickPack, totFees1, sellLink];
+      var proceeds = "=" + columnDict['price'] + "-" + columnDict['totFees'] + rowStr;
+      const my_list = [curDate, asinLink, title, roi1, currentRank, cate, sourceURL, cogs, price, profit1, refPer, notes, refFee1, pickPack, totFees1, sellLink, margin, other_fees, sales_tax, proceeds];
     return my_list
 	}; // end of dynamic stats function
 
