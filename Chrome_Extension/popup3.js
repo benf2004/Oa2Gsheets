@@ -1,4 +1,20 @@
 chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (tabs) {
+    const extpay = ExtPay('oa2gsheets')
+    document.getElementById('pay').addEventListener('click', extpay.openPaymentPage)
+    async function user_paid() {
+        const user = await extpay.getUser();
+        if (user.paid) {
+            let paid = true
+            document.getElementById("para").innerHTML = 'User has paid! 🎉'
+            document.getElementById("pay").remove()
+            console.log("TRUE")
+        }
+        else {
+            console.log("FALSE")
+            document.getElementById("para").innerHTML = "You haven't paid yet :("
+        }
+    }
+    await user_paid();
     var url1 = tabs[0].url;
     var urlArray1 = url1.split("/")
     for (let each in urlArray1) {
