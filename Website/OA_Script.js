@@ -48,36 +48,28 @@
 
 	// Sets dynamic statistic array to send to spreadsheet. requires row number.
         // TODO: build new columnDict with order
-	function dynamStats(rowStr){
+	function dynamStats(rowStr, order){
         var refPer = decodeURI(urlParams.get("refPer"))
-	    console.log("refPer is: " + refPer)
-        var columnDict = {
-            curDate: "A",
-            asinLink: "B",
-            title: "C",
-            roi: "D",
-            currentRank: "E",
-            cat: "F",
-            url: "G",
-            cogs: "H",
-            price: "I",
-            profit: "J",
-            refPer: "K",
-            notes: "L",
-            refFee: "M",
-            pickPack: "N",
-            totFees: "O",
-            sellLink: "P"
-        };
-      let refFee1 = "=" + columnDict['price'] + rowStr + "*" + columnDict['refPer'] + rowStr;
-      var other_fees = 0;
-      let profit1 = "=" + columnDict['price'] + rowStr + "-" + columnDict['totFees'] + rowStr + "-" + columnDict['cogs'] + rowStr;
-      let totFees1 = "=" + columnDict['refFee'] + rowStr + "+" + columnDict['pickPack'] + rowStr;
-      var margin = "=" + columnDict['profit'] + rowStr + "/" + columnDict['price'] + rowStr;
-      var sales_tax = 0;
-      var roi1 = "=" + columnDict['profit'] + rowStr + "/" + columnDict['cogs'] + rowStr;
-      var proceeds = "=" + columnDict['price'] + "-" + columnDict['totFees'] + rowStr;
+        const alpha_dict = { }
+        const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+        let num = 0
+        for (let each of order){
+            alpha_dict[each] = alphabet[num]
+            num += 1
+        }
+        const a = alpha_dict
+        console.log("AlPHA DICT:" + a)
+
+      let refFee1 = "=" + a['8'] + rowStr + "*" + a['10'] + rowStr;
+      let other_fees = 0;
+      let profit1 = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr + "-" + a['7'] + rowStr;
+      let totFees1 = "=" + a['12'] + rowStr + "+" + a['13'] + rowStr;
+      let margin = "=" + a['16'] + rowStr + "/" + a['8'] + rowStr;
+      let sales_tax = 0;
+      let roi1 = "=" + a['9'] + rowStr + "/" + a['7'] + rowStr;
+      let proceeds = "=" + a['8'] + "-" + a['14'] + rowStr;
       const my_list = [curDate, asinLink, title, roi1, currentRank, cate, sourceURL, cogs, price, profit1, refPer, notes, refFee1, pickPack, totFees1, sellLink, margin, other_fees, sales_tax, proceeds];
+      console.log(my_list)
     return my_list
 	}; // end of dynamic stats function
 

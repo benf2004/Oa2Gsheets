@@ -12,26 +12,26 @@ function saveTable() {
     console.log(my_order)
     const num_order = []
     const id_num_dict = {
-        "date" : 1,
-        "asin": 2,
-        "title": 3,
-        "roi": 4,
-        "sr": 5,
-        "cat_name" : 6,
-        "source_url": 7,
-        "cogs":  8,
-        "price": 9,
-        "profit": 10,
-        "ref_per": 11,
-        "notes": 12,
-        "ref_fee": 13,
-        "ship" : 14,
-        "tot_fee": 15,
-        "sell_link": 16,
-        "margin": 17,
-        "other_fees": 18,
-        "sales_tax": 19,
-        "proceeds": 20
+        "date" : 0,
+        "asin": 1,
+        "title": 2,
+        "roi": 3,
+        "sr": 4,
+        "cat_name" : 5,
+        "source_url": 6,
+        "cogs":  7,
+        "price": 8,
+        "profit": 9,
+        "ref_per": 10,
+        "notes": 11,
+        "ref_fee": 12,
+        "ship" : 13,
+        "tot_fee": 14,
+        "sell_link": 15,
+        "margin": 16,
+        "other_fees": 17,
+        "sales_tax": 18,
+        "proceeds": 19
     }
     for(let each of my_order){
         num_order.push(id_num_dict[each])
