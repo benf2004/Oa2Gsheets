@@ -12,8 +12,8 @@
 	
 	// function accepts ASIN and returns statistics from Keepa API
 	async function keepa(asin){
-	let key = "2voidarbtfcnosoudp9hqh97aon07aie6sagl6mt2hp9ie61cplt8se83o321ep4";
-	let response = await fetch('https://api.keepa.com/product?key=' + key + '&domain=1&asin=' + asin + '&stats=0')
+	let gibberish = "bcttbfvkurmk8mqm5hdo5fvdvarqiibhpehs2pshpe535fpkov2u8b107me6q79m";
+	let response = await fetch('https://api.keepa.com/product?key=' + gibberish + '&domain=1&asin=' + asin + '&stats=0')
 	const data1 = response.json()
 	return data1
 	};
@@ -84,7 +84,7 @@
 
     // accesses Google Sheets API to check how many rows have content. Returns row number to send data to.
     async function getRowNum() {
-        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/" + fileID + "/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyDQSFdTwH861Bfxq1P6fA_paWiUs-lbP6Y")
+        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/" + fileID + "/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w")
         const data2 = await response.json()
         let rowNum = data2["values"].length + 1
         return rowNum;
