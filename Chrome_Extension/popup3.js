@@ -3,8 +3,8 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
     var urlArray1 = url1.split("/")
     for (let each in urlArray1) {
         if (urlArray1[each] == "oa2gsheets.com") {
-            const cookieUrl = 'http://oa2gsheets.com/Website'
-            const cookieName = 'fileID'
+            const website = 'http://oa2gsheets.com/Website'
+            const file = 'fileID'
 
             function getCookies(domain, name, callback) {
                 chrome.cookies.get({"url": domain, "name": name}, function (cookie) {
@@ -15,12 +15,20 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
             }
 
             //usage:
-            getCookies(cookieUrl, cookieName, function (id) {
+            getCookies(website, file, function (id) {
                 console.log(id);
                 chrome.storage.sync.set({fileID: id}, function () {
                     console.log('Value is set to ' + id);
                 });
             });
+
+            getCookies(website,"order", function (id){
+                console.log(id);
+                chrome.storage.sync.set({order: id}, function(){
+                    console.log("Success adding order to sync!")
+                    console.log(id)
+                })
+            })
 
         }
     }

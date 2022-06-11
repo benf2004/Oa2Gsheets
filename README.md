@@ -5,9 +5,8 @@ CORE TODO:
 - [ ] Finish input design & choices
 - [ ] Allow user to pick which collumns to inlcude in Google Sheets
 - [ ] Fix spreasheet ID handling
-- [ ] Properly inject iFrame of input.html into Amazon product page
+- [ ] Properly inject iFrame of input page into Amazon product page
 - [ ] Format basic website pages
-- [ ] Hide/Encrypt Keepa & Google API Keys
 
 LAUNCH TODO:
 
