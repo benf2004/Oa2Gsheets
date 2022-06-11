@@ -3,8 +3,9 @@ CORE TODO:
 - [x] Transition to new Google Login (sign in button styling)
 - [x] Fix Google Picker
 - [ ] Finish input design & choices
-- [ ] Allow user to pick which collumns to inlcude in Google Sheets
-- [ ] Fix spreasheet ID handling
+- [x] Allow user to pick which columns to include in Google Sheets
+- [ ] Accept column order & handle when sending to spreadsheet
+- [ ] Fix spreadsheet ID handling
 - [ ] Properly inject iFrame of input page into Amazon product page
 - [ ] Format basic website pages
 
