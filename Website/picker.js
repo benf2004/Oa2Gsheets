@@ -38,6 +38,8 @@ function saveTable() {
     }
     var json_order = JSON.stringify(num_order)
     console.log(json_order)
+    let json_encode = encodeURI(json_order);
+    console.log(json_encode)
     document.cookie = "order=" + json_order + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
 };
 

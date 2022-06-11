@@ -133,6 +133,7 @@
     if (asin != "") {
         var fileID = decodeURI(urlParams.get("fileID"))
         const order = JSON.parse(decodeURI(urlParams.get('order')))
+        console.log(order)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await getRowNum(); // gets row number
         let data1 = await main(rowFin); // gets statistics
