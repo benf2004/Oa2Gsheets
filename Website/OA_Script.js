@@ -165,6 +165,7 @@
         var fileID = decodeURI(urlParams.get("fileID"))
         const order = await JSON.parse(decodeURI(urlParams.get('order')))
         console.log(typeof(order))
+        console.log(order)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await get_row_num(fileID); // gets row number
         let data1 = await main(rowFin); // gets statistics
