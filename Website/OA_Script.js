@@ -100,7 +100,8 @@
         request.then(function(response) {
             // TODO: Change code below to process the `response` object:
             const data = response.result
-            let rowNum = data["values"].length + 1
+            //console.log(data)
+            //let rowNum = data["values"].length + 1
             console.log(rowNum)
             return rowNum
         }, function(reason) {
