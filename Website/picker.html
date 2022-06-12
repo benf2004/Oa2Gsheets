@@ -243,7 +243,7 @@
      *  Create and render a Picker object for searching images.
      */
     function createPicker() {
-        const view = new google.picker.View(google.picker.ViewId.DOCS);
+        const view = new google.picker.View(google.picker.ViewId.SPREADSHEETS);
         view.setMimeTypes("application/vnd.google-apps.spreadsheet");
         const picker = new google.picker.PickerBuilder()
             .enableFeature(google.picker.Feature.NAV_HIDDEN)
