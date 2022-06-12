@@ -153,7 +153,6 @@
     const CLIENT_ID = '654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w';
 
-    // TODO(developer): Replace with your own project number from console.developers.google.com.
     const APP_ID = '654389885336';
 
     let tokenClient;
@@ -263,6 +262,7 @@
      * @param {object} data - Containers the user selection from the picker
      */
     function pickerCallback(data) {
+        console.log(data);
         if (data.action == google.picker.Action.PICKED) {
             var fileId = data.docs[0].id;
             document.cookie = "fileID=" + fileId + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
