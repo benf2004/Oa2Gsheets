@@ -47,7 +47,6 @@
           
 
 	// Sets dynamic statistic array to send to spreadsheet. requires row number.
-        // TODO: build new columnDict with order
         function dynamStats(rowStr, order) {
             var refPer = decodeURI(urlParams.get("refPer"))
             const alpha_dict = {}
@@ -77,9 +76,40 @@
     return infoSend
     }; // end of main
 
+
+    async function get_row_num(fileID) {
+        var params = {
+            // The ID of the spreadsheet to retrieve data from.
+            spreadsheetId: fileID,  // TODO: Update placeholder value.
+
+            // The A1 notation of the values to retrieve.
+            range: 'A1:Z1000',  // TODO: Update placeholder value.
+
+            // How values should be represented in the output.
+            // The default render option is ValueRenderOption.FORMATTED_VALUE.
+            valueRenderOption: 'FORMATTED_VALUE',  // TODO: Update placeholder value.
+
+            // How dates, times, and durations should be represented in the output.
+            // This is ignored if value_render_option is
+            // FORMATTED_VALUE.
+            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+            dateTimeRenderOption: 'SERIAL_NUMBER',  // TODO: Update placeholder value.
+        };
+
+        var request = gapi.client.sheets.spreadsheets.values.get(params);
+        request.then(function(response) {
+            // TODO: Change code below to process the `response` object:
+            const data = response.result
+            const data2 = data.json()
+            let rowNum = data2["values"].length + 1
+            return rowNum
+        }, function(reason) {
+            console.error('error: ' + reason.result.error.message);
+        });
+    }
     // accesses Google Sheets API to check how many rows have content. Returns row number to send data to.
     async function getRowNum() {
-        let response = await fetch("https://content-sheets.googleapis.com/v4/spreadsheets/" + fileID + "/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w")
+        let response = await fetch("https://sheets.googleapis.com/v4/spreadsheets/"+ fileID + "/values/A1%3AZ1000?valueRenderOption=FORMATTED_VALUE&key=AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w")
         const data2 = await response.json()
         let rowNum = data2["values"].length + 1
         return rowNum;
@@ -135,7 +165,7 @@
         const order = JSON.parse(decodeURI(urlParams.get('order')))
         console.log(order)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
-        let rowFin = await getRowNum(); // gets row number
+        let rowFin = await get_row_num(fileID); // gets row number
         let data1 = await main(rowFin); // gets statistics
         let send_data  = orderSend(data1, order)
         let range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
