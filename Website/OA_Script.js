@@ -163,7 +163,7 @@
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin != "") {
         var fileID = decodeURI(urlParams.get("fileID"))
-        const order = JSON.parse(decodeURI(urlParams.get('order')))
+        const order = await JSON.parse(decodeURI(urlParams.get('order')))
         console.log(typeof(order))
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await get_row_num(fileID); // gets row number
