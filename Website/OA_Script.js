@@ -147,7 +147,7 @@
         var valueRangeBody = {
             "majorDimension": "COLUMNS",
             "range": range,
-            "values": [[send[0]], [send[1]], [send[2]], [send[3]], [send[4]], [send[5]], [send[6]], [send[7]], [send[8]], [send[9]], [send[10]], [send[11]], [send[12]], [send[13]], [send[14]], [send[15]]]
+            "values": [[send[0]], [send[1]], [send[2]], [send[3]], [send[4]], [send[5]], [send[6]], [send[7]], [send[8]], [send[9]], [send[10]], [send[11]], [send[12]], [send[13]], [send[14]], [send[15]], send[16]]
         }
 
         var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
@@ -177,8 +177,8 @@
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await get_row_num(fileID); // gets row number
         let data1 = await main(rowFin, order_array); // gets statistics
-        let send_data  = orderSend(data1, order_array)
-        let range1 = getRange(order_array, rowFin) // creates range from row number
+        let send_data  = await orderSend(data1, order_array)
+        let range1 = await getRange(order_array, rowFin) // creates range from row number
         sendToSheets(send_data, range1); // sends data to gsheets
     } 
     else {
