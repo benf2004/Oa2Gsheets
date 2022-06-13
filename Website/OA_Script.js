@@ -176,6 +176,7 @@
         console.log(typeof order_array)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await get_row_num(fileID); // gets row number
+        console.log(rowFin)
         let data1 = await main(rowFin, order_array); // gets statistics
         let send_data  = await orderSend(data1, order_array)
         let range1 = await getRange(order_array, rowFin) // creates range from row number
