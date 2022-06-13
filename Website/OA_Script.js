@@ -103,6 +103,7 @@
             console.log(data)
             let rowNum = data["values"].length + 1
             console.log(rowNum)
+            document.cookie = "row=" + rowNum;
             return rowNum
         }, function(reason) {
             console.error('error: ' + reason.result.error.message);
@@ -160,11 +161,20 @@
     }
 
     // gets requested cookie by name
-    function getCook(cookiename){
-        // Get name followed by anything except a semicolon
-        var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
-        // Return everything after the equal sign, or an empty string if the cookie name not found
-        return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
@@ -175,8 +185,7 @@
         console.log(order_array)
         console.log(typeof order_array)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
-        let rowFin = await get_row_num(fileID); // gets row number
-        console.log(rowFin)
+        let rowFin = await get_row_num(fileID).then(getCookie('row')); // gets row number
         let data1 = await main(rowFin, order_array); // gets statistics
         let send_data  = await orderSend(data1, order_array)
         let range1 = await getRange(order_array, rowFin) // creates range from row number
