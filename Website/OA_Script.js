@@ -79,21 +79,13 @@
 
     async function get_row_num(fileID) {
         var params = {
-            // The ID of the spreadsheet to retrieve data from.
-            spreadsheetId: fileID,  // TODO: Update placeholder value.
+            spreadsheetId: fileID,
 
-            // The A1 notation of the values to retrieve.
-            range: 'A1:Z1000',  // TODO: Update placeholder value.
+            range: 'A1:Z1000',
 
-            // How values should be represented in the output.
-            // The default render option is ValueRenderOption.FORMATTED_VALUE.
-            valueRenderOption: 'FORMATTED_VALUE',  // TODO: Update placeholder value.
+            valueRenderOption: 'FORMATTED_VALUE',
 
-            // How dates, times, and durations should be represented in the output.
-            // This is ignored if value_render_option is
-            // FORMATTED_VALUE.
-            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-            dateTimeRenderOption: 'SERIAL_NUMBER',  // TODO: Update placeholder value.
+            dateTimeRenderOption: 'SERIAL_NUMBER',
         };
 
         var request = gapi.client.sheets.spreadsheets.values.get(params);
@@ -124,7 +116,7 @@
             send.push(data[num_each])
         }
         return send
-    }
+    };
 
     function getRange(order, row_num){
         const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -161,21 +153,21 @@
     }
 
     // gets requested cookie by name
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for(let i = 0; i <ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
             }
-            return "";
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
+        return "";
+    }
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin !== "") {
