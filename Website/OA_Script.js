@@ -177,35 +177,5 @@
         console.log("error: no parameters recieved") // logs error in console if no ASIN is recieved in URL
     };
     }
-    async function testAPI(fileID) {
-        var params = {
-            // The ID of the spreadsheet to retrieve data from.
-            spreadsheetId: fileID,  // TODO: Update placeholder value.
-
-            // The A1 notation of the values to retrieve.
-            range: 'A1:Z1000',  // TODO: Update placeholder value.
-
-            // How values should be represented in the output.
-            // The default render option is ValueRenderOption.FORMATTED_VALUE.
-            valueRenderOption: 'FORMATTED_VALUE',  // TODO: Update placeholder value.
-
-            // How dates, times, and durations should be represented in the output.
-            // This is ignored if value_render_option is
-            // FORMATTED_VALUE.
-            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-            dateTimeRenderOption: 'SERIAL_NUMBER',  // TODO: Update placeholder value.
-        };
-
-        var request = gapi.client.sheets.spreadsheets.values.get(params);
-        request.then(function(response) {
-            // TODO: Change code below to process the `response` object:
-            const data = response.result
-            console.log(data)
-            let rowNum = data["values"].length + 1
-            console.log(rowNum)
-        }, function(reason) {
-            console.error('error: ' + reason.result.error.message);
-        });
-    }
     var fileID = decodeURI(urlParams.get("fileID"))
-    setTimeout(() => {testAPI(fileID)}, 3000)
+    setTimeout(() => {top1()}, 3000)
