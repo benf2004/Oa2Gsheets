@@ -119,7 +119,8 @@
     function orderSend(data, order){
         const send = []
         for (let each of order){
-            send.push(data[each])
+            let num_each = parseInt(each)
+            send.push(data[num_each])
         }
         return send
     }
