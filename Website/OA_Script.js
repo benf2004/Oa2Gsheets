@@ -8,7 +8,7 @@
       
 	// define nested functions. All main operations take place in top1. 
     async function top1(checker1){
-    async function main(checker){
+    async function main(checker, o1){
 	
 	// function accepts ASIN and returns statistics from Keepa API
 	async function keepa(asin){
@@ -72,7 +72,7 @@
             return my_list
         }; // end of dynamic stats function
 
-	var infoSend = dynamStats(checker)
+	var infoSend = dynamStats(checker, o1)
     return infoSend
     }; // end of main
 
@@ -170,7 +170,7 @@
         console.log(typeof order_array)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await get_row_num(fileID); // gets row number
-        let data1 = await main(rowFin); // gets statistics
+        let data1 = await main(rowFin, order_array); // gets statistics
         let send_data  = orderSend(data1, order_array)
         let range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
         sendToSheets(send_data, range1); // sends data to gsheets
