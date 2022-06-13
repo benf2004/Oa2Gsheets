@@ -125,6 +125,12 @@
         return send
     }
 
+    function getRange(order, row_num){
+        const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        const range = "A" + row_num + ":" + alphabet[order.length - 1]
+        return range
+    };
+
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
         var params = {
@@ -172,7 +178,7 @@
         let rowFin = await get_row_num(fileID); // gets row number
         let data1 = await main(rowFin, order_array); // gets statistics
         let send_data  = orderSend(data1, order_array)
-        let range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
+        let range1 = getRange(order_array, rowFin) // creates range from row number
         sendToSheets(send_data, range1); // sends data to gsheets
     } 
     else {
