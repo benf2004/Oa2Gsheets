@@ -161,15 +161,16 @@
     }
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
-    if (asin != "") {
+    if (asin !== "") {
         var fileID = decodeURI(urlParams.get("fileID"))
-        const order = Object.values(JSON.parse(decodeURI(urlParams.get('o'))))
-        console.log(order)
-        console.log(typeof order)
+        const order = JSON.parse(decodeURI(urlParams.get('o')))
+        const order_array = Object.values(order)
+        console.log(order_array)
+        console.log(typeof order_array)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await get_row_num(fileID); // gets row number
         let data1 = await main(rowFin); // gets statistics
-        let send_data  = orderSend(data1, order)
+        let send_data  = orderSend(data1, order_array)
         let range1 = "A" + rowFin + ":P" + rowFin // creates range from row number
         sendToSheets(send_data, range1); // sends data to gsheets
     } 
