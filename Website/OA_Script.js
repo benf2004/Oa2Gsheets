@@ -161,21 +161,21 @@
     }
 
     // gets requested cookie by name
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
             }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
+            return "";
         }
-        return "";
-    }
 
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin !== "") {
@@ -184,11 +184,13 @@
         const order_array = Object.values(o)
         console.log(order_array)
         console.log(typeof order_array)
-        console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
-        let rowFin = await get_row_num(fileID).then(getCookie('row')); // gets row number
+        console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
+        let hey = await get_row_num(fileID)); // gets row number
+        setTimeout(() => {console.log("delay")}, 1000);
+        let rowFin = getCookie("row")
         let data1 = await main(rowFin, order_array); // gets statistics
-        let send_data  = await orderSend(data1, order_array)
-        let range1 = await getRange(order_array, rowFin) // creates range from row number
+        let send_data  = orderSend(data1, order_array)
+        let range1 = getRange(order_array, rowFin) // creates range from row number
         sendToSheets(send_data, range1); // sends data to gsheets
     } 
     else {
