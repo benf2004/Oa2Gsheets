@@ -148,138 +148,90 @@
         <span class="slider round"></span>
     </label>
 </div>
-<script async defer src="https://apis.google.com/js/api.js""></script>
-<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
-<script type="text/javascript">
-    /* exported gapiLoaded */
-    /* exported gisLoaded */
-    /* exported handleAuthClick */
-    /* exported handleSignoutClick */
+// The Browser API key obtained from the Google API Console.
+// Replace with your own Browser API key, or your own key.
+var developerKey = '//Your Api Key//';
 
-    // Authorization scopes required by the API; multiple scopes can be
-    // included, separated by spaces.
-    const SCOPES = 'https://www.googleapis.com/auth/drive.file profile';
+// The Client ID obtained from the Google API Console. Replace with your own Client ID.
+var clientId = "//Your Client Id//"
 
-    const CLIENT_ID = '654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w';
+// Replace with your own project number from console.developers.google.com.
+// See "Project number" under "IAM & Admin" > "Settings"
+var appId = "//Your Project ID";
 
-    const APP_ID = '654389885336';
+// Scope to use to access user's Drive items.
+var scope = ['https://www.googleapis.com/auth/drive.file'];
 
-    let tokenClient;
-    let accessToken = null;
-    let pickerInited = false;
-    let gisInited = false;
+var pickerApiLoaded = false;
+var oauthToken;
 
+// Use the Google API Loader script to load the google.picker script.
+function loadPicker() {
+gapi.load('auth', {'callback': onAuthApiLoad});
+gapi.load('picker', {'callback': onPickerApiLoad});
+}
 
-    document.getElementById('authorize_button').style.visibility = 'hidden';
-    document.getElementById('signout_button').style.visibility = 'hidden';
+function onAuthApiLoad() {
+window.gapi.auth.authorize(
+{
+'client_id': clientId,
+'scope': scope,
+'immediate': false
+},
+handleAuthResult);
+}
 
-    /**
-     * Callback after api.js is loaded.
-     */
-    function gapiLoaded() {
-        gapi.load('picker', intializePicker);
+function onPickerApiLoad() {
+pickerApiLoaded = true;
+createPicker();
+}
+
+function handleAuthResult(authResult) {
+if (authResult && !authResult.error) {
+oauthToken = authResult.access_token;
+createPicker();
+}
+}
+
+// Create and render a Picker object for searching images.
+function createPicker() {
+if (pickerApiLoaded && oauthToken) {
+var view = new google.picker.View(google.picker.ViewId.DOCS);
+view.setMimeTypes("image/png,image/jpeg,image/jpg");
+var picker = new google.picker.PickerBuilder()
+.enableFeature(google.picker.Feature.NAV_HIDDEN)
+.enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+.setAppId(appId)
+.setOAuthToken(oauthToken)
+.addView(view)
+.addView(new google.picker.DocsUploadView())
+.setDeveloperKey(developerKey)
+.setCallback(pickerCallback)
+.build();
+picker.setVisible(true);
+}
+}
+
+// A simple callback implementation.
+function pickerCallback(data) {
+if (data.action == google.picker.Action.PICKED) {
+var fileId = data.docs[0].id;
+alert('The user selected: ' + fileId);
+}
+}
+</script>
+</head>
+<body>
+<div id="result"></div>
+<button onclick="showPickerDialog()">Show Picker Dialog</button>
+
+<!-- The Google API Loader script. -->
+<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+<script>
+    function showPickerDialog(){
+        loadPicker()
     }
-    gapiLoaded()
-
-
-    /**
-     * Callback after the API client is loaded. Loads the
-     * discovery doc to initialize the API.
-     */
-    function intializePicker() {
-        pickerInited = true;
-        maybeEnableButtons();
-    }
-
-    /**
-     * Callback after Google Identity Services are loaded.
-     */
-    function gisLoaded() {
-        tokenClient = google.accounts.oauth2.initTokenClient({
-            client_id: CLIENT_ID,
-            scope: SCOPES,
-            callback: '', // defined later
-        });
-        gisInited = true;
-        maybeEnableButtons();
-    }
-
-    /**
-     * Enables user interaction after all libraries are loaded.
-     */
-    function maybeEnableButtons() {
-        if (pickerInited && gisInited) {
-            document.getElementById('authorize_button').style.visibility = 'visible';
-        }
-    }
-
-    /**
-     *  Sign in the user upon button click.
-     */
-    function handleAuthClick() {
-        tokenClient.callback = async (response) => {
-            if (response.error !== undefined) {
-                throw (response);
-            }
-            accessToken = response.access_token;
-            document.getElementById('signout_button').style.visibility = 'visible';
-            document.getElementById('authorize_button').innerText = 'Refresh';
-            await createPicker();
-        };
-
-        if (accessToken === null) {
-            // Prompt the user to select a Google Account and ask for consent to share their data
-            // when establishing a new session.
-            tokenClient.requestAccessToken({prompt: 'consent'});
-        } else {
-            // Skip display of account chooser and consent dialog for an existing session.
-            tokenClient.requestAccessToken({prompt: ''});
-        }
-    }
-
-    /**
-     *  Sign out the user upon button click.
-     */
-    function handleSignoutClick() {
-        if (accessToken) {
-            accessToken = null;
-            google.accounts.oauth2.revoke(accessToken);
-            document.getElementById('content').innerText = '';
-            document.getElementById('authorize_button').innerText = 'Authorize';
-            document.getElementById('signout_button').style.visibility = 'hidden';
-        }
-    }
-
-    /**
-     *  Create and render a Picker object for searching spreadsheets.
-     */
-    function createPicker() {
-        const view = new google.picker.View(google.picker.ViewId.SPREADSHEETS);
-        view.setMimeTypes("application/vnd.google-apps.spreadsheet");
-        const picker = new google.picker.PickerBuilder()
-            .enableFeature(google.picker.Feature.NAV_HIDDEN)
-            .setAppId(APP_ID)
-            .setDeveloperKey(API_KEY)
-            .setOAuthToken(accessToken)
-            .addView(view)
-            //.addView(new google.picker.DocsUploadView())
-            .setCallback(pickerCallback)
-            .build();
-        picker.setVisible(true);
-    }
-
-    /**
-     * Displays the file details of the user's selection.
-     * @param {object} data - Containers the user selection from the picker
-     */
-    function pickerCallback(data) {
-        console.log(data);
-        if (data.action == google.picker.Action.PICKED) {
-            var fileId = data.docs[0].id;
-            document.cookie = "fileID=" + fileId + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
-        }
-    }
+</script>
 </script>
 </body>
 </html>

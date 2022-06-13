@@ -100,8 +100,8 @@
         request.then(function(response) {
             // TODO: Change code below to process the `response` object:
             const data = response.result
-            //console.log(data)
-            //let rowNum = data["values"].length + 1
+            console.log(data)
+            let rowNum = data["values"].length + 1
             console.log(rowNum)
             return rowNum
         }, function(reason) {
@@ -163,8 +163,7 @@
     // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
     if (asin != "") {
         var fileID = decodeURI(urlParams.get("fileID"))
-        const order = await JSON.parse(decodeURI(urlParams.get('order')))
-        console.log(typeof(order))
+        const order = JSON.parse(decodeURI(urlParams.get('o')))
         console.log(order)
         console.log("spreadsheet id:" + fileID)  // gets spreadsheet id num
         let rowFin = await get_row_num(fileID); // gets row number
