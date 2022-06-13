@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get File Permission!</title>
+</head>
+<body>
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+    let url = window.location.search
+    const urlParams = new URLSearchParams(url);
+    var fileID = decodeURI(urlParams.get("fileID"))
+
+    function loadClient() {
+        gapi.client.setApiKey("AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w");
+        return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
+            .then(function() { console.log("GAPI client loaded for API"); },
+                function(err) { console.error("Error loading GAPI client for API", err); });
+    }
+    // Make sure the client is loaded and sign-in is complete before calling this method.
+    function execute() {
+        return gapi.client.drive.permissions.get({"fileId": fileID})
+            .then(function(response) {
+                    // Handle the results here (response.result has the parsed body).
+                    console.log("Response", response);
+                },
+                function(err) { console.error("Execute error", err); });
+    }
+    gapi.load("client", function() {
+        gapi.auth2.init({client_id: "654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com"});
+    });
+</script>
+<button onclick="authenticate().then(loadClient)">authorize and load</button>
+<button onclick="execute()">execute</button>
+</body>
+</html>
