@@ -177,7 +177,7 @@
         console.log(order_array)
         console.log(typeof order_array)
         console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
-        let hey = await get_row_num(fileID)); // gets row number
+        let hey = await get_row_num(fileID) // gets row number
         setTimeout(() => {console.log("delay")}, 1000);
         let rowFin = getCookie("row")
         let data1 = await main(rowFin, order_array); // gets statistics
