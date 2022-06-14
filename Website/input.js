@@ -121,6 +121,7 @@ async function main() {
 
 
     const object1 = await keepa(asin);
+    setTimeout(() => {console.log("delay")}, 1000);
     const product = object1['products'][0];
     let cats2 = product["categoryTree"];
     const currentStats = object1['products'][0]['stats']['current'];
