@@ -11,6 +11,7 @@
       "matches": [
         "https://*.amazon.com/dp/*"
       ],
+      "run_at": "document_idle",
       "js": [
         "AMZscript.js"
       ]

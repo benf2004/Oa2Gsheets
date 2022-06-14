@@ -5,17 +5,11 @@
     <title>Amazon OA to Gsheets extension</title>
     <!--February 26, 2022-->
     <style>
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 550px
-        }
-
         input {
             width: 150px;
         }
 
-        #frame {
+        #send {
             overflow: hidden;
             width: 0;
             height: 0;
@@ -25,25 +19,9 @@
 </head>
 <body>
 <div id="div1" class="container mt-3">
-    <section style="float:left; width:300px">
-        <input id="cogsInput" type="text" value="" class="inputs"/> COGS
-        <br/> <br/> <input id="price" type="text" class="inputs"/> Price
-        <br/><br/> <input id="notes" type="text" value="" class="inputs"/> Notes
-        <br/> <br/> <input id="SourceUrl" type="text" value="" class="inputs"/> Source URL
-        <br/> <br/> <input id="refPer" type="text" value="" class="inputs"/> RefPer
-        <br/><br/>
-    </section>
-    <section style="float:right">
-        <p id="roi">ROI:</p>
-        <p id="profit">PROFIT: </p>
-        <p id="refFee">REFERRAL FEE:</p>
-        <p id="fbaFee">FBA FEE:</p>
-        <button id="export">Export Sheets</button>
-        <br/>
-    </section>
-
+    <iframe src="" id="input"></iframe>
 </div>
-<iframe src="" id="frame"></iframe>
+<iframe src="" id="send"></iframe>
 <script src="popup3.js">
 </script>
 </body>

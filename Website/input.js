@@ -1,7 +1,7 @@
 async function main() {
     async function keepa(asin) {
-        let key = "2voidarbtfcnosoudp9hqh97aon07aie6sagl6mt2hp9ie61cplt8se83o321ep4";
-        let response = await fetch('https://api.keepa.com/product?key=' + key + '&domain=1&asin=' + asin + '&stats=0')
+        let jumbo = "bcttbfvkurmk8mqm5hdo5fvdvarqiibhpehs2pshpe535fpkov2u8b107me6q79m";
+        let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=1&asin=' + asin + '&stats=0')
         const data1 = response.json()
         return data1
     }
