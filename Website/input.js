@@ -118,7 +118,7 @@ async function main() {
     const urlParams = new URLSearchParams(url);
     const asin = decodeURI(urlParams.get("asin"))
     const fileID = decodeURI(urlParams.get("fileID"))
-    let order = decodeURI(urlParams.get("o"))
+    let order = urlParams.get("o")
 
 
     const object1 = await keepa(asin);
