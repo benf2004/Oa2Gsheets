@@ -11,7 +11,7 @@ function saveTable() {
     }
     console.log(my_order)
     const num_order = []
-    const id_num_dict = {
+    var id_num_dict = {
         "date" : "0",
         "asin": "1",
         "title": "2",
@@ -43,4 +43,17 @@ function saveTable() {
     document.cookie = "order=" + json_encode + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
 };
 
+function fill_headers(){
+    let table1 = document.getElementById("tab");
+    const table_json = REDIPS.drag.saveContent(table1, "json");
+    let table_save = JSON.parse(table_json)
+    let headers = []
+    for (let each of table_save){
+        headers.push(each[4])
+    }
+    var json_headers = encodeURI(JSON.stringify(headers))
+    let send_headers = "https://oa2gsheets.com/Website/send?headers=" + json_headers + "&h=true"
+    console.log(send_headers)
+    document.getElementById("send_headers").src = send_headers
+}
 

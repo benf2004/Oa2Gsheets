@@ -11,6 +11,13 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
     <link href="redips_table/style.css" media="screen" rel="stylesheet" type="text/css"/>
     <link href="picker.css" rel="stylesheet">
+    <style>
+        #send_headers {
+            overflow: hidden;
+            width: 0;
+            height: 0;
+        }
+    </style>
 </head>
 
 <!-- REDIPS.drag -->
@@ -26,10 +33,12 @@
     <br/>
 </nav>
 <button onclick="saveTable()">Save Table</button>
+<button onclick="fill_headers()">Fill Headers</button>
 
 <!--Add buttons to initiate auth sequence and sign out-->
 <button id="authorize_button" onclick="handleAuthClick()">Pick Spreadsheet</button>
 <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+<iframe id="send_headers" src=""></iframe>
 
 <pre id="content" style="white-space: pre-wrap;"></pre>
 
