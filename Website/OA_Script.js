@@ -177,14 +177,15 @@
         console.log(order_array)
         console.log(typeof order_array)
         console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
-        let hey = await get_row_num(fileID) // gets row number
-        setTimeout(() => {console.log("delay")}, 1200);
-        let rowFin = getCookie("row")
-        console.log("row num:" + rowFin)
-        let data1 = await main(rowFin, order_array); // gets statistics
-        let send_data  = orderSend(data1, order_array)
-        let range1 = getRange(order_array, rowFin) // creates range from row number
-        sendToSheets(send_data, range1); // sends data to gsheets
+        await get_row_num(fileID).then(finish) // gets row number
+        async function finish() {
+            let rowFin = getCookie("row")
+            console.log("row num:" + rowFin)
+            let data1 = await main(rowFin, order_array); // gets statistics
+            let send_data = orderSend(data1, order_array)
+            let range1 = getRange(order_array, rowFin) // creates range from row number
+            sendToSheets(send_data, range1); // sends data to gsheets
+        }
     } 
     else {
         console.log("error: no parameters recieved") // logs error in console if no ASIN is recieved in URL
