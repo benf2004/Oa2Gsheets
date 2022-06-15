@@ -76,7 +76,7 @@
     return infoSend
     }; // end of main
 
-    async function finish(rowFin) {
+    async function finish(rowFin, order_array) {
         console.log("row num:" + rowFin)
         console.log("ROWWWwwYYWY")
         let data1 = await main(rowFin, order_array); // gets statistics
@@ -85,7 +85,7 @@
         sendToSheets(send_data, range1); // sends data to gsheets
     }
 
-    async function get_row_num(fileID) {
+    async function get_row_num(fileID, o) {
         var params = {
             spreadsheetId: fileID,
 
@@ -95,14 +95,14 @@
 
             dateTimeRenderOption: 'SERIAL_NUMBER',
         };
-
+        var order = o
         var request = gapi.client.sheets.spreadsheets.values.get(params);
         request.then(function(response) {
             const data = response.result
             console.log(data)
             let rowNum = (data.values).length + 1
             console.log("row num" + rowNum)
-            finish(rowNum)
+            finish(rowNum, order)
         }, function(reason) {
             console.error('error: ' + reason.result.error.message);
         });
@@ -182,7 +182,7 @@
         const order_array = Object.values(o)
         console.log(order_array)
         console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
-        await get_row_num(fileID) // gets row number
+        await get_row_num(fileID, order_array) // gets row number
         setTimeout(() => {console.log("finishing")}, 1000)
     } 
     else {

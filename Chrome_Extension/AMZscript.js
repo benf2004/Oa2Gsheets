@@ -51,6 +51,7 @@ function main () {
     });
 }
 
+main()
 window.addEventListener('popstate', function (event) {
     comsole.log("URL CHANGED")
     main()
