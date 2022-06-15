@@ -90,13 +90,11 @@
 
         var request = gapi.client.sheets.spreadsheets.values.get(params);
         request.then(function(response) {
-            // TODO: Change code below to process the `response` object:
             const data = response.result
             console.log(data)
             let rowNum = (data.values).length + 1
-            console.log(rowNum)
-            document.cookie = "row=" + rowNum;
-            return rowNum
+            console.log("row num" + rowNum)
+            finish(rowNum)
         }, function(reason) {
             console.error('error: ' + reason.result.error.message);
         });
@@ -177,9 +175,8 @@
         console.log(order_array)
         console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
         await get_row_num(fileID) // gets row number
-        setTimeout(() => {finish()}, 1000)
-        async function finish() {
-            let rowFin = getCookie("row")
+        setTimeout(() => {console.log("finishing")}, 1000)
+        async function finish(rowFin) {
             console.log("row num:" + rowFin)
             console.log("ROWWWwwYYWY")
             let data1 = await main(rowFin, order_array); // gets statistics
