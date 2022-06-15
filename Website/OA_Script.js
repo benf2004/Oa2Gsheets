@@ -2,6 +2,7 @@
     let url = window.location.search 
     const urlParams = new URLSearchParams(url);
    	var asin = decodeURI(urlParams.get("asin"))
+    var has_headers = decodeURI(urlParams.get("h"))
     console.log("asin is: " + asin)
 
 	
@@ -127,6 +128,7 @@
     function getRange(order, row_num){
         const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         const range = "A" + row_num + ":" + alphabet[order.length - 1]
+        console.log("range: " + range)
         return range
     };
 
@@ -146,7 +148,7 @@
         var valueRangeBody = {
             "majorDimension": "COLUMNS",
             "range": range,
-            "values": [[send[0]], [send[1]], [send[2]], [send[3]], [send[4]], [send[5]], [send[6]], [send[7]], [send[8]], [send[9]], [send[10]], [send[11]], [send[12]], [send[13]], [send[14]], [send[15]], send[16]]
+            "values": [[send]]
         }
 
         var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
@@ -174,20 +176,19 @@
         }
         return "";
     }
-
-    // checks if ASIN is included in URL. If yes, calls main functions in relevant order.
-    if (asin !== "") {
-        var fileID = decodeURI(urlParams.get("fileID"))
-        const o = JSON.parse(decodeURI(urlParams.get('o')))
-        const order_array = Object.values(o)
-        console.log(order_array)
-        console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
-        await get_row_num(fileID, order_array) // gets row number
-        setTimeout(() => {console.log("finishing")}, 1000)
-    } 
-    else {
-        console.log("error: no parameters recieved") // logs error in console if no ASIN is recieved in URL
-    };
+    if (has_headers === true){
+        const headers = JSON.parse(decodeURI(urlParams.get('headers')))
+        const headers_a = Object.values(headers)
+        let h_range = getRange(headers_a, "1")
+        sendToSheets(headers_a, h_range)
+    }
+    var fileID = decodeURI(urlParams.get("fileID"))
+    const o = JSON.parse(decodeURI(urlParams.get('o')))
+    const order_array = Object.values(o)
+    console.log(order_array)
+    console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
+    await get_row_num(fileID, order_array) // gets row number
+    setTimeout(() => {console.log("finishing")}, 1000)
     }
     var fileID = decodeURI(urlParams.get("fileID"))
     setTimeout(() => {top1()}, 1000)
