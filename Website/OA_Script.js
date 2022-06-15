@@ -182,14 +182,17 @@
         let h_range = getRange(headers_a, "1")
         sendToSheets(headers_a, h_range)
     }
-
-    var fileID = decodeURI(urlParams.get("fileID"))
-    const o = JSON.parse(decodeURI(urlParams.get('o')))
-    const order_array = Object.values(o)
-    console.log(order_array)
-    console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
-    await get_row_num(fileID, order_array) // gets row number
-    setTimeout(() => {console.log("finishing")}, 1000)
+    else {
+        var fileID = decodeURI(urlParams.get("fileID"))
+        const o = JSON.parse(decodeURI(urlParams.get('o')))
+        const order_array = Object.values(o)
+        console.log(order_array)
+        console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
+        await get_row_num(fileID, order_array) // gets row number
+        setTimeout(() => {
+            console.log("finishing")
+        }, 1000)
+    }
     }
     var fileID = decodeURI(urlParams.get("fileID"))
     setTimeout(() => {top1()}, 1000)
