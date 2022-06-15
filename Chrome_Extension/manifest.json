@@ -36,6 +36,7 @@
  ],
   "permissions": [
     "cookies",
+    "tabs",
     "storage",
     "activeTab"
   ]

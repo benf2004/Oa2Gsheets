@@ -52,7 +52,12 @@ function main () {
 }
 
 main()
-window.addEventListener('popstate', function (event) {
-    comsole.log("URL CHANGED")
-    main()
-});
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        // listen for messages sent from background.js
+        if (request.message === 'url_change') {
+            console.log("URL CHANGED")
+            document.getElementById("div1_oa2gsheets").remove()
+            main()
+        }
+    });
