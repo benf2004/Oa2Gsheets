@@ -175,9 +175,9 @@
         const o = JSON.parse(decodeURI(urlParams.get('o')))
         const order_array = Object.values(o)
         console.log(order_array)
-        console.log(typeof order_array)
         console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
-        await get_row_num(fileID).then(finish) // gets row number
+        await get_row_num(fileID) // gets row number
+        setTimeout(() => {finish()}, 1000)
         async function finish() {
             let rowFin = getCookie("row")
             console.log("row num:" + rowFin)
