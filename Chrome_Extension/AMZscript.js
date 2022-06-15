@@ -41,8 +41,8 @@ fetch(chrome.runtime.getURL('/amz.html')).then(r => r.text()).then(html => {
             console.log(result)
             const my_order = result.order
             console.log(my_order)
-            let source = "https://www.oa2gsheets.com/Website/input?fileID" + fileID + "&o=" + my_order + "&asin=" + asin
-            console.log("source is" + "source")
+            let source = "https://www.oa2gsheets.com/Website/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin
+            console.log("source is" + source)
             let frame1 = document.getElementById("input_oa2gsheets")
             frame1.setAttribute("src", source)
         });
