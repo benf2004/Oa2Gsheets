@@ -181,6 +181,7 @@
         async function finish() {
             let rowFin = getCookie("row")
             console.log("row num:" + rowFin)
+            console.log("ROWWWwwYYWY")
             let data1 = await main(rowFin, order_array); // gets statistics
             let send_data = orderSend(data1, order_array)
             let range1 = getRange(order_array, rowFin) // creates range from row number

@@ -1,11 +1,3 @@
-/*
-
-Darko Bunic
-http://www.redips.net/
-Apr, 2017.
-
-*/
-
 body {
 	font-family: arial;
 	margin: 0px;
@@ -21,6 +13,7 @@ body {
 div#redips-drag table {
 	background-color: #eee;
 	border-collapse: collapse;
+	max-width: 10px;
 	margin: 7px;	
 }
 
