@@ -76,6 +76,14 @@
     return infoSend
     }; // end of main
 
+    async function finish(rowFin) {
+        console.log("row num:" + rowFin)
+        console.log("ROWWWwwYYWY")
+        let data1 = await main(rowFin, order_array); // gets statistics
+        let send_data = orderSend(data1, order_array)
+        let range1 = getRange(order_array, rowFin) // creates range from row number
+        sendToSheets(send_data, range1); // sends data to gsheets
+    }
 
     async function get_row_num(fileID) {
         var params = {
@@ -176,14 +184,6 @@
         console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
         await get_row_num(fileID) // gets row number
         setTimeout(() => {console.log("finishing")}, 1000)
-        async function finish(rowFin) {
-            console.log("row num:" + rowFin)
-            console.log("ROWWWwwYYWY")
-            let data1 = await main(rowFin, order_array); // gets statistics
-            let send_data = orderSend(data1, order_array)
-            let range1 = getRange(order_array, rowFin) // creates range from row number
-            sendToSheets(send_data, range1); // sends data to gsheets
-        }
     } 
     else {
         console.log("error: no parameters recieved") // logs error in console if no ASIN is recieved in URL
