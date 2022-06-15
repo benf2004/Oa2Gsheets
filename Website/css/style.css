@@ -9,6 +9,10 @@ VERSION:	Versoin Number
 -------------------------------------------------------------------*/
 /* 1.1 typography */
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
+#logo, #logo1{
+  width: 194px;
+  height: 102px;
+}
 body {
   line-height: 31px;
   font-family: "Poppins", sans-serif;
