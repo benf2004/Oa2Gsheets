@@ -182,7 +182,9 @@
     }
     if (has_headers === 'true'){
         console.log("processing headers")
-        const headers = decodeURI(urlParams.get('headers')) //removed json.parse
+        const headers = urlParams.get('headers') //removed json.parse
+        console.log("HEADERS:")
+        console.log(headers)
         //const headers_a = Object.values(headers)
         let h_range = getRange(headers, "1")
         console.log("range: " + h_range)
