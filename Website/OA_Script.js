@@ -123,7 +123,8 @@
             let num_each = parseInt(each)
             send.push([data[num_each]])
         }
-        return send
+        let final_send = Object.values(send)
+        return final_send
     };
 
     function getRange(order, row_num){
@@ -149,7 +150,7 @@
         var valueRangeBody = {
             "majorDimension": "COLUMNS",
             "range": range,
-            "values": [send]
+            "values": [[send]]
         }
 
         var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
