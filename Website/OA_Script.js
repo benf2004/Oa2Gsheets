@@ -185,7 +185,7 @@
         const headers = urlParams.get('headers') //removed json.parse
         console.log("HEADERS:")
         console.log(headers)
-        let json_h = json.parse(headers)
+        let json_h = JSON.parse(headers)
         let new_h = []
         for (let each of json_h){
             new_h += [each]
