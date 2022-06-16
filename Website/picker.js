@@ -43,6 +43,23 @@ function saveTable() {
     document.cookie = "order=" + json_encode + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
 };
 
+// gets requested cookie by name
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function fill_headers(){
     let table1 = document.getElementById("tab");
     const table_json = REDIPS.drag.saveContent(table1, "json");
@@ -52,7 +69,8 @@ function fill_headers(){
         headers.push(each[4])
     }
     var json_headers = encodeURIComponent(headers)
-    let send_headers = "https://oa2gsheets.com/Website/send?headers=" + json_headers + "&h=true"
+    var fileID = getCookie('fileID')
+    let send_headers = "https://oa2gsheets.com/Website/send?headers=" + json_headers + "&h=true" + "&fileID=" + fileID
     let encoded = send_headers
     console.log(encoded)
     document.getElementById("send_headers").src = encoded

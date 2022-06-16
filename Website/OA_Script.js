@@ -164,22 +164,6 @@
         });
     }
 
-    // gets requested cookie by name
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
     if (has_headers === 'true'){
         console.log("processing headers")
         const headers = urlParams.get('headers') //removed json.parse
@@ -200,7 +184,7 @@
         const o = JSON.parse(decodeURI(urlParams.get('o')))
         const order_array = Object.values(o)
         console.log(order_array)
-        console.log("spreadsheet id:" + fileID);  // gets spreadsheet id num
+        console.log("spreadsheet id: " + fileID);  // gets spreadsheet id num
         await get_row_num(fileID, order_array) // gets row number
         setTimeout(() => {
             console.log("finishing")
