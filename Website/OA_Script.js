@@ -191,8 +191,7 @@
         for (let each of json_h){
             new_h.push([each])
         }
-        //const headers_a = Object.values(headers)
-        let h_range = getRange(headers, "1")
+        let h_range = getRange(json_h, "1")
         console.log("range: " + h_range)
         sendToSheets(new_h, h_range)
     }
