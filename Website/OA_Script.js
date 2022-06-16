@@ -3,6 +3,7 @@
     const urlParams = new URLSearchParams(url);
    	var asin = decodeURI(urlParams.get("asin"))
     var has_headers = decodeURI(urlParams.get("h"))
+    console.log("Has headers is: " + has_headers)
     console.log("asin is: " + asin)
 
 	
@@ -177,6 +178,7 @@
         return "";
     }
     if (has_headers === 'true'){
+        console.log("processing headers")
         const headers = JSON.parse(decodeURI(urlParams.get('headers')))
         const headers_a = Object.values(headers)
         let h_range = getRange(headers_a, "1")
