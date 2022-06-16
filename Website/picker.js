@@ -51,7 +51,7 @@ function fill_headers(){
     for (let each of table_save){
         headers.push(each[4])
     }
-    var json_headers = encodeURIComponent(JSON.stringify(headers))
+    var json_headers = encodeURIComponent(headers)
     let send_headers = "https://oa2gsheets.com/Website/send?headers=" + json_headers + "&h=true"
     let encoded = send_headers
     console.log(encoded)

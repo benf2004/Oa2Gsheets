@@ -180,9 +180,9 @@
     if (has_headers === 'true'){
         console.log("processing headers")
         const headers = decodeURI(urlParams.get('headers')) //removed json.parse
-        const headers_a = Object.values(headers)
-        let h_range = getRange(headers_a, "1")
-        sendToSheets(headers_a, h_range)
+        //const headers_a = Object.values(headers)
+        let h_range = getRange(headers, "1")
+        sendToSheets(headers, h_range)
     }
     else {
         var fileID = decodeURI(urlParams.get("fileID"))
