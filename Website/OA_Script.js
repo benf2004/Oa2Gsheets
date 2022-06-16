@@ -136,6 +136,8 @@
 
     // sends info to Google Sheets via Gsheets API
     function sendToSheets(send, range) {
+        console.log("Send:")
+        console.log(send)
         var params = {
             // The ID of the spreadsheet to update.
             spreadsheetId: fileID,  
@@ -150,7 +152,7 @@
         var valueRangeBody = {
             "majorDimension": "COLUMNS",
             "range": range,
-            "values": [send]
+            "values": send
         }
 
         var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
