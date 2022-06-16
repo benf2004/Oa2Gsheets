@@ -185,7 +185,7 @@
         const headers = urlParams.get('headers') //removed json.parse
         console.log("HEADERS:")
         console.log(headers)
-        let json_h = JSON.parse(headers)
+        let json_h = headers.split(",")
         let new_h = []
         for (let each of json_h){
             new_h += [each]
@@ -193,7 +193,7 @@
         //const headers_a = Object.values(headers)
         let h_range = getRange(headers, "1")
         console.log("range: " + h_range)
-        sendToSheets(headers, h_range)
+        sendToSheets(new_h, h_range)
     }
     else {
         var fileID = decodeURI(urlParams.get("fileID"))
