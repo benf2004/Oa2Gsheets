@@ -120,7 +120,7 @@
         const send = []
         for (let each of order){
             let num_each = parseInt(each)
-            send.push(data[num_each])
+            send.push([data[num_each]])
         }
         return send
     };
