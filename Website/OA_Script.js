@@ -186,6 +186,7 @@
         console.log("HEADERS:")
         console.log(headers)
         let json_h = headers.split(",")
+        console.log(json_h)
         let new_h = []
         for (let each of json_h){
             new_h += [each]
