@@ -179,7 +179,7 @@
     }
     if (has_headers === 'true'){
         console.log("processing headers")
-        const headers = JSON.parse(decodeURI(urlParams.get('headers')))
+        const headers = decodeURI(urlParams.get('headers')) //removed json.parse
         const headers_a = Object.values(headers)
         let h_range = getRange(headers_a, "1")
         sendToSheets(headers_a, h_range)
