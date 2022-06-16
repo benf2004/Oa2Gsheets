@@ -69,8 +69,12 @@
             let roi1 = "=" + a['9'] + rowStr + "/" + a['7'] + rowStr;
             let proceeds = "=" + a['8'] + "-" + a['14'] + rowStr;
             const my_list = [curDate, asinLink, title, roi1, currentRank, cate, sourceURL, cogs, price, profit1, refPer, notes, refFee1, pickPack, totFees1, sellLink, margin, other_fees, sales_tax, proceeds];
-            console.log(my_list)
-            return my_list
+            let new_send = []
+            for (let each of my_list) {
+                new_send.push([each])
+            }
+            console.log(new_send)
+            return new_send
         }; // end of dynamic stats function
 
 	var infoSend = dynamStats(checker, o1)
