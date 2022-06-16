@@ -176,7 +176,7 @@
         }
         return "";
     }
-    if (has_headers === true){
+    if (has_headers === 'true'){
         const headers = JSON.parse(decodeURI(urlParams.get('headers')))
         const headers_a = Object.values(headers)
         let h_range = getRange(headers_a, "1")
