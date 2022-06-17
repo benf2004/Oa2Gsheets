@@ -78,3 +78,6 @@ iframe {
     color: #000000;
     font-size: 20px
 }
+#notes #source_url{
+    width:100px;
+}
