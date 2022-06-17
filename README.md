@@ -25,5 +25,6 @@ LAUNCH TODO:
 OTHER TODO (non-essential new features):
 
 - [ ] Allow user to choose dynamic or static statistics
+- [ ] Transfer to GIS
 - [ ] Allow user to have multiple Google Sheets
 - [ ] Incentivize user to use their own Keepa key (discount?)
