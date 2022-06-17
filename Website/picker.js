@@ -31,7 +31,8 @@ function saveTable() {
         "margin": "16",
         "other_fees": "17",
         "sales_tax": "18",
-        "proceeds": "19"
+        "proceeds": "19",
+        "top_per": "20"
     }
     for(let each of my_order){
         num_order.push(id_num_dict[each])
