@@ -1,4 +1,5 @@
     // setup url parsing and create variable with ASIN
+    let data1;
     let url = window.location.search 
     const urlParams = new URLSearchParams(url);
    	var asin = decodeURI(urlParams.get("asin"))
@@ -71,10 +72,10 @@
         console.log("row num:" + rowFin)
         console.log("ROWWWwwYYWY")
         if (is_dynam === false) {
-            let data1 = staticStats()
+            data1 = staticStats()
         }
         else {
-            let data1 = dynamStats(rowFin, order_array); // gets statistics
+            data1 = dynamStats(rowFin, order_array); // gets statistics
         };
         let send_data = orderSend(data1, order_array)
         let range1 = getRange(order_array, rowFin) // creates range from row number
