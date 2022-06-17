@@ -99,7 +99,7 @@ async function main() {
         let drops = drop30 + "|" + drop90 + "|" + drop180
         let sales_rank = stats[3];
         let refFee = Number((price * refPer).toFixed(2))
-        let totFees = refFee + ship + other
+        let totFees = Number(refFee + ship + other.toFixed(2))
         let profit = Number((price - totFees - cogs).toFixed(2))
         let margin = (profit / price).toFixed(2)
         let roi1 = Number((profit / cogs).toFixed(2))
