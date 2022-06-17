@@ -11,9 +11,7 @@
       "matches": ["https://*.amazon.com/dp/*", "https://*.amazon.com/*/dp/*", "https://*.amazon.ca/dp/*", "https://*.amazon.ca/*/dp/*",
         "https://*.amazon.co.uk/dp/*", "https://*.amazon.co.uk/*/dp/*", "https://*.amazon.com.mx/dp/*", "https://*.amazon.com.mx/*/dp/*"],
       "run_at": "document_idle",
-      "js": [
-        "AMZscript.js"
-      ]
+      "js": ["AMZscript.js"]
     }
   ],
   "icons": {
@@ -38,6 +36,7 @@
     "cookies",
     "tabs",
     "storage",
-    "activeTab"
+    "activeTab",
+    "webNavigation"
   ]
 }
