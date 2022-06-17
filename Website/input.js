@@ -149,3 +149,8 @@ async function main() {
     document.getElementById("export").addEventListener("click", sendInfo);
 }
 main()
+
+function load_icon(){
+    document.getElementById("icon").className = "fas fa-spinner fa-spin"
+    setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 2000)
+}
