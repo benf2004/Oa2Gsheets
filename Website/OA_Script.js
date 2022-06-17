@@ -129,7 +129,7 @@
 
     function getRange(order, row_num){
         const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-        const range = "A" + row_num + ":" + alphabet[order.length - 1]
+        const range = "A" + row_num + ":" + alphabet[order.length - 1] + row_num
         console.log("range: " + range)
         return range
     };

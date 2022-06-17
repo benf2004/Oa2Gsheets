@@ -452,7 +452,7 @@ a:hover {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom center;
-  margin-bottom: 300px;
+  margin-bottom: 0px;
 }
 
 .banner-image {
