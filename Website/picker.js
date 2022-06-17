@@ -70,6 +70,7 @@ function fill_headers(){
     }
     var json_headers = encodeURIComponent(headers)
     var fileID = getCookie('fileID')
+    console.log(fileID)
     let send_headers = "https://oa2gsheets.com/Website/send?headers=" + json_headers + "&h=true" + "&fileID=" + fileID
     let encoded = send_headers
     console.log(encoded)

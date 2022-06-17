@@ -165,6 +165,7 @@
     }
 
     if (has_headers === 'true'){
+        var fileID = decodeURI(urlParams.get("fileID"))
         console.log("processing headers")
         const headers = urlParams.get('headers') //removed json.parse
         console.log("HEADERS:")
