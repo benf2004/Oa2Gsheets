@@ -151,7 +151,7 @@ async function main() {
         let stats = updateStats()
         console.log("SENDING")
         document.getElementById("icon").className = "fas fa-spinner fa-spin"
-        setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 3000)
+        setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 2000)
         console.log('File ID: ' + fileID);
         let price = Number(document.getElementById("price").value)
         let cogs = Number(document.getElementById("cogs").value)
