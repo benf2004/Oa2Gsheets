@@ -81,11 +81,11 @@ async function main() {
         return refPer
     } // end of determine refferal percentage function
 
-// updates necessary stats
-    function updateOnly() {
-
+    function round_2(num){
+        return (Math.round(num * 100) / 100).toFixed(2);
     }
 
+// updates necessary stats
      function updateStats() {
         //TODO: Determine what other stats to show (sales rank etc)
          console.log("updating")
@@ -103,13 +103,13 @@ async function main() {
         let drop180 = object1['products'][0]['stats']['salesRankDrops180']
         let drops = drop30 + "|" + drop90 + "|" + drop180
         let sales_rank = stats[3];
-        let refFee = +(price * refPer).toFixed(2)
-        let totFees = +(refFee + ship + other).toFixed(2)
-        let profit = +(price - totFees - cogs).toFixed(2)
-        let margin = +(profit / price).toFixed(2)
-        let roi1 = +(profit / cogs).toFixed(2)
+        let refFee = round_2(price * refPer)
+        let totFees = round_2(+refFee + ship + other)
+        let profit = round_2(price - totFees - cogs)
+        let margin = round_2(profit / price)
+        let roi1 = round_2(profit / cogs)
         let roiPer = roi1 * 100
-        let top_per = +((sales_rank / highest) * 100).toFixed(3)
+        let top_per = ((sales_rank / highest) * 100).toFixed(3)
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
         document.getElementById("ref_fee").innerHTML = refFee;
@@ -120,9 +120,7 @@ async function main() {
         document.getElementById("category").innerHTML = cat_name;
         document.getElementById("top").innerHTML = top_per + "%";
         document.getElementById("drops").innerHTML = drops
-        // if (ret===1) {
-         //    return [price, cogs, ship, other, stats, drop30, drop90, drop180, drops, sales_rank, refFee, totFees, profit, margin, roi1, roiPer, top_per]
-        // }
+        return [price, cogs, ship, other, stats, drop30, drop90, drop180, drops, sales_rank, refFee, totFees, profit, margin, roi1, roiPer, top_per]
     } // end update stats
 
 // sets asin and fileID vars from URL
