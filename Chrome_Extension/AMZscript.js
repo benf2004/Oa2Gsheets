@@ -37,15 +37,20 @@ function main () {
         chrome.storage.sync.get(['fileID'], function (result) {
             const fileID = result.fileID
             console.log(fileID)
-            chrome.storage.sync.get(['order'], function (result) {
-                let asin = getASIN(url1)
-                console.log(result)
-                const my_order = result.order
-                console.log(my_order)
-                let source = "https://www.oa2gsheets.com/Website/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin
-                console.log("source is" + source)
-                let frame1 = document.getElementById("input_oa2gsheets")
-                frame1.setAttribute("src", source)
+            chrome.storage.sync.get(['is_dynam'], function (result) {
+                const is_dynam = result.is_dynam
+                console.log(is_dynam)
+                console.log(typeof is_dynam)
+                chrome.storage.sync.get(['order'], function (result) {
+                    let asin = getASIN(url1)
+                    console.log(result)
+                    const my_order = result.order
+                    console.log(my_order)
+                    let source = "https://www.oa2gsheets.com/Website/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam
+                    console.log("source is" + source)
+                    let frame1 = document.getElementById("input_oa2gsheets")
+                    frame1.setAttribute("src", source)
+                });
             });
         });
     });

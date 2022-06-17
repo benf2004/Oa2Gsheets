@@ -81,8 +81,8 @@ async function main() {
         return refPer
     } // end of determine refferal percentage function
 
-// updates neccesary stats
-    async function updateStats() {
+// updates necessary stats
+     function updateStats() {
         //TODO: Determine what other stats to show (sales rank etc)
 
         // vars from docuent
@@ -97,24 +97,25 @@ async function main() {
         let drop90 = object1['products'][0]['stats']['salesRankDrops90']
         let drop180 = object1['products'][0]['stats']['salesRankDrops180']
         let drops = drop30 + "|" + drop90 + "|" + drop180
-        let currentRank = stats[3];
+        let sales_rank = stats[3];
         let refFee = Number((price * refPer).toFixed(2))
         let totFees = refFee + ship + other
         let profit = Number((price - totFees - cogs).toFixed(2))
         let margin = (profit / price).toFixed(2)
         let roi1 = Number((profit / cogs).toFixed(2))
         let roiPer = roi1 * 100
-        let top_per = Number((currentRank / highest) * 100).toFixed(3)
+        let top_per = Number((sales_rank / highest) * 100).toFixed(3)
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
         document.getElementById("ref_fee").innerHTML = refFee;
         document.getElementById("total").innerHTML = totFees;
         document.getElementById("roi").innerHTML = roiPer + "%";
         document.getElementById("margin").innerHTML = margin + "%";
-        document.getElementById("sr").innerHTML = currentRank;
+        document.getElementById("sr").innerHTML = sales_rank;
         document.getElementById("category").innerHTML = cat_name;
         document.getElementById("top").innerHTML = top_per + "%";
         document.getElementById("drops").innerHTML = drops
+        return [price, cogs, ship, other, stats, drop30, drop90, drop180, drops, sales_rank, refFee, totFees, profit, margin, roi1, roiPer, top_per]
     } // end update stats
 
 // sets asin and fileID vars from URL
@@ -123,10 +124,12 @@ async function main() {
     const urlParams = new URLSearchParams(url);
     const asin = decodeURI(urlParams.get("asin"))
     const fileID = decodeURI(urlParams.get("fileID"))
+    const is_dynam = decodeURI(urlParams.get('dy'))
     let order = urlParams.get("o")
 
     const object1 = await keepa(asin);
     const product = await object1['products'][0];
+    var title = product['title'];
     let pickPack = await product["fbaFees"]['pickAndPackFee'] / 100;
     let root_cat_id = await product['rootCategory']
     const cats = await get_cats(root_cat_id);
@@ -138,9 +141,9 @@ async function main() {
     const refPer = detrmRefPer(price, cats2)
     document.getElementById("price").value = price;
     document.getElementById("ship").value = pickPack;
-    updateStats()
 
     async function sendInfo() {
+        let stats = updateStats()
         console.log("SENDING")
         document.getElementById("icon").className = "fas fa-spinner fa-spin"
         setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 3000)
@@ -152,7 +155,7 @@ async function main() {
         let sourceURL = document.getElementById("source").value
         let notes = document.getElementById("notes").value
         console.log("ref per is(extension) : " + refPer)
-        let refURL = "https://oa2gsheets.com/Website/send.html?asin=" + asin + "&ship" + ship + "&other" + other + "&fileID=" + fileID + "&o=" + order + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+        let refURL = "https://oa2gsheets.com/Website/send.html?asin=" + asin + "&dy=" + is_dynam + "&top=" + stats[16] + "&drops=" + stats[8] + "&title=" + title + "&cat=" + cat_name + "&r=" + stats[9] + "&s=" + ship + "&other=" + other + "&fileID=" + fileID + "&o=" + order + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
         let codeURL = encodeURI(refURL)
         console.log("code URL: " + codeURL)
         document.getElementById("frame").src = codeURL

@@ -46,6 +46,13 @@ chrome.tabs.query({"active": true, "lastFocusedWindow": true}, async function (t
                 })
             })
 
+            getCookies(website, 'is_dynam', function(id){
+                console.log(id)
+                chrome.storage.sync.set({is_dynam: id}, function(){
+                    console.log("Success adding is_dynam to sync!")
+                })
+            })
+
         }
     }
 
