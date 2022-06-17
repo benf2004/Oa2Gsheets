@@ -21,7 +21,7 @@ input::-webkit-inner-spin-button {
 iframe {
     overflow: hidden;
     width: 0;
-    border: 0;
+    border: 0px;
     height: 0;
 }
 .column {
