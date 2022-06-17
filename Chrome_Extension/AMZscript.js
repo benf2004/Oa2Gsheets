@@ -56,7 +56,13 @@ function main () {
     });
 }
 
-main()
+const extpay = ExtPay('oa2gsheets')
+if (paid) {
+    main()
+}
+else {
+}
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         // listen for messages sent from background.js
