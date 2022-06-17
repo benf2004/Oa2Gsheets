@@ -6,7 +6,7 @@ async function main() {
 
     async function get_cats(id){
         let response1 = await fetch("https://api.keepa.com/category?key=" + jumbo + "&domain=1&category=" + id)
-        let my_data = response1.json()
+        let my_data = await response1.json()
         console.log(my_data)
         let category = my_data['categories'][id]
         return category
@@ -56,6 +56,7 @@ async function main() {
                     refPer = .12
                 }
             }
+
             for (let each1 in fifteenPer) {
                 if (catName == fifteenPer[each1]) {
                     refPer = .15
@@ -87,11 +88,9 @@ async function main() {
 
         // vars from docuent
         let price = Number(document.getElementById("price").value)
-        let cogs = Number(document.getElementById("cogsInput").value)
+        let cogs = Number(document.getElementById("cogs").value)
         let ship = Number(document.getElementById("ship").value)
         let other = Number(document.getElementById("other").value)
-        let sourceURL = document.getElementById("source").value
-        let notes = document.getElementById("notes").value
 
         // vars from keepa
         const currentStats = object1['products'][0]['stats']['current'];
@@ -99,14 +98,10 @@ async function main() {
         let refFee = Number((price * refPer).toPrecision(2))
         let totFees = refFee + ship + other
         let profit = Number((price - totFees - cogs).toPrecision(2))
-        if (price !== 0) {
-            let margin = (profit / price).toPrecision(2)
-        }
-        if (cogs !== 0) {
-            let roi1 = Number((profit / cogs).toPrecision(2))
-        }
+        let margin = (profit / price).toPrecision(2)
+        let roi1 = Number((profit / cogs).toPrecision(2))
         let roiPer = roi1 * 100
-        let top_per = Number(currentRank / highest * 100).toPrecision(2)
+        let top_per = Number((currentRank / highest) * 100).toPrecision(2)
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
         document.getElementById("ref_fee").innerHTML = refFee;
@@ -116,7 +111,6 @@ async function main() {
         document.getElementById("sr").innerHTML = currentRank;
         document.getElementById("category").innerHTML = cat_name;
         document.getElementById("top").innerHTML = top_per + "%";
-        document.getElementById("fbaFee").innerHTML = pickPack
     } // end update stats
 
 // sets asin and fileID vars from URL
@@ -128,39 +122,43 @@ async function main() {
     let order = urlParams.get("o")
 
     const object1 = await keepa(asin);
-    setTimeout(() => {console.log("delay")}, 100);
-    const product = object1['products'][0];
-    let pickPack = product["fbaFees"]['pickAndPackFee'] / 100;
-    let root_cat_id = product['rootCategory']
+    const product = await object1['products'][0];
+    let pickPack = await product["fbaFees"]['pickAndPackFee'] / 100;
+    let root_cat_id = await product['rootCategory']
     const cats = await get_cats(root_cat_id);
-    setTimeout(() => {console.log("delay")}, 100);
-    let cat_name = cats['name'];
-    let highest = cats['highestRank']
-    const currentStats = object1['products'][0]['stats']['current'];
-    let price = currentStats[1] / 100;
+    let cat_name = await cats['name'];
+    let highest = await cats['highestRank']
+    const currentStats = await object1['products'][0]['stats']['current'];
+    let price = await currentStats[1] / 100;
+    let cats2 = await product["categoryTree"]
     const refPer = detrmRefPer(price, cats2)
     document.getElementById("price").value = price;
     document.getElementById("ship").value = pickPack;
+    updateStats()
 
     async function sendInfo() {
+        console.log("SENDING")
         document.getElementById("icon").className = "fas fa-spinner fa-spin"
         setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 2000)
         console.log('File ID: ' + fileID);
         let price = Number(document.getElementById("price").value)
-        let cogs = Number(document.getElementById("cogsInput").value)
-        let sourceURL = document.getElementById("SourceUrl").value
+        let cogs = Number(document.getElementById("cogs").value)
+        let ship = Number(document.getElementById("ship").value)
+        let other = Number(document.getElementById("other").value)
+        let sourceURL = document.getElementById("source").value
         let notes = document.getElementById("notes").value
         console.log("ref per is(extension) : " + refPer)
-        let refURL = "https://oa2gsheets.com/Website/send.html?asin=" + asin + "&fileID=" + fileID + "&o=" + order + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+        let refURL = "https://oa2gsheets.com/Website/send.html?asin=" + asin + "&ship" + ship + "&other" + other + "&fileID=" + fileID + "&o=" + order + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
         let codeURL = encodeURI(refURL)
         console.log("code URL: " + codeURL)
         document.getElementById("frame").src = codeURL
     }
 
     document.getElementById("price").addEventListener("input", updateStats);
-    document.getElementById("cogsInput").addEventListener("input", updateStats);
+    document.getElementById("other").addEventListener("input", updateStats);
+    document.getElementById("cogs").addEventListener("input", updateStats);
     document.getElementById("notes").addEventListener("input", updateStats);
-    document.getElementById("export").addEventListener("click", sendInfo);
+    document.getElementById("send").addEventListener("click", sendInfo);
 }
 main()
 

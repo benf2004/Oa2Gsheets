@@ -13,7 +13,7 @@
     <div class="">
         <div class="row">
             <div class="column">
-                <p><strong>COGS: </strong> <input type="number" id="cogs1" value="" autocomplete="off" class="inputs"/>
+                <p><strong>COGS: </strong> <input type="number" id="cogs" value="" autocomplete="off" class="inputs"/>
                 <p><strong>ASIN: </strong><span id="asin"></span>&emsp; &emsp;
                 <p><strong>Profit ($): </strong><span id="profit"></span></p>
                 <p><strong>Referral Fee: </strong><span id="ref_fee"></span></p>
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="button" onclick="load_icon()">
+<div class="button" id="send">
     Send To Gsheets
     <div></div>
     <i id="icon" class="fa-brands fa-google-drive"></i>
