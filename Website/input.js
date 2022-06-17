@@ -107,8 +107,7 @@ async function main() {
         let totFees = round_2(+refFee + ship + other)
         let profit = round_2(price - totFees - cogs)
         let margin = round_2(profit * 100 / price)
-        let roi1 = round_2(profit / cogs)
-        let roiPer = roi1 * 100
+        let roi1 = round_2(profit * 100 / cogs)
         let top_per = ((sales_rank / highest) * 100).toFixed(3)
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
@@ -120,7 +119,7 @@ async function main() {
         document.getElementById("category").innerHTML = cat_name;
         document.getElementById("top").innerHTML = top_per + "%";
         document.getElementById("drops").innerHTML = drops
-        return [price, cogs, ship, other, stats, drop30, drop90, drop180, drops, sales_rank, refFee, totFees, profit, margin, roi1, roiPer, top_per]
+        return [price, cogs, ship, other, stats, drop30, drop90, drop180, drops, sales_rank, refFee, totFees, profit, margin, roi1, top_per]
     } // end update stats
 
 // sets asin and fileID vars from URL
