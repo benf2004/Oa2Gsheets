@@ -106,7 +106,7 @@ async function main() {
         let refFee = round_2(price * refPer)
         let totFees = round_2(+refFee + ship + other)
         let profit = round_2(price - totFees - cogs)
-        let margin = round_2(profit / price)
+        let margin = round_2(profit * 100 / price)
         let roi1 = round_2(profit / cogs)
         let roiPer = roi1 * 100
         let top_per = ((sales_rank / highest) * 100).toFixed(3)
