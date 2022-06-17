@@ -12,7 +12,6 @@ async function main() {
         return category
     }
 
-// Determines Refferal Percentage (refPer) by cycling through categories and checking name
     function detrmRefPer(price, cats2) {
         const eightPer = [
             'Camera & Photo', 'Full-Size Appliances', "Cell Phone Devices",
@@ -99,13 +98,13 @@ async function main() {
         let drop180 = object1['products'][0]['stats']['salesRankDrops180']
         let drops = drop30 + "|" + drop90 + "|" + drop180
         let currentRank = stats[3];
-        let refFee = Number((price * refPer).toPrecision(2))
+        let refFee = Number((price * refPer).toFixed(2))
         let totFees = refFee + ship + other
-        let profit = Number((price - totFees - cogs).toPrecision(2))
-        let margin = (profit / price).toPrecision(2)
-        let roi1 = Number((profit / cogs).toPrecision(2))
+        let profit = Number((price - totFees - cogs).toFixed(2))
+        let margin = (profit / price).toFixed(2)
+        let roi1 = Number((profit / cogs).toFixed(2))
         let roiPer = roi1 * 100
-        let top_per = Number((currentRank / highest) * 100).toPrecision(2)
+        let top_per = Number((currentRank / highest) * 100).toFixed(3)
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
         document.getElementById("ref_fee").innerHTML = refFee;
@@ -144,7 +143,7 @@ async function main() {
     async function sendInfo() {
         console.log("SENDING")
         document.getElementById("icon").className = "fas fa-spinner fa-spin"
-        setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 2000)
+        setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 3000)
         console.log('File ID: ' + fileID);
         let price = Number(document.getElementById("price").value)
         let cogs = Number(document.getElementById("cogs").value)
