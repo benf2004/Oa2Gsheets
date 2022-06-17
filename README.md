@@ -1,6 +1,5 @@
 CORE TODO:
 
-- [x] Transition to new Google Login (sign in button styling)
 - [x] Finish input design & choices
 - [x] Allow user to pick which columns to include in Google Sheets
 - [x] Accept column order & handle when sending to spreadsheet
