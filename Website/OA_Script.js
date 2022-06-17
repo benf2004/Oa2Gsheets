@@ -42,6 +42,7 @@
             num += 1
         }
         const a = alpha_dict
+        console.log(JSON.stringify(a))
         console.log("AlPHA DICT:" + a)
 
         let refFee1 = "=" + a['8'] + rowStr + "*" + a['10'] + rowStr;
