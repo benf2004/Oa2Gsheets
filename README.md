@@ -1,21 +1,29 @@
 CORE TODO:
 
 - [x] Transition to new Google Login (sign in button styling)
-- [x] Fix Google Picker
-- [ ] Finish input design & choices
+- [x] Finish input design & choices
 - [x] Allow user to pick which columns to include in Google Sheets
-- [ ] Accept column order & handle when sending to spreadsheet
-- [ ] Fix spreadsheet ID handling
-- [ ] Properly inject iFrame of input page into Amazon product page
-- [ ] Format basic website pages
+- [x] Accept column order & handle when sending to spreadsheet
+- [x] Fix spreadsheet ID handling
+- [x] Properly inject iFrame of input page into Amazon product page
+- [ ] Make sure send accepts new fee inputs in URL
+- [ ] Make new popup dashboard
+- [ ] Setup free trial & payment verification in extension
+- [ ] Format picker page
+- [ ] Format homepage
+- [ ] Fix Google Picker/OAuth
+
 
 LAUNCH TODO:
 
-- [ ] Setup pricing (through Gumroad & Google Groups?)
+- [x] Setup pricing (through ExtPay)
 - [ ] Submit extension to Google Chrome Webstore
 - [ ] Register app in Google API
+- [ ] Reach out to affiliates 
+- [ ] Get beta testers
 
-OTHER TODO (non-essential new features): 
+
+OTHER TODO (non-essential new features):
 
 - [ ] Allow user to choose dynamic or static statistics
 - [ ] Allow user to have multiple Google Sheets
