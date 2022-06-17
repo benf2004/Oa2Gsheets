@@ -141,6 +141,7 @@ async function main() {
     const refPer = detrmRefPer(price, cats2)
     document.getElementById("price").value = price;
     document.getElementById("ship").value = pickPack;
+    updateStats()
 
     async function sendInfo() {
         let stats = updateStats()
