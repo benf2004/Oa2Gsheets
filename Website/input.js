@@ -93,8 +93,12 @@ async function main() {
         let other = Number(document.getElementById("other").value)
 
         // vars from keepa
-        const currentStats = object1['products'][0]['stats']['current'];
-        let currentRank = currentStats[3];
+        const stats = object1['products'][0]['stats']['current'];
+        let drop30 = object1['products'][0]['stats']['salesRankDrops30']
+        let drop90 = object1['products'][0]['stats']['salesRankDrops90']
+        let drop180 = object1['products'][0]['stats']['salesRankDrops180']
+        let drops = drop30 + "|" + drop90 + "|" + drop180
+        let currentRank = stats[3];
         let refFee = Number((price * refPer).toPrecision(2))
         let totFees = refFee + ship + other
         let profit = Number((price - totFees - cogs).toPrecision(2))
@@ -111,6 +115,7 @@ async function main() {
         document.getElementById("sr").innerHTML = currentRank;
         document.getElementById("category").innerHTML = cat_name;
         document.getElementById("top").innerHTML = top_per + "%";
+        document.getElementById("drops").innerHTML = drops
     } // end update stats
 
 // sets asin and fileID vars from URL
