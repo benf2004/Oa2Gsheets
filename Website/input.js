@@ -1,9 +1,15 @@
 async function main() {
     async function keepa(asin) {
-        let jumbo = "bcttbfvkurmk8mqm5hdo5fvdvarqiibhpehs2pshpe535fpkov2u8b107me6q79m";
         let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=1&asin=' + asin + '&stats=0')
-        const data1 = response.json()
-        return data1
+        return response.json()
+    }
+
+    async function get_cats(id){
+        let response1 = await fetch("https://api.keepa.com/category?key=" + jumbo + "&domain=1&category=" + id)
+        let my_data = response1.json()
+        console.log(my_data)
+        let category = my_data['categories'][id]
+        return category
     }
 
 // Determines Refferal Percentage (refPer) by cycling through categories and checking name
@@ -80,58 +86,66 @@ async function main() {
         //TODO: Determine what other stats to show (sales rank etc)
 
         // vars from docuent
-        var price = Number(document.getElementById("price").value)
-        const cogs = Number(document.getElementById("cogsInput").value)
-        var sourceURL = document.getElementById("SourceUrl").value
-        var notes = document.getElementById("notes").value
+        let price = Number(document.getElementById("price").value)
+        let cogs = Number(document.getElementById("cogsInput").value)
+        let ship = Number(document.getElementById("ship").value)
+        let other = Number(document.getElementById("other").value)
+        let sourceURL = document.getElementById("source").value
+        let notes = document.getElementById("notes").value
 
         // vars from keepa
         const currentStats = object1['products'][0]['stats']['current'];
-        var title = product['title'];
-        var currentRank = currentStats[3];
-        var fbaFees = product["fbaFees"];
-        var pickPack = fbaFees['pickAndPackFee'] / 100;
-        var cate = cats2[0]['name']
-        var today = new Date();
-        var curDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
-        var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin
+        let currentRank = currentStats[3];
         let refFee = Number((price * refPer).toPrecision(2))
-        let totFees = refFee + pickPack
-        let profit1 = Number((price - totFees - cogs).toPrecision(2))
-        if (price != 0) {
+        let totFees = refFee + ship + other
+        let profit = Number((price - totFees - cogs).toPrecision(2))
+        if (price !== 0) {
             let margin = (profit / price).toPrecision(2)
         }
-        if (cogs != 0) {
-            var roi1 = Number((profit1 / cogs).toPrecision(2))
+        if (cogs !== 0) {
+            let roi1 = Number((profit / cogs).toPrecision(2))
         }
-        let proceeds = (price - totFees).toPrecision(2)
-        let roiPer = roi1 * 100 + "%"
-        document.getElementById("roi").innerHTML = "ROI: " + roiPer;
-        document.getElementById("profit").innerHTML = "PROFIT: " + profit1
-        document.getElementById("fbaFee").innerHTML = "FBA FEE: " + pickPack
-        document.getElementById("refFee").innerHTML = "REFERRAL FEE: " + refFee
+        let roiPer = roi1 * 100
+        let top_per = Number(currentRank / highest * 100).toPrecision(2)
+        document.getElementById("asin").innerHTML = asin
+        document.getElementById("profit").innerHTML = profit;
+        document.getElementById("ref_fee").innerHTML = refFee;
+        document.getElementById("total").innerHTML = totFees;
+        document.getElementById("roi").innerHTML = roiPer + "%";
+        document.getElementById("margin").innerHTML = margin + "%";
+        document.getElementById("sr").innerHTML = currentRank;
+        document.getElementById("category").innerHTML = cat_name;
+        document.getElementById("top").innerHTML = top_per + "%";
+        document.getElementById("fbaFee").innerHTML = pickPack
     } // end update stats
 
 // sets asin and fileID vars from URL
+    let jumbo = "bcttbfvkurmk8mqm5hdo5fvdvarqiibhpehs2pshpe535fpkov2u8b107me6q79m";
     let url = window.location.search
     const urlParams = new URLSearchParams(url);
     const asin = decodeURI(urlParams.get("asin"))
     const fileID = decodeURI(urlParams.get("fileID"))
     let order = urlParams.get("o")
 
-
     const object1 = await keepa(asin);
-    setTimeout(() => {console.log("delay")}, 1000);
+    setTimeout(() => {console.log("delay")}, 100);
     const product = object1['products'][0];
-    let cats2 = product["categoryTree"];
+    let pickPack = product["fbaFees"]['pickAndPackFee'] / 100;
+    let root_cat_id = product['rootCategory']
+    const cats = await get_cats(root_cat_id);
+    setTimeout(() => {console.log("delay")}, 100);
+    let cat_name = cats['name'];
+    let highest = cats['highestRank']
     const currentStats = object1['products'][0]['stats']['current'];
     let price = currentStats[1] / 100;
     const refPer = detrmRefPer(price, cats2)
     document.getElementById("price").value = price;
+    document.getElementById("ship").value = pickPack;
 
     async function sendInfo() {
-        console.log('Value currently is ' + fileID);
+        document.getElementById("icon").className = "fas fa-spinner fa-spin"
+        setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 2000)
+        console.log('File ID: ' + fileID);
         let price = Number(document.getElementById("price").value)
         let cogs = Number(document.getElementById("cogsInput").value)
         let sourceURL = document.getElementById("SourceUrl").value
@@ -150,7 +164,3 @@ async function main() {
 }
 main()
 
-function load_icon(){
-    document.getElementById("icon").className = "fas fa-spinner fa-spin"
-    setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 2000)
-}

@@ -25,21 +25,22 @@
             </div>
             <div class="column">
                 <p><strong>Price: </strong> <input id="price" type="number" value="" autocomplete="off" type="text" class="inputs"/></p>
+                <p><strong>ROI: </strong><span id="roi"></span></p>
+                <p><strong>Margin: </strong><span id="margin"></span></p>
                 <p><strong>Sales Rank: </strong><span id="sr"></span></p>
-                <p><strong>ROI (%): </strong><span id="roi"></span></p>
-                <p><strong>Margin (%): </strong><span id="margin"></span></p>
+                <p><strong>Category: </strong><span id="category"></span></p>
+                <p><strong>Top: </strong><span id="top"></span></p>
                 <p><strong>Drops: </strong><span id="drops"></span></p>
-                <p><strong>1</strong><span id="1"></span></p>
-                <p><strong>2</strong><span id="2"></span></p>
                 <p><strong>Notes: </strong><input type="text" id="notes" value="" autocomplete="off" class="inputs"/></p>
             </div>
     </div>
 </div>
-    <div class="button" onclick="load_icon()">
-        Send To Gsheets
-        <div></div>
-        <i id="icon" class="fa-brands fa-google-drive"></i>
-    </div>
+
+<div class="button" onclick="load_icon()">
+    Send To Gsheets
+    <div></div>
+    <i id="icon" class="fa-brands fa-google-drive"></i>
+</div>
 
 <iframe src="" id="frame"></iframe>
 <script src="input.js">
