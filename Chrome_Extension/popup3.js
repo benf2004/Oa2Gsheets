@@ -1,11 +1,22 @@
 function monthly() {
-    chrome.storage.local.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
-    chrome.storage.sync.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function() {
-        chrome.runtime.sendMessage('monthly_activated')
-        chrome.storage.sync.set({oa_plan: 'oa2gsheets'})
-        const extpay = ExtPay('oa2gsheets')
-        extpay.openPaymentPage()
-    })
+    chrome.storage.sync.get(['oa_plan']), function (result) {
+        let plan = result.oa_plan
+        if (result.oa_plan === "oa2gsheets-lifetime") {
+            chrome.storage.local.remove(['extensionpay_api_key', 'extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
+            chrome.storage.sync.remove(['extensionpay_api_key', 'extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function () {
+                chrome.runtime.sendMessage('monthly_activated')
+                chrome.storage.sync.set({oa_plan: 'oa2gsheets'})
+                const extpay = ExtPay('oa2gsheets')
+                extpay.openPaymentPage()
+            })
+        }
+        else {
+            chrome.runtime.sendMessage('monthly_activated')
+            chrome.storage.sync.set({oa_plan: 'oa2gsheets'})
+            const extpay = ExtPay('oa2gsheets')
+            extpay.openPaymentPage()
+        }
+    }
 }
 
 function lifetime(){
@@ -38,14 +49,29 @@ document.getElementById('oa2gsheets').addEventListener("click", monthly)
 document.getElementById('oa2gsheets_lifetime').addEventListener("click", lifetime)
 document.getElementById('trial').addEventListener("click", start_trial)
 
+function check_trial(user) {
+    const now = new Date();
+    const days_21 = 1000*60*60*24*21 // in milliseconds
+    if (user.trialStartedAt && (now - user.trialStartedAt) < days_21) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
 async function is_paid() {
     chrome.storage.sync.get(['oa_plan'], async function (result) {
         let plan = result.oa_plan
         console.log(plan)
         const extpay = ExtPay(plan)
         const user = await extpay.getUser();
-        let paid = user.paid
-        handle_paid(paid)
+        if (check_trial(user) === true){
+            handle_paid(true)
+        }
+        else {
+            handle_paid(user.paid)
+        }
     });
 }
 
