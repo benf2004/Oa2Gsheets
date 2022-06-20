@@ -50,12 +50,13 @@ chrome.runtime.sendMessage('is_paid', function (response) {
         let is_paid = response;
         console.log(is_paid)
         if (is_paid === "true") {
+            console.log("PAID")
             main()
-        } else {
+        }
+        else {
             console.log("UNPAID")
         }
     });
-
 
 // updates window when user switches variation
 chrome.runtime.onMessage.addListener(
