@@ -12,6 +12,11 @@
         "https://*.amazon.co.uk/dp/*", "https://*.amazon.co.uk/*/dp/*", "https://*.amazon.com.mx/dp/*", "https://*.amazon.com.mx/*/dp/*"],
       "run_at": "document_idle",
       "js": ["AMZscript.js"]
+    },
+    {
+      "matches": ["https://extensionpay.com/*"],
+      "js": ["ExtPay.js"],
+      "run_at": "document_start"
     }
   ],
   "icons": {

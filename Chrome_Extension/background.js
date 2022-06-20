@@ -1,9 +1,4 @@
-// background.js
-
 importScripts('ExtPay.js') // or `import` / `require` if using a bundler
-
-var extpay = ExtPay('oa2gsheets'); // Careful! See note below
-extpay.startBackground();
 
 chrome.tabs.onUpdated.addListener(
     function(tabId, changeInfo, tab) {
@@ -57,3 +52,43 @@ chrome.webNavigation.onCommitted.addListener(() => {
         })
     })
 }, filter);
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        return true;
+        if (request === "is_paid") {
+            chrome.storage.sync.get(['oa_plan'], function(result) {
+                let plan = result.oa_plan
+                const extpay = ExtPay(plan)
+                extpay.getUser().then(user => {
+                    console.log("MESSAGE RECIEVED")
+                    let send;
+                    if (user.paid) {
+                        send = "true"
+                    }
+                    else if (user.paid === false){
+                        send = "false"
+                    }
+                    sendResponse(send)
+
+                })
+            });
+        }
+        if (request === "monthly_activated"){
+                console.log("received message")
+                var extpay = ExtPay('oa2gsheets');
+                extpay.startBackground();
+                sendResponse("monthly started")
+
+        }
+        if (request === "lifetime_activated"){
+            console.log("received message")
+            chrome.storage.local.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
+            chrome.storage.sync.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function() {
+                var extpay = ExtPay('oa2gsheets-lifetime')
+                extpay.startBackground();
+                sendResponse("lifetime activated")
+            })
+        }
+    }
+);

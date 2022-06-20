@@ -18,17 +18,6 @@ function getASIN(url) {
     return asin
 }
 
-function is_product_page(url) {
-    var urlArray = url.split('/')
-    let return_val = false
-    for (let each in urlArray) {
-        if (urlArray[each] === "dp"){
-            return_val = true
-        }
-    }
-    return return_val
-}
-
 function main () {
     fetch(chrome.runtime.getURL('/amz.html')).then(r => r.text()).then(html => {
         var url1 = document.location.href
@@ -56,13 +45,19 @@ function main () {
     });
 }
 
-const extpay = ExtPay('oa2gsheets')
-if (paid) {
-    main()
-}
-else {
-}
 
+chrome.runtime.sendMessage('is_paid', function (response) {
+        let is_paid = response;
+        console.log(is_paid)
+        if (is_paid === "true") {
+            main()
+        } else {
+            console.log("UNPAID")
+        }
+    });
+
+
+// updates window when user switches variation
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         // listen for messages sent from background.js
