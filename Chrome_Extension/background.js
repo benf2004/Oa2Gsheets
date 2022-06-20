@@ -19,11 +19,11 @@ function getCookies(domain, name, callback) {
     });
 }
 
-const website = 'http://oa2gsheets.com/Website'
+const website = 'http://oa2gsheets.com/'
 const filter = {
     url: [
         {
-            urlMatches: 'https://oa2gsheets.com/Website/picker',
+            urlMatches: 'https://oa2gsheets.com/picker',
         },
     ],
 };
