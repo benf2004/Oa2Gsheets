@@ -1,7 +1,7 @@
 function monthly() {
     chrome.storage.sync.get(['oa_plan']), function (result) {
         let plan = result.oa_plan
-        if (result.oa_plan === "oa2gsheets-lifetime") {
+        if (plan === "oa2gsheets-lifetime") {
             chrome.storage.local.remove(['extensionpay_api_key', 'extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
             chrome.storage.sync.remove(['extensionpay_api_key', 'extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function () {
                 chrome.runtime.sendMessage('monthly_activated')
@@ -11,8 +11,6 @@ function monthly() {
             })
         }
         else {
-            chrome.runtime.sendMessage('monthly_activated')
-            chrome.storage.sync.set({oa_plan: 'oa2gsheets'})
             const extpay = ExtPay('oa2gsheets')
             extpay.openPaymentPage()
         }
@@ -67,7 +65,7 @@ async function is_paid() {
         const extpay = ExtPay(plan)
         const user = await extpay.getUser();
         if (check_trial(user) === true){
-            handle_paid(true)
+            handle_paid("trial")
         }
         else {
             handle_paid(user.paid)
@@ -95,6 +93,9 @@ function handle_paid(p) {
                 document.getElementById('para').innerHTML = 'hey'
             }
         })
+    }
+    else if (paid === "trial"){
+        document.getElementById('trial_div').remove()
     }
     else {
         document.getElementById("para").innerHTML = "false"
