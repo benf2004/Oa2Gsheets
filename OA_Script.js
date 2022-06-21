@@ -24,12 +24,12 @@
 	var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin
 
     var price = decodeURI(urlParams.get("price"));
-    var top_per = +(decodeURI(urlParams.get("top"))) / 100;
+    var top_per = "=TO_PERCENT(" + (decodeURI(urlParams.get("top"))) / 100 + ")";
 	var cogs = decodeURI(urlParams.get("cogs"))
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURI(urlParams.get("notes"))
     console.log("notes is " + notes)
-    var refPer = decodeURI(urlParams.get("refPer"));
+    var refPer = "=TO_PERCENT(" + decodeURI(urlParams.get("refPer")) + ")";
     var is_dynam = decodeURI(urlParams.get("dy"))
 
 
@@ -48,12 +48,12 @@
         console.log(a)
 
         // refer to picker id_num_dict to see order
-        let refFee1 = "=" + a['8'] + rowStr + "*" + a['10'] + rowStr;
+        let refFee1 = "=ROUND(" + a['8'] + rowStr + "*" + a['10'] + rowStr + ", 2)";
         let totFees1 = "=" + a['12'] + rowStr + "+" + a['13'] + rowStr + '+' + a['17'] + rowStr;
         let profit1 = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr;
-        let margin = "=" + a['9'] + rowStr + "/" + a['8'] + rowStr;
+        let margin = "=TO_PERCENT(" + a['9'] + rowStr + "/" + a['8'] + rowStr + ")";
         let sales_tax = 0;
-        let roi1 = "=" + a['7'] + rowStr + "/" + a['9'] + rowStr;
+        let roi1 = "=TO_PERCENT(" + a['7'] + rowStr + "/" + a['9'] + rowStr + ")";
         let proceeds = "=" + a['8'] + "-" + a['14'] + rowStr;
         const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per];
         console.log(my_list)
