@@ -288,7 +288,15 @@
         if (data.action == google.picker.Action.PICKED) {
             var fileId = data.docs[0].id;
             document.cookie = "fileID=" + fileId + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
+            open_file(fileId)
         }
+    }
+
+    function open_file(fileID) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'GET https://www.googleapis.com/drive/v3/files/' + fileID);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send();
     }
 </script>
 </body>
