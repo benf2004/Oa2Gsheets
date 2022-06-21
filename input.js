@@ -159,8 +159,10 @@ async function main() {
         let other = Number(document.getElementById("other").value)
         let sourceURL = document.getElementById("source").value
         let notes = document.getElementById("notes").value
+        let enc_title = encodeURIComponent(title)
+        let enc_cat = encodeURIComponent(cat_name)
         console.log("ref per is(extension) : " + refPer)
-        let refURL = "https://oa2gsheets.com/send.html?asin=" + asin + "&dy=" + is_dynam + "&top=" + stats[15] + "&drops=" + stats[8] + "&title=" + title + "&cat=" + cat_name + "&r=" + stats[9] + "&s=" + ship + "&other=" + other + "&fileID=" + fileID + "&o=" + order + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+        let refURL = "https://oa2gsheets.com/send.html?asin=" + asin + "&dy=" + is_dynam + "&top=" + stats[15] + "&drops=" + stats[8] + "&title=" + enc_title + "&cat=" + enc_cat + "&r=" + stats[9] + "&s=" + ship + "&other=" + other + "&fileID=" + fileID + "&o=" + order + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
         let codeURL = encodeURI(refURL)
         console.log("code URL: " + codeURL)
         document.getElementById("frame").src = codeURL
