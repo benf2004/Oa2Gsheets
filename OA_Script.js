@@ -24,7 +24,7 @@
 	var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin
 
     var price = decodeURI(urlParams.get("price"));
-    var top_per = decodeURI(urlParams.get("top"));
+    var top_per = +(decodeURI(urlParams.get("top"))) / 100;
 	var cogs = decodeURI(urlParams.get("cogs"))
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURI(urlParams.get("notes"))

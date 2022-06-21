@@ -19,16 +19,17 @@ function getCookies(domain, name, callback) {
     });
 }
 
+console.log("BACKGROUND HElLO")
 const website = 'http://www.oa2gsheets.com/'
 const filter = {
     url: [
         {
-            urlMatches: 'https://oa2gsheets.com/picker',
+            urlMatches: 'https://www.oa2gsheets.com/picker',
         },
     ],
 };
 
-chrome.webNavigation.onCommitted.addListener(() => {
+chrome.webNavigation.onCompleted.addListener(() => {
     console.log("TRIGGERED")
     getCookies(website, "fileID", function (id) {
         console.log(id);
@@ -51,7 +52,7 @@ chrome.webNavigation.onCommitted.addListener(() => {
             console.log("Success adding is_dynam to sync!")
         })
     })
-}, filter);
+});
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
