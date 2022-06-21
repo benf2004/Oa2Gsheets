@@ -26,8 +26,8 @@
           src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+
   <link href="Website/redips_table/style.css" media="screen" rel="stylesheet" type="text/css"/>
-  <link href="picker.css" rel="stylesheet">
 
   <!-- Main Stylesheet -->
   <link href="Website/css/style.css" rel="stylesheet">
@@ -49,7 +49,7 @@
 <!-- navigation -->
 <section class="fixed-top navigation">
   <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-md navbar-light">
       <a class="navbar-brand" href="index.html"><img src="Website/images/logo.png" id="logo" alt="logo"></a>
       <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
         aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,14 @@
 
 <!-- about us -->
 <section class="section-lg about pb-0">
-  <div id="redips-drag" style="overflow-x:auto; max-width: 400px">
+  <h1>Customize Google Sheet</h1>
+  <button class="btn btn-success" id="authorize_button" onclick="handleAuthClick()">Pick Spreadsheet</button>
+  <button class="btn btn-outline-danger" id="signout_button" onclick="handleSignoutClick()">Disconnect Google Sheet</button>
+  <button onclick="saveTable()">Save Table</button>
+  <button onclick="fill_headers()">Fill Headers</button>
+
+  <div id="redips-drag">
+    <div class="table-responsive md" id="outer">
     <table id="tab">
       <colgroup>
         <col class="a">
@@ -145,17 +152,17 @@
         <td class="redips"><div id="roi" class="redips-drag">ROI</div></td>
         <td class="redips"><div id="sr" class="redips-drag">Sales Rank</div></td>
         <td class="redips"><div id="cat_name" class="redips-drag">Category name</div></td>
+        <td class="redips"><div id="notes" class="redips-drag">Notes</div></td>
         <td class="redips"><div id="source_url" class="redips-drag">Source URL</div></td>
         <td class="redips"><div id="cogs" class="redips-drag">COGS</div></td>
         <td class="redips"><div id="price" class="redips-drag">Price</div></td>
         <td class="redips"><div id="profit" class="redips-drag">Profit</div></td>
         <td class="redips"><div id="ref_per" class="redips-drag">Referral %</div></td>
-        <td class="redips"><div id="notes" class="redips-drag">Notes</div></td>
         <td class="redips"><div id="ref_fee" class="redips-drag">Referral Fee ($)</div></td>
-        <td class="redips"><div id="ship" class="redips-drag">Shipping</div></td>
+        <td class="redips"><div id="ship" class="redips-drag">Shipping Fee</div></td>
+        <td class="redips"><div id="other_fees" class="redips-drag" >Other Fees</div></td>
         <td class="redips"><div id="tot_fee" class="redips-drag">Total Fee</div></td>
         <td class="redips"><div id="sell_link" class="redips-drag">Seller link</div></td>
-        <td class="redips"></td>
         <td class="redips"></td>
         <td class="redips"></td>
         <td class="redips"></td>
@@ -168,13 +175,13 @@
       </tr>
       </tbody>
     </table>
+    </div>
 
     <table class="other_columns">
       </tbody>
       <tr>
         <td>
           <div class="redips-drag" id="margin">Gross Margin</div>
-          <div class="redips-drag" id="other_fees">Other Fees</div>
           <div class="redips-drag" id="sales_tax">Sales Tax</div>
           <div class="redips-drag" id="proceeds">Seller Proceeds</div>
         </td>
@@ -189,11 +196,6 @@
       <input type="checkbox" checked>
       <span class="slider round"></span>
     </label>
-    <!-- Checked switch -->
-    <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
-    </div>
-
   </div>
   <!-- background shapes -->
   <img src="Website/images/background-shape/green-dot.png" alt="background-shape" class="about-bg-1 up-down-animation">
@@ -204,54 +206,7 @@
   <img src="Website/images/background-shape/service-half-cycle.png" alt="background-shape" class="about-bg-6 left-right-animation">
 </section>
 <!-- /about us -->
-
-<!-- product -->
-<section class="section product" style="background-image: url(Website/images/backgrounds/about-bg.png);">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-title">Our Product</h2>
-        <p class="mb-100">Far far away, behind the word mountains, far from the <br> countries Vokalia and Consonantia.</p>
-      </div>
-      <div class="col-md-4 col-sm-6 mb-50">
-        <a href="#"><img src="Website/images/product/product-1.jpg" alt="product-img" class="rounded w-100 img-fluid"></a>
-      </div>
-      <div class="col-md-4 col-sm-6 mb-50">
-        <a href="#"><img src="Website/images/product/product-2.jpg" alt="product-img" class="rounded w-100 img-fluid"></a>
-      </div>
-      <div class="col-md-4 col-sm-6 mb-50">
-        <a href="#"><img src="Website/images/product/product-3.jpg" alt="product-img" class="rounded w-100 img-fluid"></a>
-      </div>
-      <div class="col-12 text-center">
-        <a href="#" class="btn btn-primary">Explore More Product</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- our vision -->
-<section class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h2 class="section-title">Our Vision</h2>
-        <p>Far far away, behind the word mountains,
-          far from the countries Vokalia and Consonantia,
-          there live the blind texts. Separated they
-          live in Bookmarksgrove right at the coast of the
-          Semantics, a large language ocean.</p>
-      </div>
-      <div class="col-md-6">
-        <img src="Website/images/about/vision.png" alt="vision" class="img-fluid w-100">
-      </div>
-    </div>
-  </div>
 </section>
-<!-- /our vision -->
-</section>
-
-<!-- /product -->
-
-
 
 <!-- footer -->
 <footer class="footer-section footer" style="background-image: url(Website/images/backgrounds/footer-bg.png);">
@@ -260,34 +215,22 @@
       <div class="col-lg-4 text-center text-lg-left mb-4 mb-lg-0">
         <!-- logo -->
         <a href="index.html">
-          <img class="img-fluid" src="Website/images/logo.png" alt="logo">
+          <img class="img-fluid" src="Website/images/logo.png" id="logo1" alt="logo">
         </a>
       </div>
       <!-- footer menu -->
       <nav class="col-lg-8 align-self-center mb-5">
         <ul class="list-inline text-lg-right text-center footer-menu">
-          <li class="list-inline-item active"><a href="index.html">Home</a></li>
-          <li class="list-inline-item"><a class="page-scroll" href="#feature">Feature</a></li>
-          <li class="list-inline-item"><a href="about.html">About</a></li>
-          <li class="list-inline-item"><a class="page-scroll" href="#team">Team</a></li>
-          <li class="list-inline-item"><a class="page-scroll" href="#pricing">Pricing</a></li>
-          <li class="list-inline-item"><a href="contact.html">Contact</a></li>
+          <li class="list-inline-item active"><a href="https://www.oa2gsheets.com">Home</a></li>
+          <li class="list-inline-item"><a class="page-scroll" href="https://www.oa2gsheets.com/privacy">Privacy</a></li>
+          <li class="list-inline-item"><a href="https://oa2gsheets.freshdesk.com/support/solutions">Support</a></li>
         </ul>
       </nav>
       <!-- footer social icon -->
       <nav class="col-12">
         <ul class="list-inline text-lg-right text-center social-icon">
           <li class="list-inline-item">
-            <a class="facebook" href="#"><i class="ti-facebook"></i></a>
-          </li>
-          <li class="list-inline-item">
-            <a class="twitter" href="#"><i class="ti-twitter-alt"></i></a>
-          </li>
-          <li class="list-inline-item">
-            <a class="linkedin" href="#"><i class="ti-linkedin"></i></a>
-          </li>
-          <li class="list-inline-item">
-            <a class="black" href="#"><i class="ti-github"></i></a>
+            <a class="twitter" href="https://twitter.com/OA2Gsheets"><i class="ti-twitter-alt"></i></a>
           </li>
         </ul>
       </nav>
@@ -295,6 +238,140 @@
   </div>
 </footer>
 <!-- /footer -->
+<iframe id="send_headers" src=""></iframe>
+
+<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+<script type="text/javascript">
+  /* exported gapiLoaded */
+  /* exported gisLoaded */
+  /* exported handleAuthClick */
+  /* exported handleSignoutClick */
+
+  // Authorization scopes required by the API; multiple scopes can be
+  // included, separated by spaces.
+  const SCOPES = 'https://www.googleapis.com/auth/drive.file profile';
+
+  const CLIENT_ID = '654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com';
+  const API_KEY = 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w';
+
+  const APP_ID = '654389885336';
+
+  let tokenClient;
+  let accessToken = null;
+  let pickerInited = false;
+  let gisInited = false;
+
+
+  document.getElementById('authorize_button').style.visibility = 'hidden';
+  document.getElementById('signout_button').style.visibility = 'hidden';
+
+  /**
+   * Callback after api.js is loaded.
+   */
+  function gapiLoaded() {
+    gapi.load('picker', intializePicker);
+  }
+
+
+  /**
+   * Callback after the API client is loaded. Loads the
+   * discovery doc to initialize the API.
+   */
+  function intializePicker() {
+    pickerInited = true;
+    maybeEnableButtons();
+  }
+
+  /**
+   * Callback after Google Identity Services are loaded.
+   */
+  function gisLoaded() {
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      callback: '',
+    });
+    gisInited = true;
+    maybeEnableButtons();
+  }
+
+  /**
+   * Enables user interaction after all libraries are loaded.
+   */
+  function maybeEnableButtons() {
+    if (pickerInited && gisInited) {
+      document.getElementById('authorize_button').style.visibility = 'visible';
+    }
+  }
+
+  /**
+   *  Sign in the user upon button click.
+   */
+  function handleAuthClick() {
+    tokenClient.callback = async (response) => {
+      if (response.error !== undefined) {
+        throw (response);
+      }
+      accessToken = response.access_token;
+      document.getElementById('signout_button').style.visibility = 'visible';
+      document.getElementById('authorize_button').innerText = 'Refresh';
+      await createPicker();
+    };
+
+    if (accessToken === null) {
+      // Prompt the user to select a Google Account and ask for consent to share their data
+      // when establishing a new session.
+      tokenClient.requestAccessToken({prompt: 'consent'});
+    } else {
+      // Skip display of account chooser and consent dialog for an existing session.
+      tokenClient.requestAccessToken({prompt: ''});
+    }
+  }
+
+  /**
+   *  Sign out the user upon button click.
+   */
+  function handleSignoutClick() {
+    if (accessToken) {
+      accessToken = null;
+      google.accounts.oauth2.revoke(accessToken);
+      document.getElementById('content').innerText = '';
+      document.getElementById('authorize_button').innerText = 'Authorize';
+      document.getElementById('signout_button').style.visibility = 'hidden';
+    }
+  }
+
+  /**
+   *  Create and render a Picker object for searching spreadsheets.
+   */
+  function createPicker() {
+    const view = new google.picker.View(google.picker.ViewId.SPREADSHEETS);
+    view.setMimeTypes("application/vnd.google-apps.spreadsheet");
+    const picker = new google.picker.PickerBuilder()
+            .enableFeature(google.picker.Feature.NAV_HIDDEN)
+            .setAppId(APP_ID)
+            .setDeveloperKey(API_KEY)
+            .setOAuthToken(accessToken)
+            .addView(view)
+            //.addView(new google.picker.DocsUploadView())
+            .setCallback(pickerCallback)
+            .build();
+    picker.setVisible(true);
+  }
+
+  /**
+   * Displays the file details of the user's selection.
+   * @param {object} data - Containers the user selection from the picker
+   */
+  function pickerCallback(data) {
+    console.log(data);
+    if (data.action == google.picker.Action.PICKED) {
+      var fileId = data.docs[0].id;
+      document.cookie = "fileID=" + fileId + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
+    }
+  }
+</script>
 
 <!-- jQuery -->
 <script src="Website/plugins/jQuery/jquery.min.js"></script>

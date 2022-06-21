@@ -156,7 +156,7 @@
     if (has_headers === 'true'){
         var fileID = decodeURI(urlParams.get("fileID"))
         console.log("processing headers")
-        const headers = urlParams.get('headers') //removed json.parse
+        const headers = urlParams.get('heads') //removed json.parse
         console.log("HEADERS:")
         console.log(headers)
         let json_h = headers.split(",")
