@@ -151,14 +151,14 @@
 <script>
 // The Browser API key obtained from the Google API Console.
 // Replace with your own Browser API key, or your own key.
-var developerKey = '//Your Api Key//';
+var developerKey = 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w';
 
 // The Client ID obtained from the Google API Console. Replace with your own Client ID.
-var clientId = "//Your Client Id//"
+var clientId = "654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com"
 
 // Replace with your own project number from console.developers.google.com.
 // See "Project number" under "IAM & Admin" > "Settings"
-var appId = "//Your Project ID";
+var appId = "654389885336";
 
 // Scope to use to access user's Drive items.
 var scope = 'https://www.googleapis.com/auth/drive.file';
@@ -196,21 +196,19 @@ createPicker();
 
 // Create and render a Picker object for searching images.
 function createPicker() {
-if (pickerApiLoaded && oauthToken) {
-var view = new google.picker.View(google.picker.ViewId.DOCS);
-view.setMimeTypes("image/png,image/jpeg,image/jpg");
-var picker = new google.picker.PickerBuilder()
-.enableFeature(google.picker.Feature.NAV_HIDDEN)
-.enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-.setAppId(appId)
-.setOAuthToken(oauthToken)
-.addView(view)
-.addView(new google.picker.DocsUploadView())
-.setDeveloperKey(developerKey)
-.setCallback(pickerCallback)
-.build();
-picker.setVisible(true);
-}
+    const {DocsView, DocsViewMode} = google.picker
+    var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
+    view.setMimeTypes("application/vnd.google-apps.spreadsheet");
+    view.setMode(DocsViewMode.LIST)
+    view.setSelectFolderEnabled(false)
+    const picker = new google.picker.PickerBuilder()
+        .setAppId(appId)
+        .setOAuthToken(oauthToken)
+        .addView(view)
+        //.addView(new google.picker.DocsUploadView())
+        .setCallback(pickerCallback)
+        .build();
+    picker.setVisible(true);
 }
 
 // A simple callback implementation.

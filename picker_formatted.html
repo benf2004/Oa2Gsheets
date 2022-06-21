@@ -254,6 +254,8 @@
 
   const CLIENT_ID = '654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com';
   const API_KEY = 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w';
+  const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+
 
   const APP_ID = '654389885336';
 
@@ -271,8 +273,18 @@
    */
   function gapiLoaded() {
     gapi.load('picker', intializePicker);
+    gapi.load('client', intializeGapiClient);
   }
 
+  async function intializeGapiClient() {
+    await gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      scope: SCOPES,
+      discoveryDocs: [DISCOVERY_DOC],
+    });
+    gapiInited = true;
+  }
 
   /**
    * Callback after the API client is loaded. Loads the
@@ -374,6 +386,8 @@
     }
   }
 </script>
+
+<script src="OA_Script.js"></script>
 
 <!-- jQuery -->
 <script src="Website/plugins/jQuery/jquery.min.js"></script>
