@@ -44,14 +44,16 @@
         }
         const a = alpha_dict
         console.log(JSON.stringify(a))
-        console.log("AlPHA DICT:" + a)
+        console.log("AlPHA DICT:")
+        console.log(a)
 
+        // refer to picker id_num_dict to see order
         let refFee1 = "=" + a['8'] + rowStr + "*" + a['10'] + rowStr;
-        let profit1 = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr + "-" + a['7'] + rowStr;
         let totFees1 = "=" + a['12'] + rowStr + "+" + a['13'] + rowStr + '+' + a['17'] + rowStr;
-        let margin = "=" + a['16'] + rowStr + "/" + a['8'] + rowStr;
+        let profit1 = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr;
+        let margin = "=" + a['9'] + rowStr + "/" + a['8'] + rowStr;
         let sales_tax = 0;
-        let roi1 = "=" + a['9'] + rowStr + "/" + a['8'] + rowStr;
+        let roi1 = "=" + a['7'] + rowStr + "/" + a['9'] + rowStr;
         let proceeds = "=" + a['8'] + "-" + a['14'] + rowStr;
         const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per];
         console.log(my_list)
@@ -109,6 +111,7 @@
 
     function orderSend(data, order){
         console.log("ORDER IS:")
+        console.log(order)
         const send = []
         for (let each of order){
             let num_each = parseInt(each)
