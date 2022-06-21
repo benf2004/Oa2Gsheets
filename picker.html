@@ -296,7 +296,7 @@
 
     function open_file(fileID) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'GET https://www.googleapis.com/drive/v3/files/' + fileID);
+        xhr.open('GET', 'GET https://www.googleapis.com/drive/v3/files/' + fileID + "?key=" + API_KEY);
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
         xhr.send();
     }
