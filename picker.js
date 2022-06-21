@@ -1,5 +1,7 @@
 let col_a = document.getElementsByClassName("a"), my_order
 //console.log(col_a);
+var rd = REDIPS.drag;
+rd.only.divClass.ne = 'extras';
 
 function saveTable() {
     let table1 = document.getElementById("tab");
