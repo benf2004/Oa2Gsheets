@@ -28,6 +28,7 @@
 	var cogs = decodeURI(urlParams.get("cogs"))
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURI(urlParams.get("notes"))
+    console.log("notes is " + notes)
     var refPer = decodeURI(urlParams.get("refPer"));
     var is_dynam = decodeURI(urlParams.get("dy"))
 
