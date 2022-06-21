@@ -53,33 +53,23 @@ chrome.webNavigation.onCommitted.addListener(() => {
     })
 }, filter);
 
-function check_trial(user) {
-    const now = new Date();
-    const days_21 = 1000*60*60*24*21 // in milliseconds
-    if (user.trialStartedAt && (now - user.trialStartedAt) < days_21) {
-        return true
-    }
-    else {
-        return false
-    }
-}
-
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log("RECIEVED MESSAGE:")
         console.log(request)
-        return true;
         if (request === "is_paid") {
             chrome.storage.sync.get(['oa_plan'], function(result) {
                 let plan = result.oa_plan
                 const extpay = ExtPay(plan)
                 extpay.getUser().then(user => {
                     console.log("MESSAGE RECIEVED")
+                    const now = new Date();
+                    const days_21 = 1000*60*60*24*21 // in milliseconds
                     let send;
                     if (user.paid) {
                         send = "true"
                     }
-                    else if (check_trial(user) === true){
+                    else if (user.trialStartedAt && (now - user.trialStartedAt) < days_21){
                         send = "true"
                     }
                     else {
@@ -105,5 +95,6 @@ chrome.runtime.onMessage.addListener(
                 sendResponse("lifetime activated")
             })
         }
+        return true;
     }
 );
