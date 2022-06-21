@@ -249,6 +249,10 @@ a:hover {
   background: #008dec !important;
 }
 
+.icon {
+  padding: 5px; margin-right: 15px; color: #088cec
+}
+
 .bg-gray {
   background: #f2f3f5;
 }
