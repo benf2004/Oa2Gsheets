@@ -175,12 +175,14 @@
         sendToSheets(new_h, h_range)
     }
     else {
-        var fileID = decodeURI(urlParams.get("fileID"))
-        const o = JSON.parse(decodeURI(urlParams.get('o')))
-        const order_array = Object.values(o)
-        console.log(order_array)
-        console.log("spreadsheet id: " + fileID);  // gets spreadsheet id num
-        await get_row_num(fileID, order_array) // gets row number
+        if (asin !== null) {
+            var fileID = decodeURI(urlParams.get("fileID"))
+            const o = JSON.parse(decodeURI(urlParams.get('o')))
+            const order_array = Object.values(o)
+            console.log(order_array)
+            console.log("spreadsheet id: " + fileID);  // gets spreadsheet id num
+            await get_row_num(fileID, order_array) // gets row number
+        }
     }
     } // end of top1
     var fileID = decodeURI(urlParams.get("fileID"))
