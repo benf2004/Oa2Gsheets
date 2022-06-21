@@ -19,7 +19,7 @@ function getCookies(domain, name, callback) {
     });
 }
 
-const website = 'https://www.oa2gsheets.com/'
+const website = 'http://www.oa2gsheets.com/'
 const filter = {
     url: [
         {
