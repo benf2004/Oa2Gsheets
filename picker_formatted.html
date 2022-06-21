@@ -346,10 +346,12 @@
    *  Create and render a Picker object for searching spreadsheets.
    */
   function createPicker() {
-    const view = new google.picker.View(google.picker.ViewId.SPREADSHEETS);
+    const {DocsView, DocsViewMode} = google.picker
+    var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
     view.setMimeTypes("application/vnd.google-apps.spreadsheet");
+    view.setMode(DocsViewMode.LIST)
+    view.setSelectFolderEnabled(false)
     const picker = new google.picker.PickerBuilder()
-            .enableFeature(google.picker.Feature.NAV_HIDDEN)
             .setAppId(APP_ID)
             .setDeveloperKey(API_KEY)
             .setOAuthToken(accessToken)
