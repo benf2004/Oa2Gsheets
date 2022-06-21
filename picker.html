@@ -38,8 +38,10 @@
 <button onclick="fill_headers()">Fill Headers</button>
 
 <!--Add buttons to initiate auth sequence and sign out-->
-<button id="authorize_button" onclick="handleAuthClick()">Pick Spreadsheet</button>
+<button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
 <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+<button id="showEventsBtn" onclick="showEvents();">Open Picker</button><br><br>
+<button id="revokeBtn" onclick="revokeToken();">Revoke access token</button>
 <iframe id="send_headers" src=""></iframe>
 
 <pre id="content" style="white-space: pre-wrap;"></pre>
