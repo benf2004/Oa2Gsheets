@@ -41,12 +41,12 @@ function saveTable() {
     console.log(json_order)
     let json_encode = encodeURI(json_order);
     console.log(json_encode)
-    document.cookie = "order=" + json_encode + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
+    document.cookie = "order=" + json_encode + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
     if (document.getElementById("dynam").checked === true) {
-        document.cookie = "is_dynam=true; expires Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
+        document.cookie = "is_dynam=true; expires Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
     }
     else {
-        document.cookie = "is_dynam=false; expires Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
+        document.cookie = "is_dynam=false; expires Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
     }
 };
 
