@@ -11,6 +11,15 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
     <link href="Website/redips_table/style.css" media="screen" rel="stylesheet" type="text/css"/>
     <link href="picker.css" rel="stylesheet">
+    <style>
+        #send_headers {
+            overflow: hidden;
+            width: 0;
+            height: 0;
+        }
+    </style>
+    <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+    <script async src='https://r.wdfl.co/rw.js' data-rewardful='a743ae'></script>
 </head>
 
 <!-- REDIPS.drag -->
@@ -26,10 +35,14 @@
     <br/>
 </nav>
 <button onclick="saveTable()">Save Table</button>
+<button onclick="fill_headers()">Fill Headers</button>
 
 <!--Add buttons to initiate auth sequence and sign out-->
-<button id="authorize_button" onclick="handleAuthClick()">Pick Spreadsheet</button>
+<button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
 <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+<button id="showEventsBtn" onclick="showEvents();">Open Picker</button><br><br>
+<button id="revokeBtn" onclick="revokeToken();">Revoke access token</button>
+<iframe id="send_headers" src=""></iframe>
 
 <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -103,7 +116,7 @@
             <td class="redips"><div id="cogs" class="redips-drag">COGS</div></td>
             <td class="redips"><div id="price" class="redips-drag">Price</div></td>
             <td class="redips"><div id="profit" class="redips-drag">Profit</div></td>
-            <td class="redips"><div id="ref_per" class="redips-drag">Referral %</div></td>
+            <td class="redips"><div id="ref_per" class="redips-drag">Referral &#37</div></td>
             <td class="redips"><div id="notes" class="redips-drag">Notes</div></td>
             <td class="redips"><div id="ref_fee" class="redips-drag">Referral Fee ($)</div></td>
             <td class="redips"><div id="ship" class="redips-drag">Shipping</div></td>
@@ -131,7 +144,7 @@
                     <div class="redips-drag" id="other_fees">Other Fees</div>
                     <div class="redips-drag" id="sales_tax">Sales Tax</div>
                     <div class="redips-drag" id="proceeds">Seller Proceeds</div>
-                    <div class="redips-drag">test</div>
+                    <div class="redips-drag" id="top_per">Top %</div>
                     <div class="redips-drag"></div>
                     <div class="redips-drag"></div>
                     <div class="redips-drag"></div>
@@ -144,93 +157,151 @@
     Dynamic Stats <i>recommended</i>
     <br>
     <label class="switch">
-        <input type="checkbox" checked>
+        <input id="dynam" type="checkbox" checked>
         <span class="slider round"></span>
     </label>
 </div>
-<script>
-// The Browser API key obtained from the Google API Console.
-// Replace with your own Browser API key, or your own key.
-var developerKey = 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w';
+<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+<script type="text/javascript">
+    /* exported gapiLoaded */
+    /* exported gisLoaded */
+    /* exported handleAuthClick */
+    /* exported handleSignoutClick */
 
-// The Client ID obtained from the Google API Console. Replace with your own Client ID.
-var clientId = "654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com"
+    // Authorization scopes required by the API; multiple scopes can be
+    // included, separated by spaces.
+    const SCOPES = 'https://www.googleapis.com/auth/drive.file profile';
 
-// Replace with your own project number from console.developers.google.com.
-// See "Project number" under "IAM & Admin" > "Settings"
-var appId = "654389885336";
+    const CLIENT_ID = '654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w';
 
-// Scope to use to access user's Drive items.
-var scope = 'https://www.googleapis.com/auth/drive.file';
+    const APP_ID = '654389885336';
 
-var pickerApiLoaded = false;
-var oauthToken;
+    let tokenClient;
+    let accessToken = null;
+    let pickerInited = false;
+    let gisInited = false;
 
-// Use the Google API Loader script to load the google.picker script.
-function loadPicker() {
-gapi.load('auth', {'callback': onAuthApiLoad});
-gapi.load('picker', {'callback': onPickerApiLoad});
-}
 
-function onAuthApiLoad() {
-window.gapi.auth.authorize(
-{
-'client_id': clientId,
-'scope': scope,
-'immediate': false
-},
-handleAuthResult);
-}
+    document.getElementById('authorize_button').style.visibility = 'hidden';
+    document.getElementById('signout_button').style.visibility = 'hidden';
 
-function onPickerApiLoad() {
-pickerApiLoaded = true;
-createPicker();
-}
-
-function handleAuthResult(authResult) {
-if (authResult && !authResult.error) {
-oauthToken = authResult.access_token;
-createPicker();
-}
-}
-
-// Create and render a Picker object for searching images.
-function createPicker() {
-    const {DocsView, DocsViewMode} = google.picker
-    var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
-    view.setMimeTypes("application/vnd.google-apps.spreadsheet");
-    view.setMode(DocsViewMode.LIST)
-    view.setSelectFolderEnabled(false)
-    const picker = new google.picker.PickerBuilder()
-        .setAppId(appId)
-        .setOAuthToken(oauthToken)
-        .addView(view)
-        //.addView(new google.picker.DocsUploadView())
-        .setCallback(pickerCallback)
-        .build();
-    picker.setVisible(true);
-}
-
-// A simple callback implementation.
-function pickerCallback(data) {
-if (data.action == google.picker.Action.PICKED) {
-var fileId = data.docs[0].id;
-alert('The user selected: ' + fileId);
-}
-}
-</script>
-</head>
-<body>
-<div id="result"></div>
-<button onclick="showPickerDialog()">Show Picker Dialog</button>
-
-<!-- The Google API Loader script. -->
-<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
-<script>
-    function showPickerDialog(){
-        loadPicker()
+    /**
+     * Callback after api.js is loaded.
+     */
+    function gapiLoaded() {
+        gapi.load('picker', intializePicker);
     }
-</script>
+
+
+    /**
+     * Callback after the API client is loaded. Loads the
+     * discovery doc to initialize the API.
+     */
+    function intializePicker() {
+        pickerInited = true;
+        maybeEnableButtons();
+    }
+
+    /**
+     * Callback after Google Identity Services are loaded.
+     */
+    function gisLoaded() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: '', // defined later
+        });
+        gisInited = true;
+        maybeEnableButtons();
+    }
+
+    /**
+     * Enables user interaction after all libraries are loaded.
+     */
+    function maybeEnableButtons() {
+        if (pickerInited && gisInited) {
+            document.getElementById('authorize_button').style.visibility = 'visible';
+        }
+    }
+
+    /**
+     *  Sign in the user upon button click.
+     */
+    function handleAuthClick() {
+        tokenClient.callback = async (response) => {
+            if (response.error !== undefined) {
+                throw (response);
+            }
+            accessToken = response.access_token;
+            document.getElementById('signout_button').style.visibility = 'visible';
+            document.getElementById('authorize_button').innerText = 'Refresh';
+            await createPicker();
+        };
+
+        if (accessToken === null) {
+            // Prompt the user to select a Google Account and ask for consent to share their data
+            // when establishing a new session.
+            tokenClient.requestAccessToken({prompt: 'consent'});
+        } else {
+            // Skip display of account chooser and consent dialog for an existing session.
+            tokenClient.requestAccessToken({prompt: ''});
+        }
+    }
+
+    /**
+     *  Sign out the user upon button click.
+     */
+    function handleSignoutClick() {
+        if (accessToken) {
+            accessToken = null;
+            google.accounts.oauth2.revoke(accessToken);
+            document.getElementById('content').innerText = '';
+            document.getElementById('authorize_button').innerText = 'Authorize';
+            document.getElementById('signout_button').style.visibility = 'hidden';
+        }
+    }
+
+    /**
+     *  Create and render a Picker object for searching spreadsheets.
+     */
+    function createPicker() {
+        const {DocsView, DocsViewMode} = google.picker
+        var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
+        view.setMimeTypes("application/vnd.google-apps.spreadsheet");
+        view.setMode(DocsViewMode.LIST)
+        view.setSelectFolderEnabled(false)
+        const picker = new google.picker.PickerBuilder()
+            .setAppId(APP_ID)
+            .setDeveloperKey(API_KEY)
+            .setOAuthToken(accessToken)
+            .addView(view)
+            //.addView(new google.picker.DocsUploadView())
+            .setCallback(pickerCallback)
+            .build();
+        picker0.setVisible(true);
+    }
+
+    /**
+     * Displays the file details of the user's selection.
+     * @param {object} data - Containers the user selection from the picker
+     */
+    function pickerCallback(data) {
+        console.log(data);
+        if (data.action == google.picker.Action.PICKED) {
+            var fileId = data.docs[0].id;
+            document.cookie = "fileID=" + fileId + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.com";
+            open_file(fileId)
+        }
+    }
+
+    function open_file(fileID) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'GET https://www.googleapis.com/drive/v3/files/' + fileID + "?key=" + API_KEY);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr.send();
+    }
 </script>
 </body>
 </html>
