@@ -108,6 +108,7 @@
     }
 
     function orderSend(data, order){
+        console.log("ORDER IS:")
         const send = []
         for (let each of order){
             let num_each = parseInt(each)
