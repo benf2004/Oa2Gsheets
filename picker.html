@@ -44,7 +44,6 @@
 <script src="Website/redips_table/redips-drag-source.js" type="text/javascript"></script>
 <!-- local script -->
 <script src="Website/redips_table/script.js" type="text/javascript"></script>
-<script src="picker.js" type="text/javascript"></script>
 
 <!-- navigation -->
 <section class="fixed-top navigation">
@@ -93,7 +92,7 @@
         <col class="b">
         <col class="c">
         <col class="d">
-        <col class="e">
+        <col class="E">
         <col class="f">
         <col class="g">
         <col class="h">
@@ -177,23 +176,27 @@
     </table>
     </div>
 
-    <table class="other_columns extras">
-      </tbody>
+    <table class="other_columns">
+      <tbody class="float-left">
       <tr>
-        <td>
-          <div class="redips-drag" id="margin">Gross Margin</div>
-          <div class="redips-drag" id="sales_tax">Sales Tax</div>
-          <div class="redips-drag" id="proceeds">Seller Proceeds</div>
+        <td class="redips-only extras">
+          <div class="redips-drag ne" id="margin">Gross Margin</div>
+          <div class="redips-drag ne" id="sales_tax">Sales Tax</div>
+          <div class="redips-drag ne" id="proceeds">Seller Proceeds</div>
         </td>
       </tr>
-      <tbody>
+      </tbody>
+
+      <p class="float-right">
+        <h3>Instructions</h3>
+      </p>
     </table>
 
     <!-- Rounded switch -->
     Dynamic Stats <i>recommended</i>
     <br>
     <label class="switch">
-      <input type="checkbox" checked id="dynam">
+      <input type="checkbox" name="dynam" id="dynam" checked>
       <span class="slider round"></span>
     </label>
   </div>
@@ -386,8 +389,7 @@
     }
   }
 </script>
-
-<script src="OA_Script.js"></script>
+<script src="picker.js" type="text/javascript"></script>
 
 <!-- jQuery -->
 <script src="Website/plugins/jQuery/jquery.min.js"></script>

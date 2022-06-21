@@ -2,6 +2,27 @@ let col_a = document.getElementsByClassName("a"), my_order
 //console.log(col_a);
 var rd = REDIPS.drag;
 rd.only.divClass.ne = 'extras';
+rd.only.other = 'allow';
+
+var dynam = document.querySelector("input[name=dynam]")
+dynam.addEventListener("change", (e) => {
+    let essential = document.getElementsByClassName('e')
+    if (e.target.checked) {
+        console.log("Checkbox is checked..");
+        for (let i = 0; i < essential.length; i++) {
+            essential[i].classList.remove('ne')
+        }
+        rd.only.divClass.ne = 'extras';
+    } else {
+        console.log("Checkbox is not checked..");
+        for (let i = 0; i < essential.length; i++) {
+            console.log(essential[i].id)
+            essential[i].classList.add('ne')
+        }
+        rd.only.divClass.ne = 'extras';
+    }
+});
+
 
 function saveTable() {
     let table1 = document.getElementById("tab");

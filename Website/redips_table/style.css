@@ -8,6 +8,14 @@ body {
 	margin-top: -80px;
 }
 
+div.e{
+	border: 2px solid darkred;
+}
+
+div.e.ne {
+	border: 2px solid SteelBlue;
+}
+
 iframe{
 	width:0;
 	height:0;
@@ -60,7 +68,7 @@ div#redips-drag td {
 }
 
 /* drag object (DIV inside table cell) */
-.redips-drag {
+.redips-drag, .ne{
 	margin: auto;
 	text-align: center;
 	width: max-content;
