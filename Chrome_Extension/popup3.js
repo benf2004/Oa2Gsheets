@@ -1,11 +1,13 @@
 function monthly() {
-    chrome.storage.sync.get(['oa_plan']), function (result) {
+    console.log("WORKING!")
+    chrome.storage.sync.get(['oa_plan'], function (result) {
         let plan = result.oa_plan
+        console.log("PLAN: " + plan)
         if (plan === "oa2gsheets-lifetime") {
-            chrome.storage.local.remove(['extensionpay_api_key', 'extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
+            //chrome.storage.local.remove(['extensionpay_api_key', 'extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
             chrome.storage.sync.remove(['extensionpay_api_key', 'extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function () {
-                chrome.runtime.sendMessage('monthly_activated')
                 chrome.storage.sync.set({oa_plan: 'oa2gsheets'})
+                chrome.runtime.sendMessage('monthly_activated')
                 const extpay = ExtPay('oa2gsheets')
                 extpay.openPaymentPage()
             })
@@ -14,16 +16,18 @@ function monthly() {
             const extpay = ExtPay('oa2gsheets')
             extpay.openPaymentPage()
         }
-    }
+    })
 }
 
 function lifetime(){
     chrome.storage.local.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
     chrome.storage.sync.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function() {
-        chrome.runtime.sendMessage('lifetime_activated')
-        chrome.storage.sync.set({oa_plan: 'oa2gsheets-lifetime'})
-        const extpay = ExtPay('oa2gsheets-lifetime')
-        extpay.openPaymentPage()
+        console.log("LIFETIME CLICKED")
+        chrome.storage.sync.set({oa_plan: 'oa2gsheets-lifetime'}, function() {
+            chrome.runtime.sendMessage('lifetime_activated')
+            const extpay = ExtPay('oa2gsheets-lifetime')
+            extpay.openPaymentPage()
+        })
     })
 }
 
@@ -33,6 +37,9 @@ function open_dashboard(){
 }
 
 function start_trial() {
+    let email = document.getElementById('email').value
+    chrome.storage.sync.set({oa_email: email});
+    console.log("Email Set!")
     chrome.storage.local.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
     chrome.storage.sync.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function() {
         chrome.storage.sync.set({oa_plan: 'oa2gsheets'})
@@ -42,10 +49,15 @@ function start_trial() {
     })
 }
 
+function show_email() {
+    document.getElementById("email_div").classList.remove('d-none');
+}
+
 document.getElementById('dashboard').addEventListener('click', open_dashboard)
 document.getElementById('oa2gsheets').addEventListener("click", monthly)
 document.getElementById('oa2gsheets_lifetime').addEventListener("click", lifetime)
-document.getElementById('trial').addEventListener("click", start_trial)
+document.getElementById('trial1').addEventListener("click", show_email)
+document.getElementById('trial2').addEventListener("click", start_trial)
 
 function check_trial(user) {
     const now = new Date();
@@ -67,8 +79,16 @@ async function is_paid() {
         if (check_trial(user) === true){
             handle_paid("trial")
         }
-        else {
-            handle_paid(user.paid)
+        else if (user.paid === true) {
+            handle_paid(true)
+        }
+        else if (user.paid === false){
+            if (user.trialStartedAt === null){
+                handle_paid("no_trial")
+            }
+            else {
+                handle_paid(false)
+            }
         }
     });
 }
@@ -97,9 +117,15 @@ function handle_paid(p) {
     else if (paid === "trial"){
         document.getElementById('trial_div').remove()
     }
+    else if (paid === "no_trial") {
+        console.log("UNPAID")
+        document.getElementById("trial_div").style.display = "block"
+        document.getElementById("picker").className = 'nav-link disabled'
+    }
     else {
-        document.getElementById("para").innerHTML = "false"
         document.getElementById("picker").className = 'nav-link disabled'
     }
 }
 is_paid()
+
+

@@ -37,6 +37,7 @@
   let url = window.location.search
   const urlParams = new URLSearchParams(url);
   var mail = decodeURI(urlParams.get("email"))
+  console.log(mail)
   rewardful('convert', { email: mail });
 </script>
 

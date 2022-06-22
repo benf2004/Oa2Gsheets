@@ -20,6 +20,10 @@
         h4 {
             text-align: center;
         }
+        #email_div{
+            width: 300px;
+            margin-left: 25px
+        }
         .btn {
             margin: auto
         }
@@ -46,7 +50,8 @@
             color: #fff;
             border: 3px solid #eee;
         }
-        #trial{
+
+        #trial1{
             margin-left: 93px;
         }
     </style>
@@ -61,17 +66,25 @@
         <a class="nav-link active" aria-current="page" href="#">Payment</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="picker" href="https://oa2gsheets.com/picker" target="_blank">Link Gsheet</a>
+        <a class="nav-link" id="picker" href="https://www.oa2gsheets.com/picker" target="_blank">Link Gsheet</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Support</a>
+        <a class="nav-link" href="https://oa2gsheets.freshdesk.com/support/solutions" target="_blank">Support</a>
     </li>
 </ul>
 </nav>
 
 <br>
+
 <div class = 'flex justify-content-center' id="trial_div">
-    <button class="col btn btn-funky-moon" id="trial">Start 7-day Free Trial</button>
+    <button class="col btn btn-funky-moon mb-3" id="trial1">Start 7-day Free Trial</button>
+    <br/>
+    <div id="email_div" class="input-group d-none">
+        <input id="email" value="" type="email" class="form-control" placeholder="Enter your email" aria-label="email" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button id="trial2" class="btn btn-outline-success" type="button">Start</button>
+        </div>
+    </div>
 </div>
 <p id="para"></p>
 

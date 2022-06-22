@@ -19,7 +19,6 @@ function getCookies(domain, name, callback) {
     });
 }
 
-console.log("BACKGROUND HElLO")
 const website = 'http://www.oa2gsheets.com/'
 const filter = {
     url: [
@@ -30,29 +29,61 @@ const filter = {
 };
 
 chrome.webNavigation.onCompleted.addListener(() => {
-    console.log("TRIGGERED")
+    //console.log("TRIGGERED")
     getCookies(website, "fileID", function (id) {
-        console.log(id);
+        //console.log(id);
         chrome.storage.sync.set({fileID: id}, function () {
-            console.log('Value is set to ' + id);
+            //console.log('Value is set to ' + id);
         });
     });
 
     getCookies(website,"order", function (id){
-        console.log(id);
+        //console.log(id);
         chrome.storage.sync.set({order: id}, function(){
-            console.log("Success adding order to sync!")
-            console.log(id)
+           // console.log("Success adding order to sync!")
+            // console.log(id)
         })
     })
 
     getCookies(website, 'is_dynam', function(id){
-        console.log(id)
+        //console.log(id)
         chrome.storage.sync.set({is_dynam: id}, function(){
-            console.log("Success adding is_dynam to sync!")
+            //console.log("Success adding is_dynam to sync!")
         })
     })
-});
+}, filter);
+
+const filter2 = {
+    url: [
+        {
+            urlMatches: 'https://extensionpay.com/extension/oa2gsheets-lifetime/paid',
+        },
+    ],
+};
+
+chrome.webNavigation.onCompleted.addListener(() =>{
+    chrome.storage.sync.get(['oa_email'], function (result) {
+        let encode_email = encodeURIComponent(result.oa_email)
+        let thanks_url = "https://www.oa2gsheets.com/thank_you?mail=" + encode_email
+        chrome.tabs.create({url: thanks_url});
+    })
+}, filter2)
+
+const filter3 = {
+    url: [
+        {
+            urlMatches: 'https://extensionpay.com/extension/oa2gsheets/subscribed',
+        },
+    ],
+}
+
+chrome.webNavigation.onCompleted.addListener(() =>{
+    chrome.storage.sync.get(['oa_email'], function (result) {
+        let encode_email = encodeURIComponent(result.oa_email)
+        let thanks_url = "https://www.oa2gsheets.com/thank_you?mail=" + encode_email
+        chrome.tabs.create({url: thanks_url});
+    })
+}, filter3)
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -89,13 +120,22 @@ chrome.runtime.onMessage.addListener(
         }
         if (request === "lifetime_activated"){
             console.log("received message")
-            chrome.storage.local.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
-            chrome.storage.sync.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function() {
-                var extpay = ExtPay('oa2gsheets-lifetime')
-                extpay.startBackground();
-                sendResponse("lifetime activated")
-            })
+            var extpay = ExtPay('oa2gsheets-lifetime')
+            extpay.startBackground();
+            sendResponse("lifetime activated")
         }
         return true;
     }
 );
+
+chrome.storage.sync.get(['oa_plan'], function result() {
+    let extpay = ExtPay(result.oa_plan)
+    extpay.onPaid.addListener(user => {
+        console.log('user paid!')
+        chrome.storage.sync.get(['oa_email'], function (result) {
+            let encode_email = encodeURIComponent(result.oa_email)
+            let thanks_url = "https://www.oa2gsheets.com/mail?=" + encode_email
+            chrome.tabs.create({url: thanks_url});
+        })
+    })
+})
