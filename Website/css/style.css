@@ -431,6 +431,10 @@ a:hover {
   }
 }
 
+.btn-info {
+  background-color: SteelBlue
+}
+
 .nav-bg {
   background-color: #fff;
   box-shadow: 0px 10px 20px 0px rgba(0, 141, 236, 0.1);

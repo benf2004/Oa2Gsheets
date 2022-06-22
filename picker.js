@@ -25,6 +25,8 @@ dynam.addEventListener("change", (e) => {
 
 
 function saveTable() {
+    document.getElementById("table_spinner").classList.remove('d-none')
+    setTimeout(() => {document.getElementById("table_spinner").classList.add('d-none')}, 2000)
     let table1 = document.getElementById("tab");
     const table_json = REDIPS.drag.saveContent(table1, "json");
     const table_save = JSON.parse(table_json);
@@ -72,6 +74,12 @@ function saveTable() {
     else {
         document.cookie = "is_dynam=false; expires Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
     }
+    var extension_id = "bfjfcdgoifbchekijdllghgadinncpff";
+    chrome.runtime.sendMessage(extension_id, 'update_order',
+        function(response) {
+            if (!response.success)
+                handleError(url);
+        });
 };
 
 // gets requested cookie by name
@@ -79,7 +87,7 @@ function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
+    for (let i = 0; i <ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -92,6 +100,8 @@ function getCookie(cname) {
 }
 
 function fill_headers(){
+    document.getElementById("headers_spinner").classList.remove('d-none')
+    setTimeout(() => {document.getElementById("headers_spinner").classList.add('d-none')}, 2000)
     let table1 = document.getElementById("tab");
     const table_json = REDIPS.drag.saveContent(table1, "json");
     let table_save = JSON.parse(table_json)

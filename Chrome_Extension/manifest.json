@@ -19,6 +19,9 @@
       "run_at": "document_start"
     }
   ],
+  "externally_connectable": {
+    "matches": ["https://www.oa2gsheets.com/*"]
+  },
   "icons": {
     "16": "16x16.png",
     "32": "32x32.png",

@@ -81,16 +81,20 @@
 <!-- about us -->
 <section class="section-lg about pb-0">
   <h1>Customize Google Sheet</h1>
-  <button class="btn btn-success" id="authorize_button" onclick="handleAuthClick()">Link Gsheet</button>
-  <button class="btn btn-outline-danger" id="signout_button" onclick="handleSignoutClick()">Disconnect Gsheet</button>
-  <button onclick="saveTable()">Save Table</button>
-  <button onclick="fill_headers()">Fill Headers</button>
+  <button class="btn btn-success p-2 mx-2" id="authorize_button" onclick="handleAuthClick()">Link Gsheet</button>
+  <button class="btn btn-danger p-2 mx-2" id="signout_button" onclick="handleSignoutClick()">Disconnect Gsheet</button>
+  <button class="btn btn-info p-2 mx-2" onclick="saveTable()">Save Table</button>
+  <i class="fas fa-sync fa-spin d-none" id="table_spinner"></i>
+  <button class="btn btn-info p-2 mx-2" onclick="fill_headers()">Fill Headers</button>
+  <i class="fas fa-sync fa-spin d-none" id="headers_spinner"></i>
 
-  Dynamic Stats <i>recommended</i>
+  &emsp; &emsp; &emsp; &emsp; &emsp;
+  <span>Dynamic Stats <i>recommended</i>
   <label class="switch">
     <input type="checkbox" name="dynam" id="dynam" checked>
     <span class="slider round"></span>
   </label>
+  </span>
 
   <div id="redips-drag">
     <div class="table-responsive md" id="outer">
@@ -195,7 +199,7 @@
       </tr>
       </tbody>
     </table>
-
+    <hr style="width:63%; margin-left: 0">
     <div>
       <h4>Instructions</h4>
       <ol>
@@ -206,7 +210,7 @@
         remove any items you don't want. <a href="#" target="_blank">Click here for word definitions <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
         <li>5. &nbsp Decide if you would like to use dynamic stats. This allows certain values to be exported as formulas.
         <br> <em>Note: the items outline in red are required for dynamic stats</em>. More about dynamic stats <a href="#" target="_blank">here <i class="fa-solid fa-arrow-up-right-from-square"></i></a> </li>
-        <li>6. &nbsp <strong>Important!</strong> Click the "Save Table" button to save the table order.</li>
+        <li>6. &nbsp <strong>IMPORTANT!</strong> Click the "Save Table" button to save the table order.</li>
         <li>7. &nbsp Click the "Fill Headers" button if you want the headers to populate your spreadsheet in row 1.</li>
 
       </ol>
