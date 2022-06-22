@@ -296,7 +296,14 @@
   </div>
 </footer>
 <!-- /footer -->
-
+<script>
+  if( $.cookie('visited') == null ) {
+    document.cookie = "visited=false; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
+  }
+  if ($.cookie('visited_l') == null){
+    document.cookie = "visited_l=false; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
+  }
+</script>
 
 <!-- jQuery -->
 <script src="Website/plugins/jQuery/jquery.min.js"></script>
