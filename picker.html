@@ -29,6 +29,8 @@
 
   <link href="Website/redips_table/style.css" media="screen" rel="stylesheet" type="text/css"/>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
   <!-- Main Stylesheet -->
   <link href="Website/css/style.css" rel="stylesheet">
   
@@ -79,10 +81,16 @@
 <!-- about us -->
 <section class="section-lg about pb-0">
   <h1>Customize Google Sheet</h1>
-  <button class="btn btn-success" id="authorize_button" onclick="handleAuthClick()">Pick Spreadsheet</button>
-  <button class="btn btn-outline-danger" id="signout_button" onclick="handleSignoutClick()">Disconnect Google Sheet</button>
+  <button class="btn btn-success" id="authorize_button" onclick="handleAuthClick()">Link Gsheet</button>
+  <button class="btn btn-outline-danger" id="signout_button" onclick="handleSignoutClick()">Disconnect Gsheet</button>
   <button onclick="saveTable()">Save Table</button>
   <button onclick="fill_headers()">Fill Headers</button>
+
+  Dynamic Stats <i>recommended</i>
+  <label class="switch">
+    <input type="checkbox" name="dynam" id="dynam" checked>
+    <span class="slider round"></span>
+  </label>
 
   <div id="redips-drag">
     <div class="table-responsive md" id="outer">
@@ -186,20 +194,26 @@
         </td>
       </tr>
       </tbody>
-
-      <p class="float-right">
-        <h3>Instructions</h3>
-      </p>
     </table>
 
+    <div>
+      <h4>Instructions</h4>
+      <ol>
+        <li>1. &nbsp &nbsp<a href="https://sheets.new" target="_blank">Create the Google Sheet <i class="fa-solid fa-arrow-up-right-from-square"></i></a> you intend to use for sourcing, if you haven't already.</li>
+        <li>2. &nbsp Click the "Link Gsheet" button. <em> Note: OA2Gsheets only supports linking to the first worksheet, for now.</em></li>
+        <li>3. &nbsp Sign in to Google & select the Google Sheet you want to link.</li>
+        <li>4. &nbsp Drag the items in the table to the order you want them to appear on your Gsheet. <br> Use the second table to
+        remove any items you don't want. <a href="#" target="_blank">Click here for word definitions <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+        <li>5. &nbsp Decide if you would like to use dynamic stats. This allows certain values to be exported as formulas.
+        <br> <em>Note: the items outline in red are required for dynamic stats</em>. More about dynamic stats <a href="#" target="_blank">here <i class="fa-solid fa-arrow-up-right-from-square"></i></a> </li>
+        <li>6. &nbsp <strong>Important!</strong> Click the "Save Table" button to save the table order.</li>
+        <li>7. &nbsp Click the "Fill Headers" button if you want the headers to populate your spreadsheet in row 1.</li>
+
+      </ol>
+
+    </div>
     <!-- Rounded switch -->
-    Dynamic Stats <i>recommended</i>
-    <br>
-    <label class="switch">
-      <input type="checkbox" name="dynam" id="dynam" checked>
-      <span class="slider round"></span>
-    </label>
-  </div>
+
   <!-- background shapes -->
   <img src="Website/images/background-shape/green-dot.png" alt="background-shape" class="about-bg-1 up-down-animation">
   <img src="Website/images/background-shape/blue-dot.png" alt="background-shape" class="about-bg-2 left-right-animation">

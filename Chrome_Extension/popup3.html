@@ -76,7 +76,7 @@
 
 <br>
 
-<div class = 'flex justify-content-center' id="trial_div">
+<div class = 'flex justify-content-center d-none' id="trial_div">
     <button class="col btn btn-funky-moon mb-3" id="trial1">Start 7-day Free Trial</button>
     <br/>
     <div id="email_div" class="input-group d-none">
@@ -97,7 +97,7 @@
         <li>Profitability dashboard</li>
         <li>Export as formulas (dynamic stats)</li>
         <li>Customize columns</li>
-        <li>Affordable monthly Price</li>
+        <li>Affordable monthly price</li>
         <li>Upgrade to lifetime at anytime</li>
     </ul>
     <div style="padding: 10px" id="button_div">
@@ -116,10 +116,21 @@
             <li>All the features of monthly</li>
             <li>One-time payment</li>
         </ul>
-        <div style="padding: 10px">
+        <div style="padding: 10px" id="l_div">
             <button class="btn btn-primary" type="button" id="oa2gsheets_lifetime">Buy Now</button>
+            <br>
+            <div class="mb-2"></div>
+            <p><strong>Warning:</strong> clicking the above button will end your free trial immediately.</p>
         </div>
-        <p></p>
+        <div style="padding: 5px" class="d-none" id="upgrade_div">
+            <button style="margin-left: 75px" class="btn btn-primary" type="button" id="updgrade_button">Upgrade Now</button>
+            <br>
+            <div class="mb-2"></div>
+            <button style="margin-left: 50px" class="btn btn-outline-danger d-none" id="confirm">Confirm Cancellation</button>
+            <div class="" id="cancel_div">
+                <p style="font-size: 15px">Before upgrading, you MUST <strong>manually</strong> <a id="cancel" href="#upgrade_div">cancel</a> your monthly subscription.</p>
+            </div>
+        </div>
     </div>
 </div>
 

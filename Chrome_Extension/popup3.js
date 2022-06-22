@@ -53,11 +53,19 @@ function show_email() {
     document.getElementById("email_div").classList.remove('d-none');
 }
 
+function confirm_cancel() {
+    // start here tomorrow
+    document.getElementById("confirm").classList.remove('d-none');
+}
+
 document.getElementById('dashboard').addEventListener('click', open_dashboard)
 document.getElementById('oa2gsheets').addEventListener("click", monthly)
 document.getElementById('oa2gsheets_lifetime').addEventListener("click", lifetime)
 document.getElementById('trial1').addEventListener("click", show_email)
 document.getElementById('trial2').addEventListener("click", start_trial)
+document.getElementById('updgrade_button').addEventListener("click", confirm_cancel)
+document.getElementById('cancel').addEventListener('click', open_dashboard)
+document.getElementById('confirm').addEventListener('click', lifetime)
 
 function check_trial(user) {
     const now = new Date();
@@ -101,16 +109,17 @@ function handle_paid(p) {
             if (result.oa_plan === 'oa2gsheets') {
                 document.getElementById('oa2gsheets').innerHTML = "Manage Subscription"
                 document.getElementById('button_div').remove()
+                document.getElementById('l_div').remove()
+                document.getElementById("upgrade_div").classList.remove('d-none');
                 document.getElementById('dash_div').style.display = 'inline'
                 document.getElementById('trial_div').remove()
                 document.getElementById('oa2gsheets_lifetime').style.marginLeft = "70px";
                 document.getElementById('oa2gsheets_lifetime').innerHTML = "Upgrade Now"
-                document.getElementById('oa2gsheets-lifetime').disabled = true
+                document.getElementById('oa2gsheets-lifetime').classList.add('disabled')
             }
             else {
                 document.getElementById('monthly_div').remove()
                 document.getElementById('trial_div').remove()
-                document.getElementById('para').innerHTML = 'hey'
             }
         })
     }
@@ -119,6 +128,7 @@ function handle_paid(p) {
     }
     else if (paid === "no_trial") {
         console.log("UNPAID")
+        document.getElementById("trial_div").classList.remove('d-none');
         document.getElementById("trial_div").style.display = "block"
         document.getElementById("picker").className = 'nav-link disabled'
     }
@@ -127,5 +137,6 @@ function handle_paid(p) {
     }
 }
 is_paid()
+
 
 
