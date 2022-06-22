@@ -20,36 +20,29 @@ function getCookies(domain, name, callback) {
 }
 
 const website = 'http://www.oa2gsheets.com/'
-const filter = {
-    url: [
-        {
-            urlMatches: 'https://www.amazon.com',
-        },
-    ],
-};
 
 chrome.runtime.onMessageExternal.addListener(
     function(request, sender, sendResponse) {
         console.log("TRIGGERED")
         getCookies(website, "fileID", function (id) {
-            //console.log(id);
+            console.log(id);
             chrome.storage.sync.set({fileID: id}, function () {
-                //console.log('Value is set to ' + id);
+                console.log('Value is set to ' + id);
             });
         });
 
         getCookies(website, "order", function (id) {
-            //console.log(id);
+            console.log(id);
             chrome.storage.sync.set({order: id}, function () {
-                // console.log("Success adding order to sync!")
-                // console.log(id)
+                console.log("Success adding order to sync!")
+                console.log(id)
             })
         })
 
         getCookies(website, 'is_dynam', function (id) {
-            //console.log(id)
+            console.log(id)
             chrome.storage.sync.set({is_dynam: id}, function () {
-                //console.log("Success adding is_dynam to sync!")
+                console.log("Success adding is_dynam to sync!")
             })
         })
     }

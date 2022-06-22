@@ -88,7 +88,7 @@
   <button class="btn btn-info p-2 mx-2" onclick="fill_headers()">Fill Headers</button>
   <i class="fas fa-sync fa-spin d-none" id="headers_spinner"></i>
 
-  &emsp; &emsp; &emsp; &emsp; &emsp;
+  &emsp; &emsp; &emsp; &emsp;
   <span>Dynamic Stats <i>recommended</i>
   <label class="switch">
     <input type="checkbox" name="dynam" id="dynam" checked>
@@ -348,7 +348,7 @@
       }
       accessToken = response.access_token;
       document.getElementById('signout_button').style.visibility = 'visible';
-      document.getElementById('authorize_button').innerText = 'Refresh';
+      document.getElementById('authorize_button').innerText = 'Link New';
       await createPicker();
     };
 
@@ -369,8 +369,7 @@
     if (accessToken) {
       accessToken = null;
       google.accounts.oauth2.revoke(accessToken);
-      document.getElementById('content').innerText = '';
-      document.getElementById('authorize_button').innerText = 'Authorize';
+      document.getElementById('authorize_button').innerText = 'Link Gsheet';
       document.getElementById('signout_button').style.visibility = 'hidden';
     }
   }
