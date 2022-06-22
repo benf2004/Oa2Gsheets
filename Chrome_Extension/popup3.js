@@ -84,11 +84,11 @@ async function is_paid() {
         console.log(plan)
         const extpay = ExtPay(plan)
         const user = await extpay.getUser();
-        if (check_trial(user) === true){
-            handle_paid("trial")
-        }
-        else if (user.paid === true) {
+        if (user.paid === true) {
             handle_paid(true)
+        }
+        else if (check_trial(user) === true){
+            handle_paid("trial")
         }
         else if (user.paid === false){
             if (user.trialStartedAt === null){
@@ -119,7 +119,10 @@ function handle_paid(p) {
             }
             else {
                 document.getElementById('monthly_div').remove()
+                document.getElementById('lifetime_div').remove()
+                document.getElementById('setup').remove()
                 document.getElementById('trial_div').remove()
+                document.getElementById('thank_you').classList.remove('d-none')
             }
         })
     }
