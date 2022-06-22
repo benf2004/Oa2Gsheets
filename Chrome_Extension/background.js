@@ -65,6 +65,7 @@ chrome.webNavigation.onCompleted.addListener(() =>{
     chrome.storage.sync.get(['oa_email'], function (result) {
         let encode_email = encodeURIComponent(result.oa_email)
         let thanks_url = "https://www.oa2gsheets.com/thank_you?mail=" + encode_email
+        chrome.storage.sync.set({monthly_opened: "true"})
         chrome.tabs.create({url: thanks_url});
     })
 }, filter2)
@@ -77,11 +78,15 @@ const filter3 = {
     ],
 }
 
-chrome.webNavigation.onCompleted.addListener(() =>{
+chrome.webNavigation.onCompleted.addListener(() => {
     chrome.storage.sync.get(['oa_email'], function (result) {
-        let encode_email = encodeURIComponent(result.oa_email)
-        let thanks_url = "https://www.oa2gsheets.com/thank_you?mail=" + encode_email
-        chrome.tabs.create({url: thanks_url});
+        getCookies(website, "visited", function(id) {
+            if (id !== "true") {
+                let encode_email = encodeURIComponent(result.oa_email)
+                let thanks_url = "https://www.oa2gsheets.com/thank_you?mail=" + encode_email
+                chrome.tabs.create({url: thanks_url});
+            }
+        })
     })
 }, filter3)
 
