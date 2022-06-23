@@ -44,7 +44,9 @@
         await gisLoadPromise;
         await new Promise((resolve, reject) => {
             try {
-                tokenClient = google.accounts.oauth2.initTokenClient({
+                tokenClient = google.accounts.oauth2.initTokenClient(
+                    {
+                    apiKey: 'AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w',
                     client_id: '654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com',
                     scope: 'https://www.googleapis.com/auth/drive.file profile',
                     prompt: 'consent',
@@ -108,7 +110,7 @@
                 let rowNum = (data.values).length + 1
                 console.log("row num" + rowNum)
         })
-        let token = getToken()
+        let token = gapi.client.getToken()
         const {DocsView, DocsViewMode} = google.picker
         var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
         view.setMimeTypes("application/vnd.google-apps.spreadsheet");
