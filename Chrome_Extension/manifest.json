@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "OA2Gsheets",
-  "description": "Sends profit info from Amazon webpage to Google Sheets.",
-  "version": "0.3",
+  "description": "OA2Gsheets lets you export product info directly from an Amazon product page to a Google Sheet.",
+  "version": "1.0",
   "action": {
     "default_popup": "popup3.html"
   },
