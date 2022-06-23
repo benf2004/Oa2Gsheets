@@ -46,7 +46,7 @@
             try {
                 tokenClient = google.accounts.oauth2.initTokenClient({
                     client_id: '654389885336-re4m337upgk4igdbu3q4jab9id3sp2qd.apps.googleusercontent.com',
-                    scope: 'https://www.googleapis.com/auth/calendar.readonly',
+                    scope: 'https://www.googleapis.com/auth/drive.file profile',
                     prompt: 'consent',
                     callback: '',  // defined at request time in await/promise scope.
                 });
