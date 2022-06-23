@@ -30,7 +30,7 @@
         // First, load and initialize the gapi.client
         await gapiLoadPromise;
         await new Promise((resolve, reject) => {
-            // NOTE: the 'auth2' module is no longer loaded.
+            gapi.load('picker')
             gapi.load('client', {callback: resolve, onerror: reject});
         });
         await gapi.client.init({
@@ -108,6 +108,21 @@
                 let rowNum = (data.values).length + 1
                 console.log("row num" + rowNum)
         })
+
+        const {DocsView, DocsViewMode} = google.picker
+        var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
+        view.setMimeTypes("application/vnd.google-apps.spreadsheet");
+        view.setMode(DocsViewMode.LIST)
+        view.setSelectFolderEnabled(false)
+        const picker = new google.picker.PickerBuilder()
+            .setAppId(APP_ID)
+            .setDeveloperKey(API_KEY)
+            .setOAuthToken(accessToken)
+            .addView(view)
+            //.addView(new google.picker.DocsUploadView())
+            .setCallback(pickerCallback)
+            .build();
+        picker.setVisible(true);
     }
 
     function revokeToken() {
