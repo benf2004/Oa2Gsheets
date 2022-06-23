@@ -117,12 +117,12 @@
         view.setMode(DocsViewMode.LIST)
         view.setSelectFolderEnabled(false)
         const picker = new google.picker.PickerBuilder()
-            .setAppId(APP_ID)
+            .setAppId('654389885336')
             .setDeveloperKey('AIzaSyAPnD47lfv1T5oHMAC770fUmSmSiKe9J3w')
             .setOAuthToken(token)
             .addView(view)
             //.addView(new google.picker.DocsUploadView())
-            .setCallback(pickerCallback)
+            //.setCallback(pickerCallback)
             .build();
         picker.setVisible(true);
     }
