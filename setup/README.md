@@ -5,18 +5,18 @@ CORE TODO:
 - [x] Accept column order & handle when sending to spreadsheet
 - [x] Fix spreadsheet ID handling
 - [x] Properly inject iFrame of input page into Amazon product page
-- [ ] Make sure send accepts new fee inputs in URL
-- [ ] Make new popup dashboard
-- [ ] Setup free trial & payment verification in extension
-- [ ] Format picker page
-- [ ] Format homepage
+- [x] Make sure send accepts new fee inputs in URL
+- [x] Make new popup dashboard
+- [x] Setup free trial & payment verification in extension
+- [x] Format picker page
+- [x] Format homepage
 - [ ] Fix Google Picker/OAuth
 
 
 LAUNCH TODO:
 
 - [x] Setup pricing (through ExtPay)
-- [ ] Submit extension to Google Chrome Webstore
+- [x] Submit extension to Google Chrome Webstore
 - [ ] Register app in Google API
 - [ ] Reach out to affiliates 
 - [ ] Get beta testers

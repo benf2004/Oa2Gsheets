@@ -74,7 +74,7 @@ function saveTable() {
     else {
         document.cookie = "is_dynam=false; expires Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
     }
-    var extension_id = "bfjfcdgoifbchekijdllghgadinncpff";
+    var extension_id = "aapifccbfojjnaalilgfhjgfndkbpgmf";
     chrome.runtime.sendMessage(extension_id, 'update_order',
         function(response) {
             if (!response.success)
