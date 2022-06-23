@@ -108,7 +108,7 @@
                 let rowNum = (data.values).length + 1
                 console.log("row num" + rowNum)
         })
-
+        let token = getToken()
         const {DocsView, DocsViewMode} = google.picker
         var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
         view.setMimeTypes("application/vnd.google-apps.spreadsheet");
@@ -117,8 +117,8 @@
         const picker = new google.picker.PickerBuilder()
             .setAppId(APP_ID)
             .setDeveloperKey(API_KEY)
-            .setOAuthToken(accessToken)
-            .addView(view)
+            .setOAuthToken(token)
+            .addView(token)
             //.addView(new google.picker.DocsUploadView())
             .setCallback(pickerCallback)
             .build();
