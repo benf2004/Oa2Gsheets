@@ -26,7 +26,7 @@
     var price = parseFloat(decodeURI(urlParams.get("price")));
     var top_per = decodeURI(urlParams.get("top")) + "%";
 	var cogs = parseFloat(decodeURI(urlParams.get("cogs")));
-    conosle.log("COGS: " + cogs)
+    console.log("COGS: " + cogs)
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURI(urlParams.get("notes"))
     console.log("notes is " + notes)
