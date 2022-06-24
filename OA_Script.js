@@ -23,9 +23,9 @@
 	var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
 	var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin
 
-    var price = decodeURI(urlParams.get("price"));
+    var price = parseFloat(decodeURI(urlParams.get("price")));
     var top_per = decodeURI(urlParams.get("top")) + "%";
-	var cogs = decodeURI(urlParams.get("cogs"))
+	var cogs = parseFloat(decodeURI(urlParams.get("cogs")));
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURI(urlParams.get("notes"))
     console.log("notes is " + notes)
