@@ -61,13 +61,13 @@
     }; // end of dynamic stats function
 
     function staticStats(){
-        let refFee1 = Number((price * refPer).toFixed(2))
-        let totFees1 = refFee1 + ship + other
-        let profit1 = Number((price - totFees1 - cogs).toFixed(2))
-        let roi1 = Number((profit1 / cogs).toFixed(2))
-        let margin = (profit1 / price).toFixed(2)
+        let refFee1 = +((price * refPer).toFixed(2))
+        let totFees1 = +(refFee1 + ship + other)
+        let profit1 = +((price - totFees1 - cogs).toFixed(2))
+        let roi1 = +((profit1 / cogs).toFixed(2))
+        let margin = +((profit1 / price).toFixed(2))
         let sales_tax = 0;
-        let proceeds = price - totFees1;
+        let proceeds = +(price - totFees1);
         const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per];
         return my_list
     }
