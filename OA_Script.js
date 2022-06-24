@@ -26,6 +26,7 @@
     var price = parseFloat(decodeURI(urlParams.get("price")));
     var top_per = decodeURI(urlParams.get("top")) + "%";
 	var cogs = parseFloat(decodeURI(urlParams.get("cogs")));
+    conosle.log("COGS: " + cogs)
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURI(urlParams.get("notes"))
     console.log("notes is " + notes)
@@ -63,13 +64,15 @@
 
     function staticStats(){
         let refFee1 = price * ref_num
+        let ref_fee = "=ROUND(" + refFee1 +", 2)"
         let totFees1 = refFee1 + ship + other
+        let tot_fees = "=ROUND(" + totFees1 + ", 2)"
         let profit1 = price - totFees1 - cogs
         let roi1 = profit1 / cogs
         let margin = profit1 / price
         let sales_tax = 0;
         let proceeds = price - totFees1;
-        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per];
+        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, ref_fee, ship, tot_fees, sellLink, margin, other, sales_tax, proceeds, top_per];
         return my_list
     }
 
