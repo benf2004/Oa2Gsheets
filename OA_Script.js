@@ -16,15 +16,15 @@
 	var currentRank = decodeURI(urlParams.get('r'))
 	var ship = decodeURI(urlParams.get('s'));
     var other = decodeURI(urlParams.get('other'));
-    var cat_name = decodeURI(urlParams.get('cat'));
-    var title = decodeURI(urlParams.get('title'));
+    var cat_name = decodeURIComponent(urlParams.get('cat'));
+    var title = decodeURIComponent(urlParams.get('title'));
 	var today = new Date();
 	var curDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 	var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
 	var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin
 
     var price = decodeURI(urlParams.get("price"));
-    var top_per = "=TO_PERCENT(" + (decodeURI(urlParams.get("top"))) / 100 + ")";
+    var top_per = (decodeURI(urlParams.get("top"))) / 100;
 	var cogs = decodeURI(urlParams.get("cogs"))
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURI(urlParams.get("notes"))
@@ -75,7 +75,7 @@
     async function finish(rowFin, order_array) {
         console.log("row num:" + rowFin)
         console.log("ROWWWwwYYWY")
-        if (is_dynam === "false") {
+        if (is_dynam == "false") {
             data1 = staticStats()
         }
         else {
