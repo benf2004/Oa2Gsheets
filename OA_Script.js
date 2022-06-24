@@ -15,7 +15,7 @@
 	// Create variables for desired statistics from Keepa JSON
 	var currentRank = decodeURI(urlParams.get('r'))
 	var ship = parseFloat(decodeURI(urlParams.get('s')));
-    var other = decodeURI(urlParams.get('other'));
+    var other = parseFloat(decodeURI(urlParams.get('other')));
     var cat_name = decodeURIComponent(urlParams.get('cat'));
     var title = decodeURIComponent(urlParams.get('title'));
 	var today = new Date();
