@@ -75,7 +75,7 @@
     async function finish(rowFin, order_array) {
         console.log("row num:" + rowFin)
         console.log("ROWWWwwYYWY")
-        if (is_dynam === false) {
+        if (is_dynam === "false") {
             data1 = staticStats()
         }
         else {
