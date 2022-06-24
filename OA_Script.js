@@ -14,7 +14,7 @@
 
 	// Create variables for desired statistics from Keepa JSON
 	var currentRank = decodeURI(urlParams.get('r'))
-	var ship = decodeURI(urlParams.get('s'));
+	var ship = parseFloat(decodeURI(urlParams.get('s')));
     var other = decodeURI(urlParams.get('other'));
     var cat_name = decodeURIComponent(urlParams.get('cat'));
     var title = decodeURIComponent(urlParams.get('title'));
@@ -30,6 +30,7 @@
 	var notes = decodeURI(urlParams.get("notes"))
     console.log("notes is " + notes)
     var refPer = "=TO_PERCENT(" + decodeURI(urlParams.get("refPer")) + ")";
+    var ref_num = decodeURI(urlParams.get('refPer'))
     var is_dynam = decodeURI(urlParams.get("dy"))
 
 
@@ -61,7 +62,7 @@
     }; // end of dynamic stats function
 
     function staticStats(){
-        let refFee1 = +((price * refPer).toFixed(2))
+        let refFee1 = +((price * ref_num).toFixed(2))
         let totFees1 = +(refFee1 + ship + other)
         let profit1 = +((price - totFees1 - cogs).toFixed(2))
         let roi1 = +((profit1 / cogs).toFixed(2))
