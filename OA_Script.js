@@ -28,7 +28,7 @@
 	var cogs = parseFloat(decodeURI(urlParams.get("cogs")));
     console.log("COGS: " + cogs)
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
-	var notes = decodeURI(urlParams.get("notes"))
+	var notes = decodeURIComponent(urlParams.get("notes"))
     console.log("notes is " + notes)
     var refPer = "=TO_PERCENT(" + decodeURI(urlParams.get("refPer")) + ")";
     var ref_num = decodeURI(urlParams.get('refPer'))
