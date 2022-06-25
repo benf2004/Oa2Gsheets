@@ -18,7 +18,8 @@
     var other = parseFloat(decodeURI(urlParams.get('other')));
     var cat_name = decodeURIComponent(urlParams.get('cat'));
     var title = decodeURIComponent(urlParams.get('title'));
-	var today = new Date();
+    var drops = decodeURIComponent(urlParams.get('drops'));
+    var today = new Date();
 	var curDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 	var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
 	var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin
@@ -57,7 +58,7 @@
         let sales_tax = 0;
         let roi1 = "=TO_PERCENT(" + a['7'] + rowStr + "/" + a['9'] + rowStr + ")";
         let proceeds = "=" + a['8'] + "-" + a['14'] + rowStr;
-        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per];
+        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops];
         console.log(my_list)
         return my_list
     }; // end of dynamic stats function
@@ -72,7 +73,7 @@
         let margin = profit1 / price
         let sales_tax = 0;
         let proceeds = price - totFees1;
-        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, ref_fee, ship, tot_fees, sellLink, margin, other, sales_tax, proceeds, top_per];
+        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, ref_fee, ship, tot_fees, sellLink, margin, other, sales_tax, proceeds, top_per, drops];
         return my_list
     }
 
