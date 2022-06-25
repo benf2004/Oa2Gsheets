@@ -158,7 +158,7 @@ async function main() {
         let ship = Number(document.getElementById("ship").value)
         let other = Number(document.getElementById("other").value)
         let sourceURL = document.getElementById("source").value
-        let notes = document.getElementById("notes").value
+        let notes = encodeURIComponent(document.getElementById("notes").value)
         let enc_title = encodeURIComponent(title)
         let enc_cat = encodeURIComponent(cat_name)
         console.log("ref per is(extension) : " + refPer)
