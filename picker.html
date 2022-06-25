@@ -83,11 +83,12 @@
   <h1>Customize Google Sheet</h1>
   <button class="btn btn-success p-2 mx-2" id="authorize_button" onclick="handleAuthClick()">Link Gsheet</button>
   <button class="btn btn-danger p-2 mx-2" id="signout_button" onclick="handleSignoutClick()">Disconnect Gsheet</button>
+  <span id="buttons">
   <button class="btn btn-info p-2 mx-2" onclick="saveTable()">Save Table</button>
   <i class="fas fa-sync fa-spin d-none" id="table_spinner"></i>
   <button class="btn btn-info p-2 mx-2" onclick="fill_headers()">Fill Headers</button>
   <i class="fas fa-sync fa-spin d-none" id="headers_spinner"></i>
-
+  </span>
   &emsp; &emsp; &emsp; &emsp;
   <span>Dynamic Stats <i>recommended</i>
   <label class="switch">
@@ -207,7 +208,7 @@
         <li>2. &nbsp Click the "Link Gsheet" button. <em> Note: OA2Gsheets only supports linking to the first worksheet, for now.</em></li>
         <li>3. &nbsp Sign in to Google & select the Google Sheet you want to link.</li>
         <li>4. &nbsp Drag the items in the table to the order you want them to appear on your Gsheet. <br> Use the second table to
-        remove any items you don't want. <a href="#" target="_blank">Click here for word definitions <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+        remove any items you don't want. Blank columns will be ignored. <a href="https://oa2gsheets.freshdesk.com/support/solutions/articles/73000563574-term-definitions-spreadsheet-columns-product-dashboard" target="_blank">Click here for word definitions <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
         <li>5. &nbsp Decide if you would like to use dynamic stats. This allows certain values to be exported as formulas.
         <br> <em>Note: the items outline in red are required for dynamic stats</em>. More about dynamic stats <a href="#" target="_blank">here <i class="fa-solid fa-arrow-up-right-from-square"></i></a> </li>
         <li>6. &nbsp <strong>IMPORTANT!</strong> Click the "Save Table" button to save the table order.</li>
