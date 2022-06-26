@@ -1,6 +1,6 @@
 async function main() {
     async function keepa(asin, d_id) {
-        let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=' + d_id + 'asin=' + asin + '&stats=0')
+        let response = await fetch("https://api.keepa.com/product?key=" + jumbo + "&domain=" + d_id + "asin=" + asin + "&stats=0")
         return response.json()
     }
 
@@ -130,7 +130,7 @@ async function main() {
     const asin = decodeURI(urlParams.get("asin"))
     const fileID = decodeURI(urlParams.get("fileID"))
     const is_dynam = decodeURI(urlParams.get('dy'))
-    const domain = decodeURI("d_id")
+    const domain = decodeURI(urlParams.get("d_id"))
     let order = urlParams.get("o")
 
     const object1 = await keepa(asin, domain);
