@@ -1,6 +1,6 @@
 async function main() {
     async function keepa(asin, d_id) {
-        let response = await fetch("https://api.keepa.com/product?key=" + jumbo + "&domain=" + d_id + "asin=" + asin + "&stats=0")
+        let response = await fetch("https://api.keepa.com/product?key=" + jumbo + "&domain=" + d_id + "&asin=" + asin + "&stats=0")
         return response.json()
     }
 
