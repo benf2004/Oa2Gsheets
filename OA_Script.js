@@ -53,7 +53,7 @@
         // refer to picker id_num_dict to see order
         let refFee1 = "=ROUND(" + a['8'] + rowStr + "*" + a['10'] + rowStr + ", 2)";
         let totFees1 = "=" + a['12'] + rowStr + "+" + a['13'] + rowStr + '+' + a['17'] + rowStr;
-        let profit1 = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr;
+        let profit1 = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr + "-" + a['7'];
         let margin = "=TO_PERCENT(" + a['9'] + rowStr + "/" + a['8'] + rowStr + ")";
         let sales_tax = 0;
         let roi1 = "=TO_PERCENT(" + a['7'] + rowStr + "/" + a['9'] + rowStr + ")";
