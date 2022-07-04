@@ -1,5 +1,3 @@
-let col_a = document.getElementsByClassName("a"), my_order
-//console.log(col_a);
 var rd = REDIPS.drag;
 rd.only.divClass.ne = 'extras';
 rd.only.other = 'allow';
