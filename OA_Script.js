@@ -191,4 +191,4 @@
     }
     } // end of top1
     var fileID = decodeURI(urlParams.get("fileID"))
-    setTimeout(() => {top1()}, 1000)
+    setTimeout(() => {top1()}, 2000)
