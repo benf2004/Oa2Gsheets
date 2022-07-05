@@ -1,7 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 11pt;
-    margin: 8px;
+    margin: 8px 8px 0 8px;
     padding: 0 !important;
     max-width: 600px
 }
@@ -27,7 +27,9 @@ iframe {
 }
 .column {
     margin-bottom: 0;
+    margin-left: fill;
     float: left;
+    min-width: 205px;
     width: 225px;
 }
 
@@ -78,10 +80,7 @@ iframe {
 }
 .button > .ld {
     color: #000000;
-    font-size: 20px
-}
-#notes #source_url{
-    width:100px;
+    font-size: 14px
 }
 
 /* Colors: Default (blue) */
