@@ -25,12 +25,13 @@ iframe {
     border: 0px;
     height: 0;
 }
+
 .column {
     margin-bottom: 0;
-    margin-left: fill;
+    margin-left: initial;
     float: left;
-    min-width: 200px;
-    width: 225px;
+    min-width: 210px;
+    width: auto;
 }
 
 /* Clear floats after the columns */
