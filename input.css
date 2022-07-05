@@ -20,11 +20,13 @@ input::-webkit-inner-spin-button {
 
 iframe {
     overflow: hidden;
+    margin: 0;
     width: 0;
     border: 0px;
     height: 0;
 }
 .column {
+    margin-bottom: 0;
     float: left;
     width: 225px;
 }
