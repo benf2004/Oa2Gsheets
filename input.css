@@ -29,12 +29,11 @@ iframe {
 .column {
     margin-bottom: 0;
     float: left;
-    max-width: 220px;
-    width: 200px
+    width: 180px;
 }
 
 #right {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 /* Clear floats after the columns */
 .row:after {
