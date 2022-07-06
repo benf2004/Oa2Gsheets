@@ -31,7 +31,7 @@ iframe {
     margin-left: initial;
     float: left;
     min-width: 210px;
-    width: auto;
+    max-width: 225px;
 }
 
 /* Clear floats after the columns */
