@@ -3,7 +3,7 @@ body {
     font-size: 11pt;
     margin: 8px 8px 0 8px;
     padding: 0 !important;
-    max-width: 600px
+    max-width: 500px
 }
 
 input {
@@ -29,11 +29,11 @@ iframe {
 .column {
     margin-bottom: 0;
     float: left;
-    width: 180px;
+    width: 170px;
 }
 
 #right {
-    margin-left: 20px;
+    margin-left: 30px;
 }
 /* Clear floats after the columns */
 .row:after {
