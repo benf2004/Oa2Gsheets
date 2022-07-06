@@ -29,7 +29,8 @@ iframe {
 .column {
     margin-bottom: 0;
     float: left;
-    width: 195px;
+    max-width: 220px;
+    width: 200px
 }
 
 #right {
@@ -50,11 +51,9 @@ iframe {
           white-space: nowrap;
           background: #28bc54;
           border-radius: 500px;
-          border: 0px solid #444;
-          border-width: 0px 0px 0px 0px;
-          padding: 10px 15px 10px 43px;
+          padding: 10px 10px 10px 38px;
           color: #fff;
-          font-size: 16px;
+          font-size: 14px;
           font-family: Helvetica Neue;
           font-weight: 900;
           font-style: normal
@@ -74,7 +73,7 @@ iframe {
     background: #fff;
     border-radius: 400px;
     border: 0px solid transparent;
-    padding: 8px 8px 8px 8px;
+    padding: 7px 7px 7px 7px;
     margin: 6px 6px 6px 6px;
     position: absolute;
     top: -2px;
