@@ -66,6 +66,7 @@ function saveTable() {
     let json_encode = encodeURI(json_order);
     console.log(json_encode)
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
+    var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
     document.cookie = "order=" + json_encode + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
     if (document.getElementById("dynam").checked === true) {
         console.log("checked!")
@@ -76,6 +77,11 @@ function saveTable() {
     }
     console.log("COOKIES:")
     console.log(decodeURIComponent(document.cookie))
+    chrome.runtime.sendMessage(test_extension, 'update_order',
+        function(response) {
+            if (!response.success)
+                handleError(url);
+        });
     chrome.runtime.sendMessage(extension_id, 'update_order',
         function(response) {
             if (!response.success)
