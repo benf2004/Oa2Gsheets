@@ -22,12 +22,74 @@ dynam.addEventListener("change", (e) => {
 });
 
 
+let url = window.location.search
+const urlParams = new URLSearchParams(url);
+let o = decodeURI(urlParams.get("order"))
+console.log(o)
+let o1 = o.replace("[","")
+console.log(o1)
+let o2 = o1.replace("]","")
+console.log(o2)
+let o3 = o2.replace(/"/g, "")
+console.log(o3)
+let o_l = o3.split(",")
+console.log(o_l)
+console.log(typeof o_l)
+if (o === "none"){
+    o = getCookie('order')
+    if (o !== ""){
+
+    }
+}
+else {
+    let load_list = [["date",1,0,"ne","Date"],["asin",1,1,"ne","ASIN"],["title",1,2,"ne","Product Name"],["roi",1,3,"ne","ROI"],["sr",1,4,"ne","Sales Rank"],["cat_name",1,5,"ne","Category name"],["source_url",1,6,"ne","Source URL"],["cogs",1,7,"e","COGS"],["price",1,8,"e","Price"],["profit",1,9,"e","Profit"],["ref_per",1,10,"e","Referral %"],["notes",1,11,"ne","Notes"],["ref_fee",1,12,"e","Referral Fee ($)"],["ship",1,13,"e","Shipping Fee"],["tot_fee",1,14,"e","Total Fees"],["sell_link",1,15,"ne","Seller link"],["margin",1,16,"ne","Gross Margin"],["other_fees",1,17,"e","Other Fees"],["sales_tax"],["proceeds",1,19,"ne","Seller Proceeds"],["top_per",1,20,"ne","Top %"],["drops",1,21,"ne","Drops"]]
+    let table_load = []
+    let not_used = []
+    let i = 0
+    for (let each of o_l){
+        let num = parseInt(each)
+        let this_list = load_list[num]
+        this_list.splice(2,1)
+        this_list.splice(2,0,i)
+        table_load.push(this_list)
+        i += 1
+    }
+    for (let i = 0; i < 21; i++) {
+        let item = load_list[i][0]
+        if (item !== "sales_tax"){
+            if (checkList(table_load, item) === false) {
+                load_list[i].splice(1, 1)
+                load_list[i].splice(1, 0, 0)
+                load_list[i].splice(2, 1)
+                load_list[i].splice(2, 0, 0)
+                not_used.push(load_list[i])
+            }
+        }
+    }
+    console.log(not_used)
+    rd.clearTable("tab");
+    rd.clearTable("other_columns");
+    rd.loadContent("tab", table_load);
+    rd.loadContent("other_columns", load_list);
+}
+
+function checkList(tl, item1){
+    let contains = false
+    for (let each of tl){
+        if (each.includes(item1)){
+            contains = true
+        }
+    }
+    return contains
+}
+
 function saveTable() {
     document.getElementById("table_spinner").classList.remove('d-none')
     setTimeout(() => {document.getElementById("table_spinner").classList.add('d-none')}, 2000)
     let table1 = document.getElementById("tab");
     const table_json = REDIPS.drag.saveContent(table1, "json");
     const table_save = JSON.parse(table_json);
+    console.log(table_json)
     const my_order = [];
     for (const each of table_save){
         my_order.push(each[0])
