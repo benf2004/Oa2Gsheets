@@ -14,6 +14,9 @@ async function main() {
 
 
     function detrmRefPer(price, cats2) {
+        console.log("PRICE:")
+        console.log(price)
+        console.log(cats2)
         const eightPer = [
             'Camera & Photo', 'Full-Size Appliances', "Cell Phone Devices",
             "Consumer Electronics", "Personal Computers", "Video Game Consoles"
