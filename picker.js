@@ -20,28 +20,7 @@ dynam.addEventListener("change", (e) => {
         rd.only.divClass.ne = 'extras';
     }
 });
-
-
-let url = window.location.search
-const urlParams = new URLSearchParams(url);
-let o = decodeURI(urlParams.get("order"))
-console.log(o)
-let o1 = o.replace("[","")
-console.log(o1)
-let o2 = o1.replace("]","")
-console.log(o2)
-let o3 = o2.replace(/"/g, "")
-console.log(o3)
-let o_l = o3.split(",")
-console.log(o_l)
-console.log(typeof o_l)
-if (o === "none"){
-    o = getCookie('order')
-    if (o !== ""){
-
-    }
-}
-else {
+function load_table(){
     let load_list = [["date",1,0,"ne","Date"],["asin",1,1,"ne","ASIN"],["title",1,2,"ne","Product Name"],["roi",1,3,"ne","ROI"],["sr",1,4,"ne","Sales Rank"],["cat_name",1,5,"ne","Category name"],["source_url",1,6,"ne","Source URL"],["cogs",1,7,"e","COGS"],["price",1,8,"e","Price"],["profit",1,9,"e","Profit"],["ref_per",1,10,"e","Referral %"],["notes",1,11,"ne","Notes"],["ref_fee",1,12,"e","Referral Fee ($)"],["ship",1,13,"e","Shipping Fee"],["tot_fee",1,14,"e","Total Fees"],["sell_link",1,15,"ne","Seller link"],["margin",1,16,"ne","Gross Margin"],["other_fees",1,17,"e","Other Fees"],["sales_tax"],["proceeds",1,19,"ne","Seller Proceeds"],["top_per",1,20,"ne","Top %"],["drops",1,21,"ne","Drops"]]
     let table_load = []
     let not_used = []
@@ -71,6 +50,27 @@ else {
     rd.clearTable("other_columns");
     rd.loadContent("tab", table_load);
     rd.loadContent("other_columns", load_list);
+}
+
+let url = window.location.search
+const urlParams = new URLSearchParams(url);
+let o = decodeURI(urlParams.get("order"))
+let o1 = o.replace("[","")
+let o2 = o1.replace("]","")
+let o3 = o2.replace(/"/g, "")
+let o_l = o3.split(",")
+if (o === "none"){
+    o = getCookie('order')
+    let o1 = o.replace("[","")
+    let o2 = o1.replace("]","")
+    let o3 = o2.replace(/"/g, "")
+    let o_l = o3.split(",")
+    if (o !== ""){
+        load_table()
+    }
+}
+else {
+    load_table()
 }
 
 function checkList(tl, item1){
