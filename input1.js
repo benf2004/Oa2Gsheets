@@ -52,7 +52,7 @@ async function main() {
         ];
         var refPer = 0.15
         var catName = cats2[0]["name"]
-        if (catName in groceryFee) {
+        if (catName === "Grocery & Gourmet Foods") {
             if (price <= 15){
                 refPer = 0.8
             }
