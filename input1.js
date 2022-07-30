@@ -62,7 +62,7 @@ async function main() {
         }
         else {
             for (let each in cats2) {
-                var catName = cats2[each]["name"]
+                catName = cats2[each]["name"]
                 console.log("CATEGORY NAME IS: " + catName)
                 for (let each1 in twelvePer) {
                     if (catName === twelvePer[each1]) {
