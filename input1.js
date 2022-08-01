@@ -255,7 +255,14 @@ async function main() {
     console.log(dimensions)
     var weight = await gramToOz(product['packageWeight'])
     console.log(weight)
-    let pickPack = await round_2(product["fbaFees"]['pickAndPackFee'] / 100);
+    let check_pp = product["fbaFees"]['pickAndPackFee']
+    let pickPack;
+    if (check_pp != null) {
+        pickPack = await round_2(product["fbaFees"]['pickAndPackFee'] / 100);
+    }
+    else{
+        pickPack = 0
+    }
     let root_cat_id = await product['rootCategory']
     const cats = await get_cats(root_cat_id, domain);
     let cat_name = await cats['name'];
