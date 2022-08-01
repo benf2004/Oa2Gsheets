@@ -21,7 +21,7 @@ async function main() {
             'Camera & Photo', 'Full-Size Appliances', "Cell Phone Devices",
             "Consumer Electronics", "Personal Computers", "Video Game Consoles"
         ];
-        const groceryFee = ["Grocery & Gourmet Foods"];
+        const groceryFee = ["Grocery & Gourmet Food"];
         const twelvePer = ["3D Printed Products", "Automotive & Powersports", "Industrial & Scientific", "Food Service", "Janitorial & Scientific"];
         const specialFee = [
             "Electronics Accessories", "Furniture", "Compact Appliances",
@@ -53,8 +53,8 @@ async function main() {
         var refPer = 0.15
         var catName = cats2[0]["name"]
         console.log(catName)
-        console.log(catName === "Grocery & Gourmet Foods")
-        if (catName === "Grocery & Gourmet Foods") {
+        console.log(catName === "Grocery & Gourmet Food")
+        if (catName === "Grocery & Gourmet Food") {
             if (price <= 15){
                 refPer = 0.8
             }
@@ -157,6 +157,8 @@ async function main() {
         let other = Number(document.getElementById("other").value)
 
         console.log(ship)
+        const refPer = detrmRefPer(price, cats2)
+
         // vars from keepa
         const stats = object1['products'][0]['stats']['current'];
         let drop30 = object1['products'][0]['stats']['salesRankDrops30']
