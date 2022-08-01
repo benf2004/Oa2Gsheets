@@ -255,9 +255,9 @@ async function main() {
     console.log(dimensions)
     var weight = await gramToOz(product['packageWeight'])
     console.log(weight)
-    let check_pp = product["fbaFees"]['pickAndPackFee']
+    let check_fba = product["fbaFees"]
     let pickPack;
-    if (check_pp != null) {
+    if (check_fba != null) {
         pickPack = await round_2(product["fbaFees"]['pickAndPackFee'] / 100);
     }
     else{
