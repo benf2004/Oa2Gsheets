@@ -56,7 +56,7 @@ async function main() {
         console.log(catName === "Grocery & Gourmet Food")
         if (catName === "Grocery & Gourmet Food") {
             if (price <= 15){
-                refPer = 0.8
+                refPer = 0.08
             }
             else {
                 refPer = 0.15
