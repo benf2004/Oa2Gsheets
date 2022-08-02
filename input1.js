@@ -183,6 +183,10 @@ async function main() {
             }
         }
         else {
+            let sl_would_be = isSmallLight(dimen, weight, 9.99)
+            if (ship === sl_would_be){
+                document.getElementById("ship").value = pickPack;
+            }
             document.getElementById('s_l').checked = false
             document.getElementById('s_l').disabled = true
         }
