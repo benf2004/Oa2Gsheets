@@ -187,7 +187,7 @@ async function main() {
             let sl_would_be = isSmallLight(dimensions, weight, 9.99)
             document.getElementById('s_l').checked = false
             document.getElementById('s_l').disabled = true
-            if (ship === sl_would_be){
+            if (ship == sl_would_be){
                 document.getElementById("ship").value = pickPack;
             }
         }
