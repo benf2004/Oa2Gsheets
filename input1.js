@@ -103,17 +103,15 @@ async function main() {
     }
 
     function isSmallLight(dimen, oz, price){
-        console.log('OUNCES:')
-        console.log(oz)
         let fee = -1;
         if (dimen[0] < 15 && dimen[1] < 12 && dimen[2] < 0.75 && price <= 10) {
             if (oz <= 6){
                 fee = 2.35
             }
-            else if (6 < oz <= 12){
+            else if (6 < oz && oz <= 12){
                 fee = 2.49
             }
-            else if (12 < oz <= 16){
+            else if (12 < oz && oz <= 16){
                 fee = 3.00
             }
             return round_2(fee * 1.05)
@@ -122,16 +120,16 @@ async function main() {
             if (oz <= 6){
                 fee = 2.53
             }
-            else if (6 < oz <= 12){
+            else if (6 < oz && oz <= 12){
                 fee = 2.80
             }
-            else if (12 < oz <= 16){
+            else if (12 < oz && oz <= 16){
                 fee = 3.59
             }
-            else if (16 < oz <= 32){
+            else if (16 < oz && oz <= 32){
                 fee = 4.21
             }
-            else if (32 < oz <= 48){
+            else if (32 < oz && oz <= 48){
                 fee = 4.94
             }
             return round_2(fee * 1.05)
