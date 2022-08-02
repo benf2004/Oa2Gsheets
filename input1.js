@@ -184,7 +184,6 @@ async function main() {
         }
         else {
             document.getElementById('s_l').checked = false
-            document.getElementById("ship").value = pickPack;
             document.getElementById('s_l').disabled = true
         }
         document.getElementById("asin").innerHTML = asin
