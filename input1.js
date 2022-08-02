@@ -178,12 +178,12 @@ async function main() {
             if (document.getElementById('s_l').checked === true){
                 document.getElementById('ship').value = isSmallLight(dimensions, weight, price)
             }
-            if (isSmallLight(dimensions,weight,price) != parseFloat(ship)){
+            if (isSmallLight(dimensions,weight,price) !== parseFloat(ship)){
                 document.getElementById('s_l').checked = false
             }
         }
         else {
-            let sl_would_be = isSmallLight(dimen, weight, 9.99)
+            let sl_would_be = isSmallLight(dimensions, weight, 9.99)
             document.getElementById('s_l').checked = false
             document.getElementById('s_l').disabled = true
             if (ship === sl_would_be){
