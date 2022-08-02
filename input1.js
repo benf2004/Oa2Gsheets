@@ -178,7 +178,8 @@ async function main() {
             if (document.getElementById('s_l').checked === true){
                 document.getElementById('ship').value = isSmallLight(dimensions, weight, price)
             }
-            if (isSmallLight(dimensions,weight,price) !== parseFloat(ship)){
+            // ignore highlight
+            if (isSmallLight(dimensions,weight,price) != parseFloat(ship)){
                 document.getElementById('s_l').checked = false
             }
         }
