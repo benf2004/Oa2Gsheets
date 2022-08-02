@@ -103,6 +103,8 @@ async function main() {
     }
 
     function isSmallLight(dimen, oz, price){
+        console.log('OUNCES:')
+        console.log(oz)
         let fee = -1;
         if (dimen[0] < 15 && dimen[1] < 12 && dimen[2] < 0.75 && price <= 10) {
             if (oz <= 6){
