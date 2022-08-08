@@ -266,3 +266,103 @@ CORE STYLES ABOVE - NO TOUCHY
 #tooltip[data-popper-placement^='right'] > #arrow {
     left: -4px;
 }
+
+.btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    margin-bottom: 0;
+
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+.btn:focus,
+.btn:active:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+.btn:hover,
+.btn:focus {
+    color: #333;
+    text-decoration: none;
+}
+.btn:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.ignore{
+
+}
+/* default
+---------------------------- */
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-default:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
+.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.btn-default:active {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.but1 {
+      backface-visibility: hidden;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      white-space: nowrap;
+      background: #4285f4;
+      border-radius: 5px;
+      border: 0px solid #444;
+      padding: 8px 11px 8px 11px;
+      color: #000;
+      font-family: Helvetica Neue, serif;
+      font-weight: 900;
+      font-style: normal
+}
+.but1 > div {
+    color: #999;
+    font-size: 10px;
+    font-family: Helvetica Neue;
+    font-weight: initial;
+    font-style: normal;
+    text-align: center;
+    margin: 0px 0px 0px 0px
+}
+.but1 > i {
+    color: #fff;
+    font-size: 1em;
+    border-radius: 0px;
+    border: 0px solid transparent;
+    border-width: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    position: static
+}
+.but1 > .ld {
+    font-size: initial
+}

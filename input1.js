@@ -306,6 +306,16 @@ async function main() {
         document.getElementById("frame").src = codeURL
     }
 
+    function search(){
+        let my_url = "https://www.google.com/search?q=" + title
+        window.open(my_url, "_blank")
+    }
+
+    function list(){
+        let my_url = "https://sellercentral.amazon.com/abis/Display/ItemSelected?asin=" + asin
+        window.open(my_url, "_blank")
+    }
+
     document.getElementById("price").addEventListener("input", updateStats);
     document.getElementById("other").addEventListener("input", updateStats);
     document.getElementById("cogs").addEventListener("input", updateStats);
@@ -313,5 +323,7 @@ async function main() {
     document.getElementById("ship").addEventListener("input", updateStats);
     document.getElementById("s_l").addEventListener("click", updateSL)
     document.getElementById("send").addEventListener("click", sendInfo);
+    document.getElementById("google").addEventListener("click", search)
+    document.getElementById("amazon").addEventListener("click", list)
 }
 main()
