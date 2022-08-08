@@ -366,3 +366,6 @@ CORE STYLES ABOVE - NO TOUCHY
 .but1 > .ld {
     font-size: initial
 }
+p {
+    margin-bottom: 8px;
+}
