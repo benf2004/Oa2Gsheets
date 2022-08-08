@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@18657a9/css/all.min.css" rel="stylesheet" type="text/css" />
     <link href="input.css" rel="stylesheet">
 <body id="body">
 <div id="div1" class="ignore container mt-3">
@@ -23,9 +23,16 @@
                 <p><strong id="totFee_l">Total Fees: </strong><span id="total"></span></p>
                 <p><strong id="sourceURL_l">Source URL: </strong><input type="url" id="source" value="" autocomplete="off" class="inputs"/></p>
                 <div class="button" id="send">
-                    Send To Gsheets
                     <div></div>
                     <i id="icon" class="fa-brands fa-google-drive"></i>
+                </div> &emsp; &emsp;
+                <div class="but1" id="google">
+                    <div></div>
+                    <i class="fa-brands fa-google"></i>
+                </div>
+                <div class="but1" id="amazon">
+                    <div></div>
+                    <i class="fa-brands fa-amazon"></i>
                 </div>
             </div>
             <div class="column" id="right">
@@ -45,14 +52,6 @@
                      </span>
                 </label>
                 </p>
-                <div class="but1" id="google">
-                    <div></div>
-                    <i class="fa-brands fa-google"></i>
-                </div>
-                <div class="but1" id="amazon">
-                    <div></div>
-                    <i class="fa-brands fa-amazon"></i>
-                </div>
             </div>
         </div>
     </div>
@@ -137,7 +136,11 @@
         delay: [800, 0]
     });
     tippy('#google', {
-        content: 'Search the product on Google.',
+        content: 'Search the product on Google',
+        delay: [800, 0]
+    });
+    tippy('#send', {
+        content: 'Send info to your Google Sheet',
         delay: [800, 0]
     });
 </script>
