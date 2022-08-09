@@ -56,7 +56,7 @@ function load_table(){
 let url = window.location.search
 const urlParams = new URLSearchParams(url);
 let ndx = decodeURI(urlParams.get('index_num'))
-let fileID = decodeURI(urlParams.get('file_ID'))
+let fileID = decodeURI(urlParams.get('f_id'))
 if (fileID != "null"){
     document.cookie = "fileID=" + fileID + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
     document.getElementById("authorize_button").innerHTML = "Switch Gsheet"
