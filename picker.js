@@ -59,6 +59,7 @@ let ndx = decodeURI(urlParams.get('index_num'))
 let fileID = decodeURI(urlParams.get('file_ID'))
 if (fileID != "null"){
     document.cookie = "fileID=" + fileID + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
+    document.getElementById("authorize_button").innerHTML = "Switch Gsheet"
 }
 let o = decodeURI(urlParams.get("order"))
 let o1 = o.replace("[","")
