@@ -11,7 +11,8 @@ dynam.addEventListener("change", (e) => {
             essential[i].classList.remove('ne')
         }
         rd.only.divClass.ne = 'extras';
-    } else {
+    }
+    else {
         console.log("Checkbox is not checked..");
         for (let i = 0; i < essential.length; i++) {
             console.log(essential[i].id)
@@ -54,6 +55,11 @@ function load_table(){
 
 let url = window.location.search
 const urlParams = new URLSearchParams(url);
+let ndx = decodeURI(urlParams.get('index_num'))
+let fileID = decodeURI(urlParams.get('file_ID'))
+if (fileID != "null"){
+    document.cookie = "fileID=" + fileID + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
+}
 let o = decodeURI(urlParams.get("order"))
 let o1 = o.replace("[","")
 let o2 = o1.replace("]","")
@@ -139,7 +145,7 @@ function saveTable() {
     }
     console.log("COOKIES:")
     console.log(decodeURIComponent(document.cookie))
-    chrome.runtime.sendMessage(test_extension, 'update_order',
+    chrome.runtime.sendMessage(test_extension, {message: "update_order", index: ndx},
         function(response) {
             if (!response.success)
                 handleError(url);
