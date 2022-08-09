@@ -374,7 +374,7 @@ CORE STYLES ABOVE - NO TOUCHY
       cursor: pointer;
       display: inline-block;
       white-space: nowrap;
-      background: #4285f4;
+      background: #0d6efd;
       border-radius: 5px;
       border: 0px solid #444;
       padding: 8px 11px 8px 11px;
@@ -382,6 +382,9 @@ CORE STYLES ABOVE - NO TOUCHY
       font-family: Helvetica Neue, serif;
       font-weight: 900;
       font-style: normal
+}
+#settings {
+    background-color: #f8f9fa
 }
 .but1 > div {
     color: #999;
