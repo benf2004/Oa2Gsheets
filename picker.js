@@ -34,7 +34,7 @@ function load_table(){
         table_load.push(this_list)
         i += 1
     }
-    for (let i = 0; i < 21; i++) {
+    for (let i = 0; i < 22; i++) {
         let item = load_list[i][0]
         if (item !== "sales_tax"){
             if (checkList(table_load, item) === false) {
@@ -71,7 +71,7 @@ if (o === "none"){
     let o1 = o.replace("[","")
     let o2 = o1.replace("]","")
     let o3 = o2.replace(/"/g, "")
-    let o_l = o3.split(",")
+    o_l = o3.split(",")
     if (o !== ""){
         load_table()
     }
