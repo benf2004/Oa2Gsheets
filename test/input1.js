@@ -332,7 +332,7 @@ async function main() {
     function get_s(){
         var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
         var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
-        chrome.runtime.sendMessage(extension_id, {message: "get_spreadsheets"},
+        chrome.runtime.sendMessage(test_extension, {message: "get_spreadsheets"},
             function(response) {
                 console.log(response)
                 s_a = response
