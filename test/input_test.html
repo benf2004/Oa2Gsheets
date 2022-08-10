@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>OA to Gsheets Input</title>
+    <!--February 26, 2022-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@18657a9/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
+    <link href="input.css" rel="stylesheet">
+<body id="body">
+<div id="div1" class="ignore container mt-3">
+    <div class="">
+        <div class="row">
+            <div class="column">
+                <p><strong id="cogs_l">COGS: </strong> <input type="number" id="cogs" value="" autocomplete="off" class="inputs"/></p>
+                <p><strong id="asin_l">ASIN: </strong><span id="asin"></span></p>
+                <p><strong id="profit_l">Profit ($): </strong><span id="profit"></span></p>
+                <p><strong id="refFee_l">Referral Fee: </strong><span id="ref_fee"></span></p>
+                <p><strong id="shipFee_l">Ship Fee: </strong> <input type="number" id="ship" value="" autocomplete="off" class="inputs"/> </p>
+                <p><strong id="otherFee_l">Other Fees: </strong><input type="number" id="other" value="" autocomplete="off" class="inputs"/> </p>
+                <p><strong id="totFee_l">Total Fees: </strong><span id="total"></span></p>
+                <p><strong id="sourceURL_l">Source URL: </strong><input type="url" id="source" value="" autocomplete="off" class="inputs"/></p>
+                <div class="button" id="send">
+                    <div></div>
+                    <i id="icon" class="fa-brands fa-google-drive"></i>
+                </div>
+                <div class="but1" id="settings">
+                    <div></div>
+                    <i class="fa-solid fa-gear"></i>
+                </div>
+                <div class="but1" id="google">
+                    <div></div>
+                    <i class="fa-brands fa-google"></i>
+                </div>
+                <div class="but1" id="amazon">
+                    <div></div>
+                    <i class="fa-brands fa-amazon"></i>
+                </div>
+            </div>
+            <div class="column" id="right">
+                <p><strong id="price_l">Price: </strong> <input id="price" type="number" value="" autocomplete="off" type="text" class="inputs"/></p>
+                <p><strong id="roi_l">ROI: </strong><span id="roi"></span></p>
+                <p><strong id="margin_l">Margin: </strong><span id="margin"></span></p>
+                <p><strong id="sr_l">Sales Rank: </strong><span id="sr"></span></p>
+                <p><strong id="cat_l">Category: </strong><span id="category"></span></p>
+                <p><strong id="top_l">Top: </strong><span id="top"></span></p>
+                <p><strong id="drops_l">Drops: </strong><span id="drops"></span></p>
+                <p><strong id="notes_l">Notes: </strong><input type="text" id="notes" value="" autocomplete="off" class="inputs"/></p>
+                <p><strong id="sl_l">Small & Light: </strong>
+                    <label for="s_l" class="toggle-switchy" data-text="false" data-size="sm" data-style="rounded">
+                        <input disabled type="checkbox" id="s_l">
+                        <span class="toggle">
+                        <span class="switch"></span>
+                     </span>
+                    </label>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="s_array" style="display:none">
+<iframe src="" id="frame"></iframe>
+<div id="form_outer" style="display:none">
+    <form id="form_gs">
+        Send to:
+        <select id="spreadsheet_choice">
+
+        </select>
+    </form>
+</div>
+
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script></body>
+<script src="input1.js"></script>
+<!--script src="/hidden/input_OS.js"></script-->
+<script>
+    tippy('#cogs_l', {
+        content: 'Cost Of Goods; how much an item cost to buy',
+        delay: [800, 0]
+    });
+    tippy('#asin_l', {
+        content: 'Amazon Standard Identification Number; a unique alphanumeric code made for each product on Amazon',
+        delay: [800, 0]
+    });
+    tippy('#profit_l', {
+        content: 'Price - COGS - Total Fees; the amount you make after subtracting cost of good & fees',
+        delay: [800, 0]
+    });
+    tippy('#refFee_l', {
+        content: 'Price * referral %; the dollar amount Amazon takes on each sale',
+        delay: [800, 0]
+    });
+    tippy('#shipFee_l', {
+        content: 'The cost of shipping; automatically populated with the FBA fee - change for FBM',
+        delay: [800, 0]
+    });
+    tippy('#otherFee_l', {
+        content: 'A field that allows you to input additional fees such as taxes or prep fees',
+        delay: [800, 0]
+    });
+    tippy('#totFee_l', {
+        content: 'Referral Fee + Other Fees + Shipping Fee; does NOT include COGS',
+        delay: [800, 0]
+    });
+    tippy('#sourceURL_l', {
+        content: 'The URL referencing where you bought an item',
+        delay: [800, 0]
+    });
+    tippy('#roi_l', {
+        content: 'The Return On Investment (COGS ÷ Profit); represented as a percent',
+        delay: [800, 0]
+    });
+    tippy('#margin_l', {
+        content: 'Profit ÷ Price; represented as a percent',
+        delay: [800, 0]
+    });
+    tippy('#cat_l', {
+        content: "The name of the product's root category",
+        delay: [800, 0]
+    });
+    tippy('#top_l', {
+        content: 'The item\'s percentile of the root category (item\'s sales rank ÷ highest rank in category). If the item has no root category, this value will be -0.',
+        delay: [800, 0]
+    });
+    tippy('#drops_l', {
+        content: 'The number of sales rank drops, as recorded by Keepa, in the last 30|90|180 days',
+        delay: [800, 0]
+    });
+    tippy('#notes_l', {
+        content: 'Any additional notes you would like to add',
+        delay: [800, 0]
+    });
+    tippy('#sl_l', {
+        content: 'Switch toggling whether you would like to use Small & Light - see support for details.',
+        delay: [800, 0]
+    });
+    tippy('#amazon', {
+        content: 'List the product in Seller Central',
+        delay: [200, 0]
+    });
+    tippy('#google', {
+        content: 'Search the product on Google',
+        delay: [200, 0]
+    });
+    tippy('#send', {
+        content: 'Send info to your Google Sheet',
+        delay: [200, 0]
+    });
+    tippy('#settings', {
+        content: "Pick which spreadsheet to send your info",
+        delay: [200, 0]
+    })
+</script>
+
+</body>
+</html>

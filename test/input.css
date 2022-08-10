@@ -1,0 +1,418 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11pt;
+    margin: 8px 8px 0 8px;
+    padding: 0 !important;
+    max-width: 500px
+}
+
+input {
+    height: 10px;
+    padding: 3px;
+    width: 60px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+iframe {
+    overflow: hidden;
+    margin: 0;
+    width: 0;
+    border: 0px;
+    height: 0;
+}
+
+.column {
+    margin-bottom: 0;
+    float: left;
+    width: 170px;
+}
+
+#right {
+    margin-left: 30px;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/*.button {
+          backface-visibility: hidden;
+          position: relative;
+          cursor: pointer;
+          display: inline-block;
+          white-space: nowrap;
+          background: #28bc54;
+          border-radius: 500px;
+          padding: 10px 10px 10px 38px;
+          color: #fff;
+          font-size: 14px;
+          font-family: Helvetica Neue;
+          font-weight: 900;
+          font-style: normal
+}*/
+/*.button > div {
+    color: #999;
+    font-size: 10px;
+    font-family: Helvetica Neue;
+    font-weight: initial;
+    font-style: normal;
+    text-align: center;
+    margin: 0px 0px 0px 0px
+}
+.button > i {
+    color: #ffffff;
+    font-size: 1em;
+    background: #28bc54;
+    border-radius: 400px;
+    border: 0px solid transparent;
+    padding: 7px 7px 7px 7px;
+    margin: 6px 6px 6px 6px;
+    position: absolute;
+    top: -2px;
+    left: 0px;
+}
+.button > .ld {
+    color: #000000;
+    font-size: 14px
+}
+*/
+.button {
+    backface-visibility: hidden;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    background: #28a745;
+    border-radius: 100px;
+    border: 0px solid #444;
+    padding: 9px 11px 9px 11px;
+    color: #000;
+    font-size: 18px;
+    font-family: Helvetica Neue;
+    font-weight: 900;
+    font-style: normal
+}
+.button > div {
+    color: #999;
+    font-size: 10px;
+    font-family: Helvetica Neue;
+    font-weight: initial;
+    font-style: normal;
+    text-align: center;
+    margin: 0px 0px 0px 0px
+}
+.button > i {
+    color: #fff;
+    font-size: 1em;
+    border-radius: 0px;
+    border: 0px solid transparent;
+    border-width: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    position: static
+}
+.button > .ld {
+    font-size: initial
+}
+
+/* Colors: Default (blue) */
+.toggle-switchy {color:#fff;}
+.toggle-switchy > input + .toggle:before {content:'ON';}
+.toggle-switchy > input + .toggle:after {content:'OFF';}
+.toggle-switchy > input + .toggle > .switch {background:#fff;}
+.toggle-switchy > input + .toggle + .label {color:#000;}
+.toggle-switchy > input:checked + .toggle {background:#0d6efd;}
+.toggle-switchy > input:not(:checked) + .toggle {background:#ccc;}
+.toggle-switchy > input:checked + .toggle > .switch {border:3px solid #0d6efd;}
+.toggle-switchy > input:not(:checked) + .toggle > .switch {border:3px solid #ccc;}
+.toggle-switchy > input:focus + .toggle,
+.toggle-switchy > input:active + .toggle {box-shadow:0 0 5px 3px rgba(0, 119, 200, 0.50);}
+
+/* Rounded switch corners */
+.toggle-switchy > input + .toggle {border-radius:4px;}
+.toggle-switchy > input + .toggle .switch {border-radius:6px;}
+
+/* //////////////////////////
+CORE STYLES BELOW - NO TOUCHY
+////////////////////////// */
+.toggle-switchy {display:inline-flex; align-items:center; user-select:none; position:relative; vertical-align:middle; margin-bottom:0;}
+.toggle-switchy:hover {cursor:pointer;}
+.toggle-switchy > input {position:absolute; opacity:0;}
+.toggle-switchy > input + .toggle {align-items:center; position:relative;}
+.toggle-switchy > input + .toggle {overflow:hidden; position:relative; flex-shrink:0;}
+.toggle-switchy > input[disabled] + .toggle {opacity:0.5;}
+.toggle-switchy > input[disabled] + .toggle:hover {cursor:not-allowed;}
+.toggle-switchy > input + .toggle {width:100%; height:100%; margin:0; cursor:pointer;}
+.toggle-switchy > input + .toggle > .switch {display:block; height:100%; position:absolute; right:0; z-index:3; box-sizing:border-box;}
+
+/* Labels */
+.toggle-switchy > input + .toggle:before,
+.toggle-switchy > input + .toggle:after {display:flex; align-items:center; position:absolute; z-index:2; height:100%;}
+.toggle-switchy > input + .toggle:before {right:55%;}
+.toggle-switchy > input + .toggle:after {left:50%;}
+.toggle-switchy > input + .toggle + .label {margin-left:10px;}
+.toggle-switchy[data-label='left'] > input + .toggle {order:2;}
+.toggle-switchy[data-label='left'] > input + .toggle + .label {order:1; margin-left:0; margin-right:10px;}
+
+/* Show / Hide */
+.toggle-switchy > input + .toggle:before {opacity:0;}
+.toggle-switchy > input:checked + .toggle:before {opacity:1;}
+.toggle-switchy > input:checked + .toggle:after {opacity:0;}
+
+/* Transitions */
+.toggle-switchy > input + .toggle {transition:background 200ms linear, box-shadow 200ms linear;}
+.toggle-switchy > input + .toggle:before,
+.toggle-switchy > input + .toggle:after {transition:all 200ms linear;}
+.toggle-switchy > input + .toggle > .switch {transition:right 200ms linear, border-color 200ms linear;}
+/* //////////////////////////
+CORE STYLES ABOVE - NO TOUCHY
+////////////////////////// */
+
+/* Size: Extra Large */
+.toggle-switchy[data-size='xl'] > input + .toggle							{width:85px; height:40px;}
+.toggle-switchy[data-size='xl'] > input + .toggle > .switch					{width:40px;}
+.toggle-switchy[data-size='xl'] > input + .toggle:before,
+.toggle-switchy[data-size='xl'] > input + .toggle:after						{font-size:1.2rem;}
+.toggle-switchy[data-size='xl'] > input:not(:checked) + .toggle > .switch	{right:calc(100% - 40px);}
+
+/* Size: Large */
+.toggle-switchy[data-size='lg'] > input + .toggle							{width:75px; height:35px;}
+.toggle-switchy[data-size='lg'] > input + .toggle > .switch					{width:35px;}
+.toggle-switchy[data-size='lg'] > input + .toggle:before,
+.toggle-switchy[data-size='lg'] > input + .toggle:after						{font-size:1rem;}
+.toggle-switchy[data-size='lg'] > input:not(:checked) + .toggle > .switch	{right:calc(100% - 35px);}
+
+/* Size: Default (Medium) */
+.toggle-switchy > input + .toggle											{width:65px; height:30px;}
+.toggle-switchy > input + .toggle	> .switch								{width:30px;}
+.toggle-switchy > input + .toggle:before,
+.toggle-switchy > input + .toggle:after										{font-size:0.8rem;}
+.toggle-switchy > input:not(:checked) + .toggle > .switch					{right:calc(100% - 30px);}
+
+/* Size: Small */
+.toggle-switchy[data-size='sm'] > input + .toggle							{width:55px; height:25px;}
+.toggle-switchy[data-size='sm'] > input + .toggle > .switch					{width:25px;}
+.toggle-switchy[data-size='sm'] > input + .toggle:before,
+.toggle-switchy[data-size='sm'] > input + .toggle:after						{font-size:0.7rem;}
+.toggle-switchy[data-size='sm'] > input:not(:checked) + .toggle > .switch	{right:calc(100% - 25px);}
+
+/* Size: Extra Small */
+.toggle-switchy[data-size='xs'] > input + .toggle							{width:45px; height:20px;}
+.toggle-switchy[data-size='xs'] > input + .toggle > .switch					{width:20px;}
+.toggle-switchy[data-size='xs'] > input + .toggle:before,
+.toggle-switchy[data-size='xs'] > input + .toggle:after						{font-size:0.5rem;}
+.toggle-switchy[data-size='xs'] > input:not(:checked) + .toggle > .switch	{right:calc(100% - 20px);}
+
+/* Style: Rounded */
+.toggle-switchy[data-style='rounded'] > input + .toggle,
+.toggle-switchy[data-style='rounded'] > input + .toggle > .switch			{border-radius:50px;}
+.toggle-switchy[data-style='rounded'] > input + .toggle:before				{right:50%;}
+.toggle-switchy[data-style='rounded'] > input + .toggle:after				{left:50%;}
+
+/* Style: Square */
+.toggle-switchy[data-style='square'] > input + .toggle						{border-radius:0;}
+.toggle-switchy[data-style='square'] > input + .toggle .switch				{border-radius:0;}
+
+/* Text: Off */
+.toggle-switchy[data-text='false'] > input + .toggle:before,
+.toggle-switchy[data-text='false'] > input + .toggle:after					{content:'';}
+.toggle-switchy[data-text='false'][data-size='xl'] > input + .toggle		{width:80px;}
+.toggle-switchy[data-text='false'][data-size='lg'] > input + .toggle		{width:70px;}
+.toggle-switchy[data-text='false'] > input + .toggle						{width:60px;}
+.toggle-switchy[data-text='false'][data-size='sm'] > input + .toggle		{width:50px;}
+.toggle-switchy[data-text='false'][data-size='xs'] > input + .toggle		{width:40px;}
+
+/* Color: Red */
+.toggle-switchy[data-color='red'] > input:checked + .toggle					{background:#e74c3c;}
+.toggle-switchy[data-color='red'] > input:checked + .toggle > .switch		{border-color:#e74c3c;}
+
+/* Color: Orange */
+.toggle-switchy[data-color='orange'] > input:checked + .toggle				{background:#e67e22;}
+.toggle-switchy[data-color='orange'] > input:checked + .toggle > .switch	{border-color:#e67e22;}
+
+/* Color: Yellow */
+.toggle-switchy[data-color='yellow'] > input:checked + .toggle				{background:#f1c40f;}
+.toggle-switchy[data-color='yellow'] > input:checked + .toggle > .switch	{border-color:#f1c40f;}
+
+/* Color: Green */
+.toggle-switchy[data-color='green'] > input:checked + .toggle				{background:#2ecc71;}
+.toggle-switchy[data-color='green'] > input:checked + .toggle > .switch		{border-color:#2ecc71;}
+
+/* Color: Blue */
+.toggle-switchy[data-color='blue'] > input:checked + .toggle				{background:#3498db;}
+.toggle-switchy[data-color='blue'] > input:checked + .toggle > .switch		{border-color:#3498db;}
+
+/* Color: Purple */
+.toggle-switchy[data-color='purple'] > input:checked + .toggle				{background:#9b59b6;}
+.toggle-switchy[data-color='purple'] > input:checked + .toggle > .switch	{border-color:#9b59b6;}
+
+/* Color: Gray */
+.toggle-switchy[data-color='gray'] > input:checked + .toggle				{background:#555;}
+.toggle-switchy[data-color='gray'] > input:checked + .toggle > .switch		{border-color:#555;}
+
+/* POPPER */
+#tooltip {
+    background: #333;
+    color: white;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    display: none;
+}
+
+#tooltip[data-show] {
+    display: block;
+}
+
+#arrow,
+#arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+}
+
+#arrow {
+    visibility: hidden;
+}
+
+#arrow::before {
+    visibility: visible;
+    content: '';
+    transform: rotate(45deg);
+}
+
+#tooltip[data-popper-placement^='top'] > #arrow {
+    bottom: -4px;
+}
+
+#tooltip[data-popper-placement^='bottom'] > #arrow {
+    top: -4px;
+}
+
+#tooltip[data-popper-placement^='left'] > #arrow {
+    right: -4px;
+}
+
+#tooltip[data-popper-placement^='right'] > #arrow {
+    left: -4px;
+}
+
+.btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    margin-bottom: 0;
+
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+.btn:focus,
+.btn:active:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+.btn:hover,
+.btn:focus {
+    color: #333;
+    text-decoration: none;
+}
+.btn:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.ignore{
+
+}
+/* default
+---------------------------- */
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-default:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
+.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.btn-default:active {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.but1 {
+    backface-visibility: hidden;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    background: #0d6efd;
+    border-radius: 5px;
+    border: 0px solid #444;
+    padding: 8px 11px 8px 11px;
+    color: #000;
+    font-family: Helvetica Neue, serif;
+    font-weight: 900;
+    font-style: normal
+}
+/* #settings {
+    background-color: #6c757d
+} */
+.but1 > div {
+    color: #999;
+    font-size: 10px;
+    font-family: Helvetica Neue;
+    font-weight: initial;
+    font-style: normal;
+    text-align: center;
+    margin: 0px 0px 0px 0px
+}
+.but1 > i {
+    color: #fff;
+    font-size: 1em;
+    border-radius: 0px;
+    border: 0px solid transparent;
+    border-width: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    position: static
+}
+.but1 > .ld {
+    font-size: initial
+}
+p {
+    margin-bottom: 8px;
+}
+
+#send{
+    margin-top: 5px
+}
+
