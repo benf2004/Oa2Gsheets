@@ -3,7 +3,8 @@ keepa_submit.addEventListener('click', save_api_key)
 let my_key;
 function save_api_key(){
     my_key = document.getElementById("keep_api").value
-    document.cookie = "keepa_key=" + my_key + " ; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+    document.cookie = "keepa_key=" + my_key + " ; expires=Thu, 18 Dec 2040 12:00:00 UTC";
+    document.getElementById("keep_api").value = my_key
 }
 function load_saved_key(){
     my_key = getCookie('keepa_key')
