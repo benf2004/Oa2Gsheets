@@ -9,7 +9,7 @@ body {
 input {
     height: 10px;
     padding: 3px;
-    width: 60px;
+    width: 40px;
 }
 
 input::-webkit-outer-spin-button,
@@ -409,10 +409,24 @@ CORE STYLES ABOVE - NO TOUCHY
     font-size: initial
 }
 p {
-    margin-bottom: 8px;
+    margin: 8px;
+    padding: 0px;
 }
 
 #send{
-    margin-top: 5px
+    margin-top: 0px
 }
 
+.sm-input{
+    height: 10px;
+    font-size: 9pt;
+    width: 30px;
+}
+
+#profit{
+    color: #28a745
+}
+
+#total{
+    color: #dc3545
+}

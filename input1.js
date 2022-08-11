@@ -11,7 +11,6 @@ async function main() {
         let category = my_data['categories'][id]
         return category
     }
-    var fileID; var is_dynam; var order;
 
 
     function detrmRefPer(price, cats2) {
@@ -243,11 +242,10 @@ async function main() {
     let url = window.location.search
     const urlParams = new URLSearchParams(url);
     const asin = decodeURI(urlParams.get("asin"))
-    fileID = decodeURI(urlParams.get("fileID"))
-    is_dynam = decodeURI(urlParams.get('dy'))
+    const fileID = decodeURI(urlParams.get("fileID"))
+    const is_dynam = decodeURI(urlParams.get('dy'))
     const domain = decodeURI(urlParams.get("d_id"))
-    order = urlParams.get("o")
-    console.log(order)
+    let order = urlParams.get("o")
 
     const object1 = await keepa(asin, domain);
     const product = await object1['products'][0];
@@ -275,15 +273,6 @@ async function main() {
     let cat_name = await cats['name'];
     let highest = await cats['highestRank']
     const currentStats = await object1['products'][0]['stats']['current'];
-    var stats = await object1['products'][0]['stats'];
-    var avg30_price = await stats['avg30'][1] / 100;
-    var avg90_price = await stats['avg90'][1] / 100;
-    var avg180_price = await stats['avg180'][1] / 100;
-    var avg365_price = await stats['avg365'][1] / 100;
-    var avg30_rank = await stats['avg30'][3]
-    var avg90_rank = await stats['avg90'][3]
-    var avg180_rank = await stats['avg180'][3]
-    var avg365_rank = await stats['avg365'][3]
     let price = await currentStats[1] / 100;
     let sl_fee = isSmallLight(dimensions, weight, price)
     let cats2 = await product["categoryTree"]
@@ -327,85 +316,6 @@ async function main() {
         window.open(my_url, "_blank")
     }
 
-    var s_a; var not_loaded;
-
-    function get_s(){
-        var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
-        var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
-        chrome.runtime.sendMessage(extension_id, {message: "get_spreadsheets"},
-            function(response) {
-                console.log(response)
-                s_a = response
-        });
-    }
-    get_s()
-
-    function choose_s() {
-        document.getElementById("spreadsheet_choice").addEventListener("change", set_file_id)
-        if (not_loaded !== false) {
-            let drop_down = document.getElementById("spreadsheet_choice")
-            for (let each of s_a) {
-                if (each.file_id !== null) {
-                    if (each.def === true) {
-                        let new_select = document.createElement('option')
-                        new_select.appendChild(document.createTextNode(each.name + " (default)"))
-                        new_select.setAttribute("selected", "true")
-                        drop_down.appendChild(new_select)
-                        order = each.order
-                        fileID = each.file_id
-                    }
-                    else {
-                        let new_select = document.createElement('option')
-                        new_select.appendChild(document.createTextNode(each.name))
-                        drop_down.appendChild(new_select)
-                    }
-                }
-            }
-            not_loaded = false
-        }
-    }
-
-    function set_file_id() {
-        console.log("FIRED")
-        let cho = document.getElementById("spreadsheet_choice")
-        let opt_name = cho.options[cho.selectedIndex].text
-        console.log(opt_name)
-        for (let each of s_a){
-            if (opt_name === each.name || opt_name === (each.name + " (default)")){
-                console.log("TRUE")
-                fileID = each.file_id
-                is_dynam = each.is_dynam
-                order = each.order
-            }
-        }
-    }
-
-    tippy('#settings', {
-        trigger: 'click',
-        interactive: true,
-        allowHTML: true,
-        theme: "light",
-        content: document.getElementById('form_outer').innerHTML
-    })
-
-    tippy('#price_l', {
-        content: "30-day avg: " + avg30_price + '<br>' +
-            "90-day avg: " + avg90_price + '<br>' +
-            "180-day avg: " + avg180_price + '<br>' +
-            "365-day avg: " + avg365_price,
-        delay: [200, 0],
-        allowHTML: true
-    });
-
-    tippy('#sr_l', {
-        content: "30-day avg: " + avg30_rank + '<br>' +
-            "90-day avg: " + avg90_rank + '<br>' +
-            "180-day avg: " + avg180_rank + '<br>' +
-            "365-day avg: " + avg365_rank,
-        delay: [200, 0],
-        allowHTML: true
-    });
-
     document.getElementById("price").addEventListener("input", updateStats);
     document.getElementById("other").addEventListener("input", updateStats);
     document.getElementById("cogs").addEventListener("input", updateStats);
@@ -415,6 +325,5 @@ async function main() {
     document.getElementById("send").addEventListener("click", sendInfo);
     document.getElementById("google").addEventListener("click", search)
     document.getElementById("amazon").addEventListener("click", list)
-    document.getElementById('settings').addEventListener("click", choose_s)
 }
 main()
