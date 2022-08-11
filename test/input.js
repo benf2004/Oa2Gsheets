@@ -1,4 +1,6 @@
 async function main() {
+    var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
+    var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
     async function keepa(asin, d_id) {
         let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=' + d_id + '&asin=' + asin + '&stats=0')
         return response.json()
@@ -156,6 +158,9 @@ async function main() {
         let cogs = Number(document.getElementById("cogs").value)
         let ship = Number(document.getElementById("ship").value)
         let other = Number(document.getElementById("other").value)
+        let sales_tax = Number(document.getElementById("sales_tax").value)
+        let ship_to_amz = Number(document.getElementById("ship_to_amz").value)
+
 
         console.log(ship)
         const refPer = detrmRefPer(price, cats2)
@@ -294,6 +299,14 @@ async function main() {
         document.getElementById("s_l").checked = true;
         document.getElementById("ship").value = sl_fee
     }
+    let st;
+    chrome.runtime.sendMessage(test_extension, {message: "get_prefs"},
+        function(response) {
+            let my_prefs = response.prefs
+            st = round_2(my_prefs.sales_tax_rate * cogs)
+            document.getElementById('sales_tax').value = st
+
+    });
     updateStats()
 
     async function sendInfo() {
@@ -330,13 +343,11 @@ async function main() {
     var s_a; var not_loaded;
 
     function get_s(){
-        var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
-        var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
         chrome.runtime.sendMessage(test_extension, {message: "get_spreadsheets"},
             function(response) {
                 console.log(response)
                 s_a = response
-            });
+        });
     }
     get_s()
 
@@ -363,6 +374,7 @@ async function main() {
             }
             not_loaded = false
         }
+
     }
 
     function set_file_id() {

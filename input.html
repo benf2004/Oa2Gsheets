@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@18657a9/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
     <link href="input.css" rel="stylesheet">
 <body id="body">
 <div id="div1" class="ignore container mt-3">
@@ -25,7 +26,11 @@
                 <div class="button" id="send">
                     <div></div>
                     <i id="icon" class="fa-brands fa-google-drive"></i>
-                </div> &emsp; &emsp;
+                </div>
+                <div class="but1" id="settings">
+                    <div></div>
+                    <i class="fa-solid fa-gear"></i>
+                </div>
                 <div class="but1" id="google">
                     <div></div>
                     <i class="fa-brands fa-google"></i>
@@ -45,22 +50,31 @@
                 <p><strong id="drops_l">Drops: </strong><span id="drops"></span></p>
                 <p><strong id="notes_l">Notes: </strong><input type="text" id="notes" value="" autocomplete="off" class="inputs"/></p>
                 <p><strong id="sl_l">Small & Light: </strong>
-                <label for="s_l" class="toggle-switchy" data-text="false" data-size="sm" data-style="rounded">
-                    <input disabled type="checkbox" id="s_l">
-                    <span class="toggle">
+                    <label for="s_l" class="toggle-switchy" data-text="false" data-size="sm" data-style="rounded">
+                        <input disabled type="checkbox" id="s_l">
+                        <span class="toggle">
                         <span class="switch"></span>
                      </span>
-                </label>
+                    </label>
                 </p>
             </div>
         </div>
     </div>
 </div>
+<input id="s_array" style="display:none">
 <iframe src="" id="frame"></iframe>
+<div id="form_outer" style="display:none">
+    <form id="form_gs">
+        Send to:
+        <select id="spreadsheet_choice">
+
+        </select>
+    </form>
+</div>
 
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script></body>
-<script src="input1.js"></script>
+<script src="input.js"></script>
 <!--script src="/hidden/input_OS.js"></script-->
 <script>
     tippy('#cogs_l', {
@@ -95,20 +109,12 @@
         content: 'The URL referencing where you bought an item',
         delay: [800, 0]
     });
-    tippy('#price_l', {
-        content: 'The selling price of the item on Amazon',
-        delay: [800, 0]
-    });
     tippy('#roi_l', {
         content: 'The Return On Investment (COGS ÷ Profit); represented as a percent',
         delay: [800, 0]
     });
     tippy('#margin_l', {
         content: 'Profit ÷ Price; represented as a percent',
-        delay: [800, 0]
-    });
-    tippy('#sr_l', {
-        content: 'The current rank of the item in its root category. If the item has no root category, this value will be -1.',
         delay: [800, 0]
     });
     tippy('#cat_l', {
@@ -143,6 +149,10 @@
         content: 'Send info to your Google Sheet',
         delay: [200, 0]
     });
+    tippy('#settings', {
+        content: "Pick which spreadsheet to send your info",
+        delay: [200, 0]
+    })
 </script>
 
 </body>
