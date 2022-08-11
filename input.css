@@ -369,19 +369,19 @@ CORE STYLES ABOVE - NO TOUCHY
     border-color: #adadad;
 }
 .but1 {
-      backface-visibility: hidden;
-      position: relative;
-      cursor: pointer;
-      display: inline-block;
-      white-space: nowrap;
-      background: #0d6efd;
-      border-radius: 5px;
-      border: 0px solid #444;
-      padding: 8px 11px 8px 11px;
-      color: #000;
-      font-family: Helvetica Neue, serif;
-      font-weight: 900;
-      font-style: normal
+    backface-visibility: hidden;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    background: #0d6efd;
+    border-radius: 5px;
+    border: 0px solid #444;
+    padding: 8px 11px 8px 11px;
+    color: #000;
+    font-family: Helvetica Neue, serif;
+    font-weight: 900;
+    font-style: normal
 }
 
 .but1 > div {
