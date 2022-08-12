@@ -1,6 +1,6 @@
 async function main() {
     async function keepa(asin, d_id) {
-        let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=' + d_id + '&asin=' + asin + '&stats=0')
+        let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=' + d_id + '&asin=' + asin + '&stats=0&history=0&buyBox=1')
         return response.json()
     }
 
@@ -284,8 +284,11 @@ async function main() {
     var avg90_rank = await stats['avg90'][3]
     var avg180_rank = await stats['avg180'][3]
     var avg365_rank = await stats['avg365'][3]
-    let price = await currentStats[1] / 100;
-    let sl_fee = isSmallLight(dimensions, weight, price)
+    let price = await object1['products'][0]['stats']['buyBoxPrice'] / 100 + object1['products'][0]['stats']['buyBoxShipping']/100;
+    if (price === -2){
+        price = currentStats[1] / 100
+    }
+    let sl_fee = isSmallLight(dimensions, weight, price);
     let cats2 = await product["categoryTree"]
     const refPer = detrmRefPer(price, cats2)
     document.getElementById("price").value = price;
