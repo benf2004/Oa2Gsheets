@@ -166,7 +166,7 @@ async function main() {
         let drop90 = object1['products'][0]['stats']['salesRankDrops90']
         let drop180 = object1['products'][0]['stats']['salesRankDrops180']
         let drops = drop30 + "|" + drop90 + "|" + drop180
-        let sales_rank = stats[3];
+        let sales_rank = currentStats[3];
         let refFee = round_2(price * refPer)
         let totFees = round_2(+refFee + ship + other)
         let profit = round_2(price - totFees - cogs)
@@ -285,7 +285,7 @@ async function main() {
     var avg180_rank = await stats['avg180'][3]
     var avg365_rank = await stats['avg365'][3]
     let price = await object1['products'][0]['stats']['buyBoxPrice'] / 100 + object1['products'][0]['stats']['buyBoxShipping']/100;
-    if (price === -2){
+    if (price < 0){
         price = currentStats[1] / 100
     }
     let sl_fee = isSmallLight(dimensions, weight, price);
