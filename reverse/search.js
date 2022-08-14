@@ -52,6 +52,7 @@ async function main() {
      function load_seller(ss){
         update_tokens(ss['tokensLeft'])
         document.getElementById('seller-details').classList.remove('d-none');
+        id('load').classList.remove('d-none')
         let seller = ss['sellers'][s_id]
         id('name').innerHTML = seller['sellerName'];
         id('seller_id').innerHTML = seller['sellerId'];
@@ -244,7 +245,9 @@ async function main() {
         graph.href = "https://keepa.com/#!product/1-" + p['asin']
         graph.target = "_blank"
         ru(graph)
-
+        let keepa = qs('.graph.unload')
+        keepa.src="https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=400&height=178&cBackground=f8f9fa&key=" + key + "&domain=" + d_id + "&asin=" + p['asin']
+        ru(keepa)
 
         // keep at bottom
         let outer = qs(".outer.unload")
