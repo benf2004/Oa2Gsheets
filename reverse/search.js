@@ -254,7 +254,7 @@ async function main() {
         let keepa = qs('.graph.unload')
         keepa.src="https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=400&height=178&cBackground=f8f9fa&key=" + key + "&domain=" + d_id + "&asin=" + p['asin']
         ru(keepa)
-        var weight = gramToOz(p['packageWeight'])
+        let weight = gramToLb(p['packageWeight'])
 
 
         // keep at bottom
