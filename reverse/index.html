@@ -121,9 +121,9 @@
                 <div class="card-header p-0 text-center bg-dark-gray">BSR</div>
                 <div class="card-body p-0 text-center"><span class="sales-rank unload"></span><span class="bsr-percent unload"></span></div>
             </div>
-            <div class="card d-inline-flex mx-1" style="width:90px">
-                <div class="card-header p-0 text-center bg-dark-gray">Max Cost</div>
-                <div class="card-body p-0 text-center max-cost unload"></div>
+            <div class="card d-inline-flex mx-1" style="width:120px">
+                <div class="card-header p-0 text-center bg-dark-gray">Est. Max Cost</div>
+                <div style="text-decoration-style: dotted" class="card-body p-0 text-center max-cost unload"></div>
             </div>
             <div class="card d-inline-flex mx-1" style="width:90px">
                 <div class="card-header p-0 text-center bg-dark-gray bbl unload">Buy Box</div>
@@ -132,6 +132,10 @@
             <div class="card d-inline-flex mx-1" style="width:120px">
                 <div class="card-header p-0 text-center bg-dark-gray">Seller Price</div>
                 <div class="card-body p-0 text-center seller-price unload bg-light-blue"></div>
+            </div>
+            <div class="card d-inline-flex mx-1" style="width:120px">
+                <div class="card-header p-0 text-center bg-dark-gray">Dimensions</div>
+                <div class="card-body p-0 text-center dimensions unload bg-light-blue"></div>
             </div>
             <a class="btn btn-sm btn-primary google unload"><i class="fa-brands fa-google"></i></a>
             <a class="btn btn-sm btn-primary link unload"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -143,10 +147,14 @@
         </div>
     </div>
 </div>
-</template>
 <br>
-<div id="load" class="justify-content-center d-flex d-none"><button class="btn btn-outline-success">Load More</button></div>
+</template>
 
+<div id="products">
+</div>
+
+<div id="load" class="justify-content-center d-flex d-none"><button class="btn btn-outline-success">Load More</button></div>
+<br>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

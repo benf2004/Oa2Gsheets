@@ -25,6 +25,11 @@ async function main() {
 
     let update_hours = 169
     let d_id = getCookie('domain_id', "1")
+    let shipAMZRate = getCookie('ship_amz', 0)
+    let perItem = getCookie('addtl', 0)
+    let salesTaxPer = getCookie('sales_tax')
+    let minProfit = getCookie("min_profit", 0)
+    let minRoi = getCookie("min_roi", 0)
     async function seller_search(id) {
         let response = await fetch('https://api.keepa.com/seller?key=' + key + '&domain=' + d_id + '&seller=' + id + "&days=30&storefront=1&update=" + update_hours)
         let ss = response.json()
@@ -57,6 +62,7 @@ async function main() {
         id('name').innerHTML = seller['sellerName'];
         id('seller_id').innerHTML = seller['sellerId'];
         id('seller_rating').innerHTML = seller['currentRating'] + "%" + " (" + seller['currentRatingCount'] + ")";
+
         id('asin_count').innerHTML = seller['totalStorefrontAsins'][1];
         for (let each of seller['sellerBrandStatistics']){
             let new_row = id('brands').insertRow()
@@ -144,7 +150,7 @@ async function main() {
         let template = document.getElementsByTagName("template")[0]
         let clone = template.content.cloneNode(true);
         console.log(data)
-        document.body.appendChild(clone)
+        id('products').appendChild(clone)
         let p = data["products"][0]
         clone.id = p['asin']
         let img_source = CSVToArray(p['imagesCSV'])[0]
@@ -248,19 +254,24 @@ async function main() {
         let keepa = qs('.graph.unload')
         keepa.src="https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=400&height=178&cBackground=f8f9fa&key=" + key + "&domain=" + d_id + "&asin=" + p['asin']
         ru(keepa)
+        var weight = gramToOz(p['packageWeight'])
+
 
         // keep at bottom
         let outer = qs(".outer.unload")
         outer.classList.remove('d-none')
         ru(outer)
-        document.body.appendChild(document.createElement("br"))
-        document.body.appendChild(document.createElement("br"))
     }
 
     async function load_six(asins){
         for (let i=0 ; i < 7; i++){
             load_product(await product_search(asins[i]))
         }
+    }
+
+    function gramToLb(val) {
+        let num = parseFloat(val)
+        return (num/28.35) * 16
     }
 
     function get_cat(id){
@@ -423,6 +434,14 @@ async function main() {
         s_id = document.getElementById('seller_search').value
         let re = await seller_search(s_id)
         load_seller(re)
+    }
+
+    let url = window.location.search
+    const urlParams = new URLSearchParams(url);
+    const seller_id = decodeURI(urlParams.get("s_id"))
+    if (seller_id !== "null"){
+        id('seller_search').value = seller_id
+        await load_products()
     }
 
     document.getElementById('submit').addEventListener("click", load_products)
