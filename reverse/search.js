@@ -42,6 +42,11 @@ async function main() {
         return response.json()
     }
 
+    async function tokens_left(asin){
+        let response = await fetch('https://api.keepa.com/token?key=' + key)
+        return response.json()
+    }
+
     function id(my_id){
         return document.getElementById(my_id)
     }
@@ -58,12 +63,10 @@ async function main() {
      function load_seller(ss){
         update_tokens(ss['tokensLeft'])
         document.getElementById('seller-details').classList.remove('d-none');
-        id('load').classList.remove('d-none')
         let seller = ss['sellers'][s_id]
         id('name').innerHTML = seller['sellerName'];
         id('seller_id').innerHTML = seller['sellerId'];
         id('seller_rating').innerHTML = seller['currentRating'] + "%" + " (" + seller['currentRatingCount'] + ")";
-
         id('asin_count').innerHTML = seller['totalStorefrontAsins'][1];
         for (let each of seller['sellerBrandStatistics']){
             let new_row = id('brands').insertRow()
@@ -84,10 +87,8 @@ async function main() {
         }
         asin_list = seller['asinList'];
         load_six(asin_list.slice(0, 7));
-        for (let i = 0; i < 7; i++){
-            asin_list.shift()
-        }
-    }
+        id('load').classList.remove('d-none')
+     }
 
     function CSVToArray(strData, strDelimiter=","){
         strDelimiter = (strDelimiter || ",");
@@ -146,13 +147,10 @@ async function main() {
         return category
     }
 
-    async function load_product(data){
-        update_tokens(data['tokensLeft'])
+    async function load_product(p){
         let template = document.getElementsByTagName("template")[0]
         let clone = template.content.cloneNode(true);
-        console.log(data)
         id('products').appendChild(clone)
-        let p = data["products"][0]
         clone.id = p['asin']
         let img_source = CSVToArray(p['imagesCSV'])[0]
         let img = qs(".product-image.unload")
@@ -316,8 +314,12 @@ async function main() {
     }
 
     async function load_six(asins){
+        let a = await product_search(asins.toString())
+        console.log(a)
+        update_tokens(a['tokensLeft'])
         for (let i=0 ; i < 7; i++){
-            load_product(await product_search(asins[i]))
+            await load_product(a["products"][i])
+            asin_list.shift()
         }
     }
 
@@ -493,6 +495,12 @@ async function main() {
     }
     let s_id;
 
+    function animateBtn(btn, time, name="Submit"){
+        btn.innerHTML = "<i id='icon'></i>"
+        id("icon").className = "fas fa-spinner fa-spin"
+        setTimeout(() => {id("icon").className = ""; btn.innerHTML = name}, time)
+    }
+
     async function load_products(){
         let sub = document.getElementById('submit')
         sub.innerHTML = "<i id='icon'></i>"
@@ -509,6 +517,11 @@ async function main() {
     if (seller_id !== "null"){
         id('seller_search').value = seller_id
         await load_products()
+    }
+
+    function button_load(){
+        animateBtn(id('load_b'), 2000, "Load More")
+        load_six(asin_list.splice(0,7))
     }
 
     function detrmRefPer(price, cats2) {
@@ -597,5 +610,6 @@ async function main() {
     } // end of determine refferal percentage function
 
     document.getElementById('submit').addEventListener("click", load_products)
+    id("load").addEventListener('click', button_load)
 }
 main()
