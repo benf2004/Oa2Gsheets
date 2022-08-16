@@ -50,9 +50,18 @@ function get_saved_mkpt(){
     document.getElementById('marketplace').value = mkpt
 }
 
+function get_saved_inputs(){
+    id('roi').value = getCookie('roi')
+    id('profit').value = getCookie('min_profit')
+    id('ship_amz').value = getCookie('ship_amz')
+    id('sales_tax').value = getCookie('sales_tax')
+    id('addtl').value = getCookie('addtl')
+}
+
 function get_saved_prefs() {
     get_saved_mkpt()
     load_saved_key()
+    get_saved_inputs()
 }
 
 function animateBtn(btn, time, name="Submit"){

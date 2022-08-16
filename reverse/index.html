@@ -108,22 +108,30 @@
 <template>
 <div class="container-flex bg-light justify-content-between outer unload d-none">
     <div class="row" style="height: 180px; width: 95%">
-        <div class="col-2" style="width: 170px; height: 200px">
+        <div class="col-2" style="width: 185px; height: 200px">
             <img src="" class="product-image unload" style="width: 168px; height: 178px; object-fit: contain">
         </div>
         <div class="col-sm" style="margin-left: 20px; margin-right: 0px;">
             <h6 class="mx-1 title unload"></h6>
             <div><span class="stars unload"></span><span class="review_count unload"></span></div>
             <div class="asin unload"></div>
-            <div class="category unload mb-1"></div>
-
+            <div class="mb-1 flex-column align-self-start w-100">
+            <span class="category unload"></span>
+                <span class="align-self-end">
+                    <a class="btn btn-sm btn-primary google unload mb-1"><i class="fa-brands fa-google"></i></a>
+                    <a class="btn btn-sm btn-primary link unload mb-1"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <a class="btn btn-sm btn-primary amazon unload mb-1"><i class="fa-brands fa-amazon"></i></a>
+                    <a class="btn btn-sm btn-primary keepa_link unload mb-1"><i class="fa-solid fa-chart-line"></i></a>
+                    <a class="btn btn-sm btn-primary dimensions unload mb-1"><i class="fa-solid fa-box-open"></i></a>
+                </span>
+            </div>
             <div class="card d-inline-flex mx-1" style="width:110px">
                 <div class="card-header p-0 text-center bg-dark-gray">BSR</div>
                 <div class="card-body p-0 text-center"><span class="sales-rank unload"></span><span class="bsr-percent unload"></span></div>
             </div>
-            <div class="card d-inline-flex mx-1" style="width:120px">
-                <div class="card-header p-0 text-center bg-dark-gray">Est. Max Cost</div>
-                <div style="text-decoration-style: dotted" class="card-body p-0 text-center max-cost unload"></div>
+            <div class="card d-inline-flex mx-1" style="width:90px">
+                <div class="card-header p-0 text-center bg-dark-gray">Max Cost</div>
+                <div style="text-decoration-style: dotted" class="card-body p-0 text-center max-cost unload bg-light-blue"></div>
             </div>
             <div class="card d-inline-flex mx-1" style="width:90px">
                 <div class="card-header p-0 text-center bg-dark-gray bbl unload">Buy Box</div>
@@ -133,14 +141,6 @@
                 <div class="card-header p-0 text-center bg-dark-gray">Seller Price</div>
                 <div class="card-body p-0 text-center seller-price unload bg-light-blue"></div>
             </div>
-            <div class="card d-inline-flex mx-1" style="width:120px">
-                <div class="card-header p-0 text-center bg-dark-gray">Dimensions</div>
-                <div class="card-body p-0 text-center dimensions unload bg-light-blue"></div>
-            </div>
-            <a class="btn btn-sm btn-primary google unload"><i class="fa-brands fa-google"></i></a>
-            <a class="btn btn-sm btn-primary link unload"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            <a class="btn btn-sm btn-primary amazon unload"><i class="fa-brands fa-amazon"></i></a>
-            <a class="btn btn-sm btn-primary keepa_link unload"><i class="fa-solid fa-chart-line"></i></a>
         </div>
         <div class="col-3">
             <image class="graph unload" src=""></image>
@@ -157,6 +157,10 @@
 <br>
 
 </body>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script></body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <script src="search.js"></script>
+<script>
+</script>
 </html>

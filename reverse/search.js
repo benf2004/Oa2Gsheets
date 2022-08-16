@@ -25,11 +25,12 @@ async function main() {
 
     let update_hours = 169
     let d_id = getCookie('domain_id', "1")
-    let shipAMZRate = getCookie('ship_amz', 0)
-    let perItem = getCookie('addtl', 0)
-    let salesTaxPer = getCookie('sales_tax')
-    let minProfit = getCookie("min_profit", 0)
-    let minRoi = getCookie("min_roi", 0)
+    let shipAMZRate = parseFloat(getCookie('ship_amz', 0.0))
+    let perItem = parseFloat(getCookie('addtl', 0.0))
+    let salesTaxPer = parseFloat(getCookie('sales_tax', 0.0))
+    let minProfit = parseFloat(getCookie("min_profit", 0.0))
+    let minRoi = parseFloat(getCookie("min_roi", 0.0))
+    console.log(shipAMZRate, perItem, salesTaxPer, minProfit, minRoi)
     async function seller_search(id) {
         let response = await fetch('https://api.keepa.com/seller?key=' + key + '&domain=' + d_id + '&seller=' + id + "&days=30&storefront=1&update=" + update_hours)
         let ss = response.json()
@@ -254,13 +255,64 @@ async function main() {
         let keepa = qs('.graph.unload')
         keepa.src="https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=400&height=178&cBackground=f8f9fa&key=" + key + "&domain=" + d_id + "&asin=" + p['asin']
         ru(keepa)
-        let weight = gramToLb(p['packageWeight'])
-
+        let weight = round_2(gramToLb(p['packageWeight']))
+        let length = round_2(mmToIn(p['packageLength']))
+        let height = round_2(mmToIn(p['packageHeight']))
+        let width = round_2(mmToIn(p['packageWidth']))
+        let dimensions = `${length} x ${width} x ${height}`
+        let dimen_el = qs('.dimensions.unload')
+        tippy(dimen_el, {
+            content: `Dimensions (in): ${dimensions}` +  "<br>" + `Weight: ${weight} lbs`,
+            trigger: "click",
+            allowHTML: "true"
+        });
+        ru(dimen_el)
+        let refPer = detrmRefPer(price, p['categoryTree'])
+        let pickPack;
+        if (p['fbaFees'] !== null) {
+            pickPack = round_2(p["fbaFees"]['pickAndPackFee'] / 100);
+        }
+        else {
+            pickPack = 5
+        }
+        let maxCost = round_2(getMaxCost(price, parseFloat(pickPack), parseFloat(weight), refPer))
+        let max_el = qs('.max-cost.unload')
+        max_el.innerHTML = maxCost
+        ru(max_el)
 
         // keep at bottom
         let outer = qs(".outer.unload")
         outer.classList.remove('d-none')
+        tippy('.google', {
+            content: 'Search the product title on Google',
+            delay: [200, 0]
+        });
+        tippy('.keepa_link', {
+            content: 'Open the Keepa detail page for the product',
+            delay: [200, 0]
+        });
+        tippy('.link', {
+            content: 'Open the Amazon product page',
+            delay: [200, 0]
+        });
+        tippy('.amazon', {
+            content: 'List the item in Seller Central',
+            delay: [200, 0]
+        });
+        tippy('.dimensions', {
+            content: "Click to see the product's dimensions",
+            delay: [200, 0]
+        });
         ru(outer)
+    }
+
+    function mmToIn(val) {
+        let num = parseFloat(val)
+        return num/25.4
+    }
+
+    function round_2(num){
+        return (Math.round(num * 100) / 100).toFixed(2);
     }
 
     async function load_six(asins){
@@ -271,7 +323,22 @@ async function main() {
 
     function gramToLb(val) {
         let num = parseFloat(val)
-        return (num/28.35) * 16
+        return (num/28.35) / 16
+    }
+
+    function getMaxCost(price, fba_ship, lbs, ref_per){
+        console.log(price, fba_ship, lbs, ref_per)
+        let total_fees = fba_ship + (lbs * shipAMZRate) + (price * ref_per) + perItem
+        console.log(`TOTAL FEES: ${total_fees}`)
+        console.log(`PRICE: ${price}`)
+        let maxCogs = (price - total_fees - minProfit) * (1-salesTaxPer/100)
+        console.log(`MAX COST: ${maxCogs}`)
+        if ((minProfit/maxCogs) < (minRoi/100)){
+            maxCogs -= 0.01
+            console.log(`COGS: ${maxCogs}`)
+            console.log(`minProfit/maxCOGS: ${minProfit/maxCogs}`)
+        }
+        return maxCogs
     }
 
     function get_cat(id){
@@ -444,7 +511,91 @@ async function main() {
         await load_products()
     }
 
-    document.getElementById('submit').addEventListener("click", load_products)
+    function detrmRefPer(price, cats2) {
+        console.log("PRICE:")
+        console.log(price)
+        console.log(cats2)
+        const eightPer = [
+            'Camera & Photo', 'Full-Size Appliances', "Cell Phone Devices",
+            "Consumer Electronics", "Personal Computers", "Video Game Consoles"
+        ];
+        const groceryFee = ["Grocery & Gourmet Food"];
+        const twelvePer = ["3D Printed Products", "Automotive & Powersports", "Industrial & Scientific", "Food Service", "Janitorial & Scientific"];
+        const specialFee = [
+            "Electronics Accessories", "Furniture", "Compact Appliances",
+            "Collectible Coins"
+        ];
+        const switch10 = ["Baby", "Beauty", "Health & Personal Care"];
+        const fifteenPer = [
+            "Books",
+            "Industrial & Scientific",
+            "Home & Garden",
+            "Kitchen & Dining",
+            "Mattresses",
+            "Music",
+            "Musical Instruments",
+            "Office Prodcuts",
+            "Outdoors",
+            "Pet Supplies",
+            "Software & Computer",
+            "Video Games",
+            "Sports",
+            "Tools & Home Improvement",
+            "Toys & Games",
+            "Video & DVD",
+            "Cell Phones & Accessories",
+            "Everything Else",
+            "Luggage & Travel Accessories",
+            "Shoes, Handbags & Sunglasses",
+        ];
+        var refPer = 0.15
+        var catName = cats2[0]["name"]
+        console.log(catName)
+        console.log(catName === "Grocery & Gourmet Food")
+        if (catName === "Grocery & Gourmet Food") {
+            if (price <= 15){
+                refPer = 0.08
+            }
+            else {
+                refPer = 0.15
+            }
+        }
+        else {
+            for (let each in cats2) {
+                catName = cats2[each]["name"]
+                console.log("CATEGORY NAME IS: " + catName)
+                for (let each1 in twelvePer) {
+                    if (catName === twelvePer[each1]) {
+                        refPer = .12
+                    }
+                }
 
+                for (let each1 in fifteenPer) {
+                    if (catName === fifteenPer[each1]) {
+                        refPer = .15
+                    }
+
+                }
+                for (let each1 in eightPer) {
+                    if (catName === eightPer[each1]) {
+                        refPer = .12
+                    }
+                }
+                for (let each1 in switch10) {
+                    if (catName === eightPer[each1]) {
+                        if (price < 10) {
+                            refPer = 0.8
+                        }
+                        if (price >= 10) {
+                            refPer = .15
+                        }
+                    }
+                }
+            }
+        }
+        return refPer
+    } // end of determine refferal percentage function
+
+    document.getElementById('submit').addEventListener("click", load_products)
 }
 main()
