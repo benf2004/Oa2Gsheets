@@ -235,7 +235,7 @@ async function main() {
         ru(bb)
         ru(bbl)
         let goog = qs('.google.unload')
-        goog.href = `https://www.google.com/search?q=${p['title']}`
+        goog.href = `https://www.google.com/search?q=${encodeURIComponent(p['title'])}`
         goog.target = "_blank"
         ru(goog)
         let list = qs('.amazon.unload')
@@ -251,7 +251,7 @@ async function main() {
         graph.target = "_blank"
         ru(graph)
         let keepa = qs('.graph.unload')
-        keepa.src="https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=400&height=178&cBackground=f8f9fa&key=" + key + "&domain=" + d_id + "&asin=" + p['asin']
+        keepa.src="https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=450&height=200&cBackground=f8f9fa&key=" + key + "&domain=" + d_id + "&asin=" + p['asin']
         ru(keepa)
         let weight = round_2(gramToLb(p['packageWeight']))
         let length = round_2(mmToIn(p['packageLength']))
@@ -298,7 +298,7 @@ async function main() {
             delay: [200, 0]
         });
         tippy('.dimensions', {
-            content: "Click to see the product's dimensions",
+            content: "See the product's weight & dimensions",
             delay: [200, 0]
         });
         ru(outer)
