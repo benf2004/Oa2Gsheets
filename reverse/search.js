@@ -520,7 +520,7 @@ async function main() {
     }
 
     function button_load(){
-        animateBtn(id('load_b'), 2000, "Load More")
+        animateBtn(id('load_b'), 4000, "Load More")
         load_six(asin_list.splice(0,7))
     }
 
