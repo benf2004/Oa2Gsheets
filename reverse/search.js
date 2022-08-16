@@ -235,7 +235,7 @@ async function main() {
         ru(bb)
         ru(bbl)
         let goog = qs('.google.unload')
-        goog.href = "https://www.google.com/search?q=" + p['title']
+        goog.href = `https://www.google.com/search?q=${p['title']}`
         goog.target = "_blank"
         ru(goog)
         let list = qs('.amazon.unload')
