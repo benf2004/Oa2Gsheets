@@ -25,6 +25,7 @@ async function main() {
 
     let update_hours = 169
     let d_id = getCookie('domain_id', "1")
+    let domain = getCookie('domain', ".com")
     let shipAMZRate = parseFloat(getCookie('ship_amz', 0.0))
     let perItem = parseFloat(getCookie('addtl', 0.0))
     let salesTaxPer = parseFloat(getCookie('sales_tax', 0.0))
@@ -238,11 +239,11 @@ async function main() {
         goog.target = "_blank"
         ru(goog)
         let list = qs('.amazon.unload')
-        list.href = "https://sellercentral.amazon.com/abis/Display/ItemSelected?asin=" + p['asin']
+        list.href = `https://sellercentral.amazon.${domain}/abis/Display/ItemSelected?asin=${p['asin']}`
         list.target = "_blank"
         ru(list)
         let pp = qs('.link.unload')
-        pp.href = "https://www.amazon.com/dp/" + p['asin']
+        pp.href = `https://www.amazon.${domain}/dp/${p['asin']}`
         pp.target = "_blank"
         ru(pp)
         let graph = qs('.keepa_link.unload')
@@ -250,7 +251,7 @@ async function main() {
         graph.target = "_blank"
         ru(graph)
         let keepa = qs('.graph.unload')
-        keepa.src="https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=450&height=200&cBackground=f8f9fa&key=" + key + "&domain=" + d_id + "&asin=" + p['asin']
+        keepa.src=`https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=450&height=200&cBackground=f8f9fa&key=${key}&domain=${d_id}&asin=${p['asin']}`
         ru(keepa)
         let weight = round_2(gramToLb(p['packageWeight']))
         let length = round_2(mmToIn(p['packageLength']))
