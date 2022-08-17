@@ -27,6 +27,26 @@ async function main() {
         id('load-b-demo').addEventListener("click", display_modal)
         id('demo').classList.remove('d-none')
         add_cookie("visited", true)
+        tippy('.google', {
+            content: 'Search the product title on Google',
+            delay: [200, 0]
+        });
+        tippy('.keepa_link', {
+            content: 'Open the Keepa detail page for the product',
+            delay: [200, 0]
+        });
+        tippy('.link', {
+            content: 'Open the Amazon product page',
+            delay: [200, 0]
+        });
+        tippy('.amazon', {
+            content: 'List the item in Seller Central',
+            delay: [200, 0]
+        });
+        tippy('.dimensions', {
+            content: "See the product's weight & dimensions",
+            delay: [200, 0]
+        });
     }
     else {
         id('demo').remove()
