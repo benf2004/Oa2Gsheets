@@ -1,8 +1,9 @@
 let keepa_submit = document.getElementById('api_submit')
 keepa_submit.addEventListener('click', save_api_key)
 let my_key;
+
 function save_api_key(){
-    animateBtn(id('api_submit'), 1000)
+    animateBtn(id('api_submit'), 1000, "Submit")
     my_key = document.getElementById("keep_api").value
     document.cookie = "keepa_key=" + my_key + " ; expires=Sat, 18 Dec 2640 12:00:00 UTC";
     document.getElementById("keep_api").value = my_key
