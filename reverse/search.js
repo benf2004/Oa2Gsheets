@@ -275,6 +275,10 @@ async function main() {
         }
         let maxCost = round_2(getMaxCost(price, parseFloat(pickPack), parseFloat(weight), refPer))
         let max_el = qs('.max-cost.unload')
+        if (maxCost < 0){
+            max_el.classList.remove('bg-light-blue')
+            max_el.classList.add('bg-light-red')
+        }
         max_el.innerHTML = maxCost
         ru(max_el)
 
