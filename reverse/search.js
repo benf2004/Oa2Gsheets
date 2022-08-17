@@ -17,11 +17,31 @@ async function main() {
     }
 
     let key;
-
+    var myModal = new bootstrap.Modal(document.getElementById('popup'), {
+        keyboard: false
+    })
+    let v = getCookie('visited', null)
+    if (v === null){
+        id("welcome").classList.remove('d-none')
+        id('token_p').classList.add("d-none")
+        add_cookie("visited", true)
+    }
     function get_key() {
-        key = getCookie('keepa_key')
+        key = getCookie('keepa_key', 0)
+        if (key === 0 && v !== null){
+            setTimeout(display_modal, 500)
+        }
+    }
+
+    function add_cookie(name, value){
+        document.cookie =  name + "=" + value + " ; expires=Sat, 18 Dec 2060 12:00:00 UTC";
+    }
+
+    function display_modal(){
+       myModal.show()
     }
     get_key()
+
 
     let update_hours = 169
     let d_id = getCookie('domain_id', "1")

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Reverse Sourcing by OA2Gsheets</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@18657a9/css/all.min.css" rel="stylesheet" type="text/css" />
     <link href="search.css" rel="stylesheet">
@@ -34,8 +33,27 @@
     </div>
 </nav>
 
+<!-- Modal -->
+<div class="modal fade" id="popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Keepa Key Not Found</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Uh oh! It looks like you haven't linked your Keepa account. Please head over to <a href="https://www.oa2gsheets.com/reverse/settings">settings</a> to begin setup!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container m-3">
-    <p>Tokens Left: <span id="tokens"></span></p>
+    <p id="token_p">Tokens Left: <span id="tokens"></span>
+    <h3 id="welcome" class="d-none text-center">Welcome to RS by OA2GSheets! Head over to <a href="https://www.oa2gsheets.com/reverse/settings">settings</a> to setup.</h3>
 </div>
 <div class="container d-none" id="seller-details">
     <div class="row">
