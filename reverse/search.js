@@ -24,7 +24,12 @@ async function main() {
     if (v === null){
         id("welcome").classList.remove('d-none')
         id('token_p').classList.add("d-none")
+        id('load-b-demo').addEventListener("click", display_modal)
+        id('demo').classList.remove('d-none')
         add_cookie("visited", true)
+    }
+    else {
+        id('demo').remove()
     }
     function get_key() {
         key = getCookie('keepa_key', 0)
