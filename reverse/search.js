@@ -76,7 +76,7 @@ async function main() {
             count_cell.innerHTML = each.productCount
         }
         for (let each of seller['sellerCategoryStatistics']){
-            let cat = get_cat(each.catId)
+            let cat = get_cat(each.catId, "cat_name")
             if (cat !== ""){
                 let new_row = id('cat_table').insertRow()
                 let cat_name_cell = new_row.insertCell()
@@ -147,7 +147,7 @@ async function main() {
         return category
     }
 
-    async function load_product(p){
+    function load_product(p){
         let template = document.getElementsByTagName("template")[0]
         let clone = template.content.cloneNode(true);
         id('products').appendChild(clone)
@@ -186,12 +186,11 @@ async function main() {
         let asin_el = qs('.asin.unload')
         asin_el.innerHTML = p['asin']
         ru(asin_el)
-        let cats = await get_cats(p['rootCategory'])
-        let cat_name = await cats['name'];
-        let highest = await cats['highestRank']
+        let cat_name = get_cat(p['rootCategory'], "cat_name")
+        let highest = get_cat(p['rootCategory'], "highest_rank")
         console.log(highest)
         let cat_el = qs('.category.unload')
-        cat_el.innerHTML = await cat_name
+        cat_el.innerHTML = cat_name
         ru(cat_el)
         let s_r = qs('.sales-rank.unload')
         let sales_rank =  p['stats']['current'][3]
@@ -209,7 +208,7 @@ async function main() {
             top_per = "0.1"
         }
         console.log(top_per)
-        let top_el = await qs('.bsr-percent.unload')
+        let top_el = qs('.bsr-percent.unload')
         if (sales_rank != -1) {
             top_el.innerHTML = "(" + top_per + "%)"
         }
@@ -343,155 +342,157 @@ async function main() {
         return maxCogs
     }
 
-    function get_cat(id){
-        let cat = ""
-        let cat_name = [
-            {
-                "catID": 13727921011,
-                "catName": "Alexa Skills"
-            },
-            {
-                "catID": 2619525011,
-                "catName": "Appliances"
-            },
-            {
-                "catID": 2350149011,
-                "catName": "Apps & Games"
-            },
-            {
-                "catID": 2617941011,
-                "catName": "Arts, Crafts & Sewing"
-            },
-            {
-                "catID": 18145289011,
-                "catName": "Audible Books & Originals"
-            },
-            {
-                "catID": 15684181,
-                "catName": "Automotive"
-            },
-            {
-                "catID": 165796011,
-                "catName": "Baby Products"
-            },
-            {
-                "catID": 3760911,
-                "catName": "Beauty & Personal Care"
-            },
-            {
-                "catID": 283155,
-                "catName": "Books"
-            },
-            {
-                "catID": 5174,
-                "catName": "CDs & Vinyl"
-            },
-            {
-                "catID": 2335752011,
-                "catName": "Cell Phones & Accessories"
-            },
-            {
-                "catID": 7141123011,
-                "catName": "Clothing, Shoes & Jewelry"
-            },
-            {
-                "catID": 4991425011,
-                "catName": "Collectibles & Fine Art"
-            },
-            {
-                "catID": 163856011,
-                "catName": "Digital Music"
-            },
-            {
-                "catID": 172282,
-                "catName": "Electronics"
-            },
-            {
-                "catID": 10272111,
-                "catName": "Everything Else Store"
-            },
-            {
-                "catID": 2238192011,
-                "catName": "Gift Cards"
-            },
-            {
-                "catID": 16310101,
-                "catName": "Grocery & Gourmet Food"
-            },
-            {
-                "catID": 11260432011,
-                "catName": "Handmade Products"
-            },
-            {
-                "catID": 3760901,
-                "catName": "Health & Household"
-            },
-            {
-                "catID": 1055398,
-                "catName": "Home & Kitchen"
-            },
-            {
-                "catID": 16310091,
-                "catName": "Industrial & Scientific"
-            },
-            {
-                "catID": 133140011,
-                "catName": "Kindle Store"
-            },
-            {
-                "catID": 599858,
-                "catName": "Magazine Subscriptions"
-            },
-            {
-                "catID": 2625373011,
-                "catName": "Movies & TV"
-            },
-            {
-                "catID": 11091801,
-                "catName": "Musical Instruments"
-            },
-            {
-                "catID": 1064954,
-                "catName": "Office Products"
-            },
-            {
-                "catID": 2972638011,
-                "catName": "Patio, Lawn & Garden"
-            },
-            {
-                "catID": 2619533011,
-                "catName": "Pet Supplies"
-            },
-            {
-                "catID": 229534,
-                "catName": "Software"
-            },
-            {
-                "catID": 3375251,
-                "catName": "Sports & Outdoors"
-            },
-            {
-                "catID": 228013,
-                "catName": "Tools & Home Improvement"
-            },
-            {
-                "catID": 165793011,
-                "catName": "Toys & Games"
-            },
-            {
-                "catID": 468642,
-                "catName": "Video Games"
-            },
-            {
-                "catID": 9013971011,
-                "catName": "Video Shorts"
-            }
-        ]
-        for (let each of cat_name){
-            if (each.catID === id)
-                cat = each.catName
+    function get_cat(id, action){
+        let cats = {
+            "5174": {
+            "cat_name": "CDs & Vinyl",
+            "highest_rank": 11929222
+        },
+            "172282": {
+            "cat_name": "Electronics",
+                "highest_rank": 31139496
+        },
+            "228013": {
+            "cat_name": "Tools & Home Improvement",
+                "highest_rank": 31225182
+        },
+            "229534": {
+            "cat_name": "Software",
+                "highest_rank": 28130092
+        },
+            "283155": {
+            "cat_name": "Books",
+                "highest_rank": 25597298
+        },
+            "468642": {
+            "cat_name": "Video Games",
+                "highest_rank": 28636784
+        },
+            "599858": {
+            "cat_name": "Magazine Subscriptions",
+                "highest_rank": 5987752
+        },
+            "1055398": {
+            "cat_name": "Home & Kitchen",
+                "highest_rank": 31517751
+        },
+            "1064954": {
+            "cat_name": "Office Products",
+                "highest_rank": 31431261
+        },
+            "3375251": {
+            "cat_name": "Sports & Outdoors",
+                "highest_rank": 31557181
+        },
+            "3760901": {
+            "cat_name": "Health & Household",
+                "highest_rank": 29441396
+        },
+            "3760911": {
+            "cat_name": "Beauty & Personal Care",
+                "highest_rank": 31249054
+        },
+            "10272111": {
+            "cat_name": "Everything Else Store",
+                "highest_rank": 31522348
+        },
+            "11091801": {
+            "cat_name": "Musical Instruments",
+                "highest_rank": 29193805
+        },
+            "15684181": {
+            "cat_name": "Automotive",
+                "highest_rank": 29293392
+        },
+            "16310091": {
+            "cat_name": "Industrial & Scientific",
+                "highest_rank": 30826982
+        },
+            "16310101": {
+            "cat_name": "Grocery & Gourmet Food",
+                "highest_rank": 17588410
+        },
+            "133140011": {
+            "cat_name": "Kindle Store",
+                "highest_rank": 6986751
+        },
+            "163856011": {
+            "cat_name": "Digital Music",
+                "highest_rank": 10044035
+        },
+            "165793011": {
+            "cat_name": "Toys & Games",
+                "highest_rank": 31692212
+        },
+            "165796011": {
+            "cat_name": "Baby Products",
+                "highest_rank": 30198574
+        },
+            "2238192011": {
+            "cat_name": "Gift Cards",
+                "highest_rank": 7273
+        },
+            "2335752011": {
+            "cat_name": "Cell Phones & Accessories",
+                "highest_rank": 19525045
+        },
+            "2350149011": {
+            "cat_name": "Apps & Games",
+                "highest_rank": 16593783
+        },
+            "2617941011": {
+            "cat_name": "Arts, Crafts & Sewing",
+            "highest_rank": 29409408
+        },
+            "2619525011": {
+            "cat_name": "Appliances",
+            "highest_rank": 16025795
+        },
+            "2619533011": {
+            "cat_name": "Pet Supplies",
+                "highest_rank": 29277084
+        },
+            "2625373011": {
+            "cat_name": "Movies & TV",
+                "highest_rank": 22495971
+        },
+            "2972638011": {
+            "cat_name": "Patio, Lawn & Garden",
+                "highest_rank": 31282589
+        },
+            "13727921011": {
+            "cat_name": "Alexa Skills",
+                "highest_rank": -1
+        },
+            "18145289011": {
+            "cat_name": "Audible Books & Originals",
+                "highest_rank": 9260397
+        },
+            "7141123011": {
+            "cat_name": "Clothing, Shoes & Jewelry",
+                "highest_rank": 32021168
+        },
+            "4991425011": {
+            "cat_name": "Collectibles & Fine Art",
+                "highest_rank": 5461558
+        },
+            "11260432011": {
+            "cat_name": "Handmade Products",
+                "highest_rank": 4895704
+        },
+            "9013971011": {
+            "cat_name": "Video Shorts",
+                "highest_rank": 164
         }
-        return cat
+        }
+        let val;
+        if (id in cats){
+            val = cats[id][action]
+        }
+        else {
+            val = ""
+        }
+        return val
     }
     let s_id;
 
