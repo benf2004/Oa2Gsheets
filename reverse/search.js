@@ -310,7 +310,13 @@ async function main() {
             allowHTML: "true"
         });
         ru(dimen_el)
-        let refPer = detrmRefPer(price, p['categoryTree'])
+        let refPer
+        if (p['categoryTree'] !== null) {
+            refPer = detrmRefPer(price, p['categoryTree'])
+        }
+        else{
+            refPer = 0.15
+        }
         let pickPack;
         if (p['fbaFees'] !== null) {
             pickPack = round_2(p["fbaFees"]['pickAndPackFee'] / 100);
