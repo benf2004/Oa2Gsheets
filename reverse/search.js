@@ -315,9 +315,8 @@ async function main() {
 
     async function load_six(asins){
         let a = await product_search(asins.toString())
-        console.log(a)
         update_tokens(a['tokensLeft'])
-        for (let i=0 ; i < 7; i++){
+        for (let i=0 ; i < asins.length + 1; i++){
             await load_product(a["products"][i])
             asin_list.shift()
         }
@@ -523,7 +522,12 @@ async function main() {
 
     function button_load(){
         animateBtn(id('load_b'), 4000, "Load More")
-        load_six(asin_list.splice(0,7))
+        if (asin_list.length >= 6) {
+            load_six(asin_list.splice(0, 7))
+        }
+        else{
+            load_six(asin_list)
+        }
     }
 
     function detrmRefPer(price, cats2) {
