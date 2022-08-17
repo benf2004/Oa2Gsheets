@@ -239,11 +239,11 @@ async function main() {
         goog.target = "_blank"
         ru(goog)
         let list = qs('.amazon.unload')
-        list.href = `https://sellercentral.amazon.${domain}/abis/Display/ItemSelected?asin=${p['asin']}`
+        list.href = `https://sellercentral.amazon${domain}/abis/Display/ItemSelected?asin=${p['asin']}`
         list.target = "_blank"
         ru(list)
         let pp = qs('.link.unload')
-        pp.href = `https://www.amazon.${domain}/dp/${p['asin']}`
+        pp.href = `https://www.amazon${domain}/dp/${p['asin']}`
         pp.target = "_blank"
         ru(pp)
         let graph = qs('.keepa_link.unload')
