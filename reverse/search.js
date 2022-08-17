@@ -314,7 +314,7 @@ async function main() {
         if (p['categoryTree'] !== null) {
             refPer = detrmRefPer(price, p['categoryTree'])
         }
-        else{
+        else {
             refPer = 0.15
         }
         let pickPack;
@@ -322,7 +322,7 @@ async function main() {
             pickPack = round_2(p["fbaFees"]['pickAndPackFee'] / 100);
         }
         else {
-            pickPack = 5
+            pickPack = 4.5
         }
         let maxCost = round_2(getMaxCost(price, parseFloat(pickPack), parseFloat(weight), refPer))
         let max_el = qs('.max-cost.unload')
