@@ -153,9 +153,6 @@ async function main() {
     let asin_list;
     function update_tokens(num){
         document.getElementById('tokens').innerHTML = num
-        if (num <= 50) {
-            id('saver').checked = true
-        }
     }
     if (key !== 0) {
         let t = await tokens_left()
@@ -356,6 +353,7 @@ async function main() {
             keepa.src = `https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=400&height=200&cBackground=f8f9fa&key=${key}&domain=${d_id}&asin=${p['asin']}`
         }
         ru(keepa)
+        console.log(id("keepa_col").style.width)
         let weight = round_2(gramToLb(p['packageWeight']))
         let length = round_2(mmToIn(p['packageLength']))
         let height = round_2(mmToIn(p['packageHeight']))
@@ -432,6 +430,9 @@ async function main() {
         for (let i=0 ; i < asins.length + 1; i++){
             await load_product(a["products"][i])
             asin_list.shift()
+        }
+        if (a['tokensLeft'] < 30){
+            id('saver').checked = true
         }
     }
 
