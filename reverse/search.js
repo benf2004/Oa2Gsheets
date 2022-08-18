@@ -636,7 +636,7 @@ async function main() {
 
     function button_load(){
         animateBtn(id('load_b'), 2000, "Load More")
-        if (asin_list.length >= 6) {
+        if (asin_list.length >= 7) {
             load_six(asin_list.splice(0, 7))
         }
         else{
@@ -733,7 +733,12 @@ async function main() {
         return refPer
     } // end of determine refferal percentage function
 
-    document.getElementById('submit').addEventListener("click", load_products)
+    function click_submit(){
+        s_id = document.getElementById('seller_search').value
+        window.location.href = `https://www.oa2gsheets.com/reverse/?s_id=${s_id}`
+    }
+
+    document.getElementById('submit').addEventListener("click", click_submit)
     id("load").addEventListener('click', button_load)
 }
 main()
