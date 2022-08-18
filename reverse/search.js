@@ -641,6 +641,9 @@ async function main() {
         else{
             load_six(asin_list)
         }
+        if (asin_list.length === 0){
+            id("load_b").classList.add('d-none')
+        }
     }
 
     function detrmRefPer(price, cats2) {
