@@ -103,8 +103,14 @@ async function main() {
        myModal.show()
     }
     get_key()
-
-
+    async function token_update(){
+        let t = await tokens_left()
+        console.log('refresh')
+        update_tokens(t["tokensLeft"])
+        id('t_refresh').className = "fas fa-spinner fa-spin"
+        setTimeout(() => id('t_refresh').className = "fa-regular fa-rotate-right", 500)
+    }
+    id('t_refresh').addEventListener("click", token_update)
     let update_hours = 720
     let d_id = getCookie('domain_id', "1")
     let domain = getCookie('domain', ".com")
