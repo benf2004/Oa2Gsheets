@@ -46,6 +46,11 @@ async function main() {
         tippy('.dimensions', {
             content: "See the product's weight & dimensions",
             delay: [200, 0]
+        })
+        tippy('.dimensions', {
+            content: "Demo Dimensions <br> 2 x 3 x 4 in <br> Weight: 2.4 lbs",
+            allowHTML: true,
+            trigger: "click"
         });
     }
     else {
@@ -68,7 +73,7 @@ async function main() {
     get_key()
 
 
-    let update_hours = 169
+    let update_hours = 720
     let d_id = getCookie('domain_id', "1")
     let domain = getCookie('domain', ".com")
     let shipAMZRate = parseFloat(getCookie('ship_amz', 0.0))
@@ -84,15 +89,20 @@ async function main() {
     }
 
     async function product_search(asin){
-        let response = await fetch('https://api.keepa.com/product?key=' + key + '&domain=' + d_id + '&asin=' + asin + '&stats=0&buyBox=1&update=2&rating=1')
+        let response
+        if (id('saver').checked !== true) {
+            response = await fetch('https://api.keepa.com/product?key=' + key + '&domain=' + d_id + '&asin=' + asin + '&stats=0&buyBox=1&update=2&rating=1')
+        }
+        else {
+            response = await fetch(`https://api.keepa.com/product?key=${key}&domain=${d_id}&asin=${asin}&stats=0&buyBox=1&update=2`)
+        }
         return response.json()
     }
 
-    async function tokens_left(asin){
+    async function tokens_left(){
         let response = await fetch('https://api.keepa.com/token?key=' + key)
         return response.json()
     }
-
     function id(my_id){
         return document.getElementById(my_id)
     }
@@ -105,8 +115,14 @@ async function main() {
     let asin_list;
     function update_tokens(num){
         document.getElementById('tokens').innerHTML = num
+        if (num <= 50) {
+            id('saver').checked = true
+        }
     }
-     function load_seller(ss){
+    let t = await tokens_left()
+    update_tokens(t["tokensLeft"])
+
+    function load_seller(ss){
         update_tokens(ss['tokensLeft'])
         document.getElementById('seller-details').classList.remove('d-none');
         let seller = ss['sellers'][s_id]
@@ -292,11 +308,13 @@ async function main() {
         pp.target = "_blank"
         ru(pp)
         let graph = qs('.keepa_link.unload')
-        graph.href = "https://keepa.com/#!product/1-" + p['asin']
+        graph.href = `https://keepa.com/#!product/${d_id}-${p['asin']}`
         graph.target = "_blank"
         ru(graph)
         let keepa = qs('.graph.unload')
-        keepa.src=`https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=450&height=200&cBackground=f8f9fa&key=${key}&domain=${d_id}&asin=${p['asin']}`
+        if (id('saver').checked !== true) {
+            keepa.src = `https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=450&height=200&cBackground=f8f9fa&key=${key}&domain=${d_id}&asin=${p['asin']}`
+        }
         ru(keepa)
         let weight = round_2(gramToLb(p['packageWeight']))
         let length = round_2(mmToIn(p['packageLength']))
