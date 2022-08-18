@@ -53,13 +53,45 @@ async function main() {
             trigger: "click"
         });
     }
-    else {
-        id('demo').remove()
-    }
     function get_key() {
         key = getCookie('keepa_key', 0)
         if (key === 0 && v !== null){
             setTimeout(display_modal, 500)
+            id("welcome").classList.remove('d-none')
+            id('token_d').classList.add("d-none")
+            id('load-b-demo').addEventListener("click", display_modal)
+            id('demo').classList.remove('d-none')
+            add_cookie("visited", true)
+            tippy('.google', {
+                content: 'Search the product title on Google',
+                delay: [200, 0]
+            });
+            tippy('.keepa_link', {
+                content: 'Open the Keepa detail page for the product',
+                delay: [200, 0]
+            });
+            tippy('.link', {
+                content: 'Open the Amazon product page',
+                delay: [200, 0]
+            });
+            tippy('.amazon', {
+                content: 'List the item in Seller Central',
+                delay: [200, 0]
+            });
+            tippy('.dimensions', {
+                content: "See the product's weight & dimensions",
+                delay: [200, 0]
+            })
+            tippy('.dimensions', {
+                content: "Demo Dimensions <br> 2 x 3 x 4 in <br> Weight: 2.4 lbs",
+                allowHTML: true,
+                trigger: "click"
+            });
+        }
+        else {
+            if (key !== 0) {
+                id('demo').remove()
+            }
         }
     }
 
@@ -119,8 +151,10 @@ async function main() {
             id('saver').checked = true
         }
     }
-    let t = await tokens_left()
-    update_tokens(t["tokensLeft"])
+    if (key !== 0) {
+        let t = await tokens_left()
+        update_tokens(t["tokensLeft"])
+    }
 
     function load_seller(ss){
         update_tokens(ss['tokensLeft'])
