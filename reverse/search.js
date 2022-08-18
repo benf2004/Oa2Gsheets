@@ -634,7 +634,7 @@ async function main() {
     }
 
     function button_load(){
-        animateBtn(id('load_b'), 4000, "Load More")
+        animateBtn(id('load_b'), 2000, "Load More")
         if (asin_list.length >= 6) {
             load_six(asin_list.splice(0, 7))
         }
@@ -642,7 +642,8 @@ async function main() {
             load_six(asin_list)
         }
         if (asin_list.length === 0){
-            id("load_b").classList.add('d-none')
+            id("load_b").disabled = true
+            id("load_b").innerHTML = "Out of ASINs"
         }
     }
 
