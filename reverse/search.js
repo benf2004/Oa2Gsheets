@@ -23,7 +23,7 @@ async function main() {
     let v = getCookie('visited', null)
     if (v === null){
         id("welcome").classList.remove('d-none')
-        id('token_p').classList.add("d-none")
+        id('token_d').classList.add("d-none")
         id('load-b-demo').addEventListener("click", display_modal)
         id('demo').classList.remove('d-none')
         add_cookie("visited", true)
