@@ -7,15 +7,13 @@
 <body>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>
-    let url = "https://www.whateverorigin.org/get?url=" + "https://www.amazon.com/dp/B07CM8J4NC/&callback=?"
-    $.getJSON(url, function (data){
-        let d = data.contents
-        console.log(d)
-        let pos = d.search('priceAmount')
-        console.log(pos)
-        console.log(d.slice(pos, pos+20))
-    })
+    let cipher = "136671218612724125181425113210957115101129176761351001389410957115101129176761351001389461561696713396130175161161188113017158126149"
+    let c_s = []
+    for (let i = 0; i < (cipher.length - 22); i++){
+        let c = cipher.slice(i,i + 22)
+        c_s.push(c)
+    }
+    console.log(c_s)
 </script>
 </html>
