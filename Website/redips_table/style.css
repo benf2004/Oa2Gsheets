@@ -13,7 +13,7 @@ div.e{
 }
 
 div.e.ne {
-	border: 2px solid SteelBlue;
+	border: 2px solid #0d6efd;
 }
 
 iframe{
@@ -132,11 +132,11 @@ td {
 }
 
 input:checked + .slider {
-	background-color: #2196F3;
+	background-color: #0d6efd;
 }
 
 input:focus + .slider {
-	box-shadow: 0 0 1px #2196F3;
+	box-shadow: 0 0 1px #0d6efd;
 }
 
 input:checked + .slider:before {

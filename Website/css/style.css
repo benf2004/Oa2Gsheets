@@ -427,7 +427,11 @@ a:hover {
 }
 
 .btn-info {
-  background-color: navy;
+  background-color: #0d6efd;
+}
+
+.btn-info:hover {
+  background-color: #007bff;
 }
 
 .nav-bg {
