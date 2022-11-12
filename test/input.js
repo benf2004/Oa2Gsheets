@@ -1,3 +1,5 @@
+// Test URL:
+// https://www.oa2gsheets.com/test/input_test?fileID=1gU8DNChA-6DyCv2esNvbUcO7z86wmk_wuEIgxTpg5m4&o=%5B%220%22,%221%22,%222%22,%223%22,%224%22,%2220%22,%225%22,%2211%22,%226%22,%227%22,%228%22,%229%22,%2210%22,%2212%22,%2213%22,%2217%22,%2214%22,%2215%22%5D&asin=B01LZPZ5ZT&dy=true&d_id=1
 async function main() {
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
     var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
@@ -232,6 +234,18 @@ async function main() {
         return num/28.35
     }
 
+    function id(my_id){
+        return document.getElementById(my_id)
+    }
+
+    function fill_fba() {
+        if (id('fba_fbm').checked === true) {
+            id('ship').value = round_2(product["fbaFees"]['pickAndPackFee'] / 100)
+        }
+    }
+
+    id('fba_fbm').addEventListener("click", fill_fba)
+
     // shrink columns
     console.log(document.getElementById('body').offsetWidth)
     let bod_width = document.getElementById("body").offsetWidth
@@ -300,14 +314,16 @@ async function main() {
         document.getElementById("ship").value = sl_fee
     }
     let st;
-    chrome.runtime.sendMessage(test_extension, {message: "get_prefs"},
+    /*chrome.runtime.sendMessage(test_extension, {message: "get_prefs"},
         function(response) {
             let my_prefs = response.prefs
             st = round_2(my_prefs.sales_tax_rate * cogs)
             document.getElementById('sales_tax').value = st
 
-    });
+    });*/
+    st = .7
     updateStats()
+    let cogs;
 
     async function sendInfo() {
         let stats = updateStats()
@@ -316,7 +332,7 @@ async function main() {
         setTimeout(() => {document.getElementById("icon").className = "fa-brands fa-google-drive"}, 2000)
         console.log('File ID: ' + fileID);
         let price = Number(document.getElementById("price").value)
-        let cogs = Number(document.getElementById("cogs").value)
+        cogs = Number(document.getElementById("cogs").value)
         let ship = Number(document.getElementById("ship").value)
         let other = Number(document.getElementById("other").value)
         let sourceURL = document.getElementById("source").value
