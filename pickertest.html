@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+<script async defer src="https://apis.google.com/js/api.js" onload="onApiLoad()"></script>
+
+<script>
+    const SCOPES = 'https://www.googleapis.com/auth/drive.file profile';
+
+    const CLIENT_ID = '435069937149-jj66oojr9k1cf3dl92d498uuato1d563.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyCVDFngfv325nliz9gbWum6pvTYfjDP_fg';
+    const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+    let client;
+    let accessToken;
+    const APP_ID = '435069937149';
+    function gisLoaded() {
+        client = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: (response) => {
+                if (response && response.access_token) {
+                    gapi.client.setApiKey(API_KEY)
+                }
+            },
+        });
+    }
+    function onApiLoad() {
+        gapi.load('picker');
+    }
+
+    function handleAuthClick() {
+        client.callback = async (response) => {
+            if (response.error !== undefined) {
+                throw (response);
+            }
+            accessToken = response.access_token;
+            await createPicker();
+        };
+
+        if (accessToken === null) {
+            // Prompt the user to select a Google Account and ask for consent to share their data
+            // when establishing a new session.
+            client.requestAccessToken({prompt: 'consent'});
+        }
+        else {
+            // Skip display of account chooser and consent dialog for an existing session.
+            client.requestAccessToken({prompt: ''});
+        }
+    }
+
+    /**
+     *  Create and render a Picker object for searching spreadsheets.
+     */
+    function createPicker() {
+        const {DocsView, DocsViewMode} = google.picker
+        var view = new DocsView(google.picker.ViewId.SPREADSHEETS)
+        view.setMimeTypes("application/vnd.google-apps.spreadsheet");
+        view.setMode(DocsViewMode.LIST)
+        view.setSelectFolderEnabled(false)
+        const picker = new google.picker.PickerBuilder()
+            .setAppId(APP_ID)
+            .setDeveloperKey(API_KEY)
+            .setOAuthToken(accessToken)
+            .addView(view)
+            //.addView(new google.picker.DocsUploadView())
+            .setCallback(pickerCallback)
+            .build();
+        picker.setVisible(true);
+        console.log("HEY")
+    }
+
+    /**
+     * Displays the file details of the user's selection.
+     * @param {object} data - Containers the user selection from the picker
+     */
+    function pickerCallback(data) {
+        if (data.action == google.picker.Action.PICKED) {
+            var fileId = data.docs[0].id;
+            console.log("PICKER FILE ID:")
+            console.log(fileId)
+            document.cookie = "fileID=" + fileId + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
+        }
+    }
+</script>
+    <button onclick="handleAuthClick()">AUTH!</button>
+    <button onclick="createPicker()">PICKER!</button>
+</body>
+</html>

@@ -38,8 +38,8 @@
   <link rel="shortcut icon" href="Website/images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="Website/images/favicon.ico" type="image/x-icon">
 
-  <script type="text/javascript" src="https://static.leaddyno.com/js"></script>
-  <script> LeadDyno.key = "208e672911ce03d5c3d3d08f247bf5712f30f569"; LeadDyno.recordVisit(); LeadDyno.autoWatch(); </script>
+  <!--script type="text/javascript" src="https://static.leaddyno.com/js"></script>
+  <script> LeadDyno.key = "208e672911ce03d5c3d3d08f247bf5712f30f569"; LeadDyno.recordVisit(); LeadDyno.autoWatch(); </script-->
 </head>
 
 <body>
@@ -264,7 +264,7 @@
 <!-- /footer -->
 <iframe id="send_headers" src=""></iframe>
 
-<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://apis.google.com/js/api.js" onload="onApiLoad()"></script>
 <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 <script type="text/javascript">
   /* exported gapiLoaded */
@@ -278,60 +278,48 @@
 
   const CLIENT_ID = '435069937149-jj66oojr9k1cf3dl92d498uuato1d563.apps.googleusercontent.com';
   const API_KEY = 'AIzaSyCVDFngfv325nliz9gbWum6pvTYfjDP_fg';
-  const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 
 
   const APP_ID = '435069937149';
 
-  let tokenClient;
-  let accessToken = null;
   let pickerInited = false;
   let gisInited = false;
+  let accessToken;
 
 
   document.getElementById('authorize_button').style.visibility = 'hidden';
   document.getElementById('signout_button').style.visibility = 'hidden';
 
   /**
-   * Callback after api.js is loaded.
-   */
-  function gapiLoaded() {
-    gapi.load('picker', intializePicker);
-    gapi.load('client', intializeGapiClient);
-  }
-
-  async function intializeGapiClient() {
-    await gapi.client.init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      scope: SCOPES,
-      discoveryDocs: [DISCOVERY_DOC],
-    });
-    gapiInited = true;
-  }
-
-  /**
    * Callback after the API client is loaded. Loads the
    * discovery doc to initialize the API.
    */
-  function intializePicker() {
-    pickerInited = true;
-    maybeEnableButtons();
-  }
+
 
   /**
    * Callback after Google Identity Services are loaded.
    */
   function gisLoaded() {
-    tokenClient = google.accounts.oauth2.initTokenClient({
+    client = google.accounts.oauth2.initTokenClient({
       client_id: CLIENT_ID,
       scope: SCOPES,
-      callback: '',
+      callback: (response) => {
+        if (response && response.access_token) {
+          gapi.client.setApiKey(API_KEY)
+        }
+      },
     });
-    gisInited = true;
-    maybeEnableButtons();
+    gisInited = true
   }
 
+  function onApiLoad() {
+    gapi.load('picker', initializePicker);
+  }
+
+  function initializePicker() {
+    pickerInited = true;
+    maybeEnableButtons();
+  }
   /**
    * Enables user interaction after all libraries are loaded.
    */
@@ -345,7 +333,7 @@
    *  Sign in the user upon button click.
    */
   function handleAuthClick() {
-    tokenClient.callback = async (response) => {
+    client.callback = async (response) => {
       if (response.error !== undefined) {
         throw (response);
       }
@@ -358,10 +346,10 @@
     if (accessToken === null) {
       // Prompt the user to select a Google Account and ask for consent to share their data
       // when establishing a new session.
-      tokenClient.requestAccessToken({prompt: 'consent'});
+      client.requestAccessToken({prompt: 'consent'});
     } else {
       // Skip display of account chooser and consent dialog for an existing session.
-      tokenClient.requestAccessToken({prompt: ''});
+      client.requestAccessToken({prompt: ''});
     }
   }
 
@@ -371,7 +359,7 @@
   function handleSignoutClick() {
     if (accessToken) {
       accessToken = null;
-      google.accounts.oauth2.revoke(accessToken);
+      client.revoke(accessToken);
       document.getElementById('authorize_button').innerText = 'Link Gsheet';
       document.getElementById('signout_button').style.visibility = 'hidden';
     }
