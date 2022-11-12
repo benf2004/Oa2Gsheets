@@ -300,6 +300,7 @@
    * Callback after Google Identity Services are loaded.
    */
   function gisLoaded() {
+    gisInited = true
     client = google.accounts.oauth2.initTokenClient({
       client_id: CLIENT_ID,
       scope: SCOPES,
@@ -309,7 +310,6 @@
         }
       },
     });
-    gisInited = true
   }
 
   function onApiLoad() {
