@@ -430,3 +430,6 @@ p {
 #total{
     color: #dc3545
 }
+#notes{
+    width: 200px;
+}
