@@ -146,12 +146,12 @@ function saveTable() {
     }
     console.log("COOKIES:")
     console.log(decodeURIComponent(document.cookie))
-    browser.runtime.sendMessage(test_extension, {message: "update_order", index: ndx},
+    chrome.runtime.sendMessage(test_extension, {message: "update_order", index: ndx},
         function(response) {
             if (!response.success)
                 handleError(url);
         });
-    browser.runtime.sendMessage(extension_id, 'update_order',
+    chrome.runtime.sendMessage(extension_id, 'update_order',
         function(response) {
             if (!response.success)
                 handleError(url);
