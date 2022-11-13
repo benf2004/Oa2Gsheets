@@ -304,7 +304,7 @@ async function main() {
     async function tokenThenSend(){
         console.log("hey")
         chrome.runtime.sendMessage(extension_id, {message: "id"},
-             await function(response) {
+             async function(response) {
                 if (!response.success)
                     console.log(url);
                 else {
