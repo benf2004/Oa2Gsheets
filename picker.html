@@ -83,7 +83,6 @@
   <h1>Customize Google Sheet</h1>
   <span class="d-none"><input id="file_id" value=""></span>
   <button class="btn btn-success p-2 mx-2" id="authorize_button" onclick="handleAuthClick()">Link Gsheet</button>
-  <button class="btn btn-danger p-2 mx-2" id="signout_button" onclick="handleSignoutClick()">Disconnect Gsheet</button>
   <span id="buttons">
   <button class="btn btn-info p-2 mx-2" onclick="saveTable()">Save Table</button>
   <i class="fas fa-sync fa-spin d-none" id="table_spinner"></i>
@@ -267,11 +266,6 @@
 <script async defer src="https://apis.google.com/js/api.js" onload="onApiLoad()"></script>
 <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 <script type="text/javascript">
-  /* exported gapiLoaded */
-  /* exported gisLoaded */
-  /* exported handleAuthClick */
-  /* exported handleSignoutClick */
-
   // Authorization scopes required by the API; multiple scopes can be
   // included, separated by spaces.
   const SCOPES = 'https://www.googleapis.com/auth/drive.file profile';
@@ -288,7 +282,6 @@
 
 
   document.getElementById('authorize_button').style.visibility = 'hidden';
-  document.getElementById('signout_button').style.visibility = 'hidden';
 
   /**
    * Callback after the API client is loaded. Loads the
@@ -339,7 +332,6 @@
         throw (response);
       }
       accessToken = response.access_token;
-      document.getElementById('signout_button').style.visibility = 'visible';
       document.getElementById('authorize_button').innerText = 'Link New';
       await createPicker();
     };
@@ -351,18 +343,6 @@
     } else {
       // Skip display of account chooser and consent dialog for an existing session.
       client.requestAccessToken({prompt: ''});
-    }
-  }
-
-  /**
-   *  Sign out the user upon button click.
-   */
-  function handleSignoutClick() {
-    if (accessToken) {
-      accessToken = null;
-      client.revoke(accessToken);
-      document.getElementById('authorize_button').innerText = 'Link Gsheet';
-      document.getElementById('signout_button').style.visibility = 'hidden';
     }
   }
 
