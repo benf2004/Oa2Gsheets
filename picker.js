@@ -175,7 +175,7 @@ function fill_headers(token){
         fileID = document.getElementById('file_id').value
     }
     console.log(fileID)
-    let send_headers = "https://www.oa2gsheets.com/send?heads=" + json_headers + "&h=true" + "&fileID=" + fileID
+    let send_headers = `https://www.oa2gsheets.com/send?heads=${json_headers}&h=true&fileID=${fileID}&t=${token}`
     let encoded = send_headers
     console.log(encoded)
     document.getElementById("send_headers").src = encoded
