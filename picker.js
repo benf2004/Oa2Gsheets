@@ -91,6 +91,7 @@ function checkList(tl, item1){
 }
 
 function saveTable() {
+    let fileID = document.getElementById("file_id").value
     document.getElementById("table_spinner").classList.remove('d-none')
     setTimeout(() => {document.getElementById("table_spinner").classList.add('d-none')}, 2000)
     let table1 = document.getElementById("tab");
@@ -136,22 +137,8 @@ function saveTable() {
     console.log(json_encode)
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
     var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
-    document.cookie = `order=${json_encode}; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com`;
-    if (document.getElementById("dynam").checked === true) {
-        console.log("checked!")
-        document.cookie = "is_dynam=true; expires Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
-    }
-    else {
-        document.cookie = "is_dynam=false; expires Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
-    }
-    console.log("COOKIES:")
-    console.log(decodeURIComponent(document.cookie))
-    /*chrome.runtime.sendMessage(test_extension, {message: "update_order", index: ndx},
-        function(response) {
-            if (!response.success)
-                handleError(url);
-        });*/
-    chrome.runtime.sendMessage(extension_id, {message:'update_order'});
+    let is_dynam = document.getElementById("dynam").checked
+    chrome.runtime.sendMessage(extension_id, {message:'update_order', fileID: fileID, order: json_encode, is_dynam:is_dynam});
 };
 
 // gets requested cookie by name
