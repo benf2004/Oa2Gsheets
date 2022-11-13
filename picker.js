@@ -138,7 +138,7 @@ function saveTable() {
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
     var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
     let is_dynam = document.getElementById("dynam").checked
-    chrome.runtime.sendMessage(extension_id, {message:'update_order', fileID: fileID, order: json_encode, is_dynam:is_dynam});
+    chrome.runtime.sendMessage(extension_id, {message:'update_order', fileID: fileID, order: json_encode, is_dynam:is_dynam, index: ndx});
 };
 
 // gets requested cookie by name
