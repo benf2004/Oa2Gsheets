@@ -19,12 +19,12 @@
     var cat_name = decodeURIComponent(urlParams.get('cat'));
     var title = decodeURIComponent(urlParams.get('title'));
     var drops = decodeURIComponent(urlParams.get('drops'));
-    var token = decodeURIComponent(urlParams.get('token'))
+    var token = decodeURIComponent(urlParams.get('t'))
     var today = new Date();
 	var curDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 	var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
-	var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin
-
+	var sellLink = "https://sellercentral.amazon.com/product-search/search?q=" + asin;
+    const API_KEY = 'AIzaSyCVDFngfv325nliz9gbWum6pvTYfjDP_fg';
     var price = parseFloat(decodeURI(urlParams.get("price")));
     var top_per = decodeURI(urlParams.get("top")) + "%";
 	var cogs = parseFloat(decodeURI(urlParams.get("cogs")));
@@ -131,34 +131,20 @@
         return range
     };
 
-    // sends info to Google Sheets via Gsheets API
-    function sendToSheets(send, range) {
-        console.log("Send:")
-        console.log(send)
-        var params = {
-            // The ID of the spreadsheet to update.
-            spreadsheetId: fileID,  
-
-            // The A1 notation of the values to update.
-            range: range,  // 
-
-            // How the input data should be interpreted.
-            valueInputOption: 'USER_ENTERED', 
-        }
-
-        var valueRangeBody = {
-            "majorDimension": "COLUMNS",
-            "range": range,
-            "values": send
-        }
-
-        var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-        console.log(request);
-        request.then(function(response) {
-            console.log(response.result);
-        }, function(reason) {
-            console.error('error: ' + reason.result.error.message);
-        });
+    function sendToSheets(send, range){
+        fetch(`https://sheets.googleapis.com/v4/spreadsheets/${fileID}/values/${encodeURIComponent(range)}?responseDateTimeRenderOption=FORMATTED_STRING&responseValueRenderOption=FORMATTED_VALUE&valueInputOption=USER_ENTERED&key=${key}`,{
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                "majorDimension":"COLUMNS",
+                "range": range,
+                "values": send
+            })
+        })
     }
 
     if (has_headers === 'true'){
@@ -189,4 +175,4 @@
     }
     } // end of top1
     var fileID = decodeURI(urlParams.get("fileID"))
-    setTimeout(() => {top1()}, 2000)
+    setTimeout(() => {top1()}, 0)
