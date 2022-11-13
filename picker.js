@@ -136,7 +136,7 @@ function saveTable() {
     console.log(json_encode)
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
     var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
-    document.cookie = "order=" + json_encode + "; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
+    document.cookie = `order=${json_encode}; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com`;
     if (document.getElementById("dynam").checked === true) {
         console.log("checked!")
         document.cookie = "is_dynam=true; expires Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com";
@@ -151,11 +151,7 @@ function saveTable() {
             if (!response.success)
                 handleError(url);
         });*/
-    chrome.runtime.sendMessage(extension_id, 'update_order',
-        function(response) {
-            if (!response.success)
-                handleError(url);
-        });
+    chrome.runtime.sendMessage(extension_id, {message:'update_order'});
 };
 
 // gets requested cookie by name
