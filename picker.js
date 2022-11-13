@@ -1,6 +1,8 @@
 var rd = REDIPS.drag;
 rd.only.divClass.ne = 'extras';
 rd.only.other = 'allow';
+const extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
+
 
 var dynam = document.querySelector("input[name=dynam]")
 dynam.addEventListener("change", (e) => {
@@ -135,7 +137,6 @@ function saveTable() {
     console.log(json_order)
     let json_encode = encodeURI(json_order);
     console.log(json_encode)
-    var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
     var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
     let is_dynam = document.getElementById("dynam").checked
     chrome.runtime.sendMessage(extension_id, {message:'update_order', fileID: fileID, order: json_encode, is_dynam:is_dynam, index: ndx});
@@ -158,7 +159,7 @@ function getCookie(cname) {
     return "";
 }
 
-function fill_headers(){
+function fill_headers(token){
     document.getElementById("headers_spinner").classList.remove('d-none')
     setTimeout(() => {document.getElementById("headers_spinner").classList.add('d-none')}, 2000)
     let table1 = document.getElementById("tab");
@@ -178,4 +179,11 @@ function fill_headers(){
     let encoded = send_headers
     console.log(encoded)
     document.getElementById("send_headers").src = encoded
+}
+
+function token_then_headers(){
+    chrome.runtime.sendMessage(extension_id, {message: "id"},
+        async function(response) {
+            fill_headers(response.token)
+        });
 }
