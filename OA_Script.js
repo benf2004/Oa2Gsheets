@@ -19,6 +19,7 @@
     var cat_name = decodeURIComponent(urlParams.get('cat'));
     var title = decodeURIComponent(urlParams.get('title'));
     var drops = decodeURIComponent(urlParams.get('drops'));
+    var token = decodeURIComponent(urlParams.get('token'))
     var today = new Date();
 	var curDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 	var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
@@ -92,17 +93,14 @@
     }
 
     async function get_row_num(fileID, o) {
-        var params = {
-            spreadsheetId: fileID,
-
-            range: 'A1:Z1000',
-
-            valueRenderOption: 'FORMATTED_VALUE',
-
-            dateTimeRenderOption: 'SERIAL_NUMBER',
-        };
         var order = o
-        var request = gapi.client.sheets.spreadsheets.values.get(params);
+        const request = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${fileID}/values/A1:B5`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            });
         request.then(function(response) {
             const data = response.result
             console.log(data)
