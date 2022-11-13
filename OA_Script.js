@@ -4,9 +4,6 @@
     const urlParams = new URLSearchParams(url);
    	var asin = decodeURI(urlParams.get("asin"))
     var has_headers = decodeURI(urlParams.get("h"))
-    console.log("Has headers is: " + has_headers)
-    console.log("asin is: " + asin)
-
 	
       
 	// define nested functions. All main operations take place in top1. 
@@ -28,10 +25,10 @@
     var price = parseFloat(decodeURI(urlParams.get("price")));
     var top_per = decodeURI(urlParams.get("top")) + "%";
 	var cogs = parseFloat(decodeURI(urlParams.get("cogs")));
-    console.log("COGS: " + cogs)
+    console.log(`COGS: ${cogs}`)
 	var sourceURL = decodeURI(urlParams.get("sourceurl"))
 	var notes = decodeURIComponent(urlParams.get("notes"))
-    console.log("notes is " + notes)
+    console.log(`notes is ${notes}`)
     var refPer = "=TO_PERCENT(" + decodeURI(urlParams.get("refPer")) + ")";
     var ref_num = decodeURI(urlParams.get('refPer'))
     var is_dynam = decodeURI(urlParams.get("dy"))
@@ -52,13 +49,13 @@
         console.log(a)
 
         // refer to picker id_num_dict to see order
-        let refFee1 = "=ROUND(" + a['8'] + rowStr + "*" + a['10'] + rowStr + ", 2)";
-        let totFees1 = "=" + a['12'] + rowStr + "+" + a['13'] + rowStr + '+' + a['17'] + rowStr;
-        let profit1 = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr + "-" + a['7'] + rowStr;
-        let margin = "=TO_PERCENT(" + a['9'] + rowStr + "/" + a['8'] + rowStr + ")";
+        let refFee1 = `=ROUND(${a['8']}${rowStr}*${a['10']}${rowStr}, 2)`;
+        let totFees1 = `=${a['12']}${rowStr}+${a['13']}${rowStr}+${a['17']}${rowStr}`;
+        let profit1 = `=${a['8']}${rowStr}-${a['14']}${rowStr}-${a['7']}${rowStr}`;
+        let margin = `=TO_PERCENT(${a['9']}${rowStr}/${a['8']}${rowStr})`;
         let sales_tax = 0;
-        let roi1 = "=TO_PERCENT(" + a['9'] + rowStr + "/" + a['7'] + rowStr + ")";
-        let proceeds = "=" + a['8'] + rowStr + "-" + a['14'] + rowStr;
+        let roi1 = `=TO_PERCENT(${a['9']}${rowStr}/${a['7']}${rowStr})`;
+        let proceeds = `=${a['8']}${rowStr}-${a['14']}${rowStr}`;
         const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops];
         console.log(my_list)
         return my_list
@@ -66,9 +63,9 @@
 
     function staticStats(){
         let refFee1 = price * ref_num
-        let ref_fee = "=ROUND(" + refFee1 +", 2)"
+        let ref_fee = `=ROUND(${refFee1}, 2)`
         let totFees1 = refFee1 + ship + other
-        let tot_fees = "=ROUND(" + totFees1 + ", 2)"
+        let tot_fees = `=ROUND(${totFees1}, 2)`
         let profit1 = price - totFees1 - cogs
         let roi1 = profit1 / cogs
         let margin = profit1 / price
@@ -105,10 +102,10 @@
             const data = response.result
             console.log(data)
             let rowNum = (data.values).length + 1
-            console.log("row num" + rowNum)
+            console.log(`row num${rowNum}`)
             finish(rowNum, order)
         }, function(reason) {
-            console.error('error: ' + reason.result.error.message);
+            console.error(`error: ${reason.result.error.message}`);
         });
     }
 
@@ -126,13 +123,13 @@
 
     function getRange(order, row_num){
         const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-        const range = "A" + row_num + ":" + alphabet[order.length - 1] + row_num
+        const range = `A${row_num}:${alphabet[order.length - 1]}${row_num}`
         console.log("range: " + range)
         return range
     };
 
     function sendToSheets(send, range){
-        fetch(`https://sheets.googleapis.com/v4/spreadsheets/${fileID}/values/${encodeURIComponent(range)}?responseDateTimeRenderOption=FORMATTED_STRING&responseValueRenderOption=FORMATTED_VALUE&valueInputOption=USER_ENTERED&key=${key}`,{
+        fetch(`https://sheets.googleapis.com/v4/spreadsheets/${fileID}/values/${encodeURIComponent(range)}?responseDateTimeRenderOption=FORMATTED_STRING&responseValueRenderOption=FORMATTED_VALUE&valueInputOption=USER_ENTERED&key=${API_KEY}`,{
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -175,4 +172,4 @@
     }
     } // end of top1
     var fileID = decodeURI(urlParams.get("fileID"))
-    setTimeout(() => {top1()}, 0)
+    top1()
