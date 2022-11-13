@@ -89,24 +89,23 @@
         sendToSheets(send_data, range1); // sends data to gsheets
     }
 
-    async function get_row_num(fileID, o) {
-        var order = o
-        const request = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${fileID}/values/A1:B5`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        request.then(function(response) {
-            const data = response.result
-            console.log(data)
-            let rowNum = (data.values).length + 1
-            console.log(`row num${rowNum}`)
-            finish(rowNum, order)
-        }, function(reason) {
-            console.error(`error: ${reason.result.error.message}`);
-        });
+     async function get_row_num(fileID, o) {
+        var order = o;
+        async function get_data() {
+            const request = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${fileID}/values/${encodeURIComponent("A:Z")}`,
+                {
+                    headers: {
+                        "Accept": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+            return request.json()
+        }
+        let data = await get_data();
+        console.log(data)
+        let rowNum = await (data.values).length + 1;
+        console.log(`rowNUM: ${rowNum}`)
+        await finish(rowNum, order)
     }
 
     function orderSend(data, order){
@@ -163,10 +162,11 @@
     else {
         if (asin !== null) {
             var fileID = decodeURI(urlParams.get("fileID"))
+            console.log(decodeURI(urlParams.get('o')));
             const o = JSON.parse(decodeURI(urlParams.get('o')))
             const order_array = Object.values(o)
             console.log(order_array)
-            console.log("spreadsheet id: " + fileID);  // gets spreadsheet id num
+            console.log(`spreadsheet id: ${fileID}`);  // gets spreadsheet id num
             await get_row_num(fileID, order_array) // gets row number
         }
     }
