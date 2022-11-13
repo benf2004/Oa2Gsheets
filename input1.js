@@ -299,16 +299,17 @@ async function main() {
     }
     updateStats()
 
-    var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
+    const extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
 
-    function tokenThenSend(){
+    async function tokenThenSend(){
         console.log("hey")
         chrome.runtime.sendMessage(extension_id, {message: "id"},
-            function(response) {
+             await function(response) {
                 if (!response.success)
                     console.log(url);
                 else {
                     sendInfo(response.token)
+                    console.log("SUCCESS!")
                 }
             });
     }
