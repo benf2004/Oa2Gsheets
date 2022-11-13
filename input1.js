@@ -1,4 +1,7 @@
 async function main() {
+    const extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
+    const test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf";
+
     async function keepa(asin, d_id) {
         let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=' + d_id + '&asin=' + asin + '&stats=0&history=0&buyBox=1')
         return response.json()
@@ -299,18 +302,12 @@ async function main() {
     }
     updateStats()
 
-    const extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
-
     async function tokenThenSend(){
         console.log("hey")
         chrome.runtime.sendMessage(extension_id, {message: "id"},
              async function(response) {
-                if (!response.success)
-                    console.log(url);
-                else {
-                    sendInfo(response.token)
-                    console.log("SUCCESS!")
-                }
+                console.log(response);
+                sendInfo(response.token)
             });
     }
 
@@ -329,7 +326,7 @@ async function main() {
         let enc_title = encodeURIComponent(title)
         let enc_cat = encodeURIComponent(cat_name)
         console.log(`ref per is(extension) : ${refPer}`)
-        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&t=${token}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
+        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&t=${encodeURIComponent(token)}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
         let codeURL = encodeURI(refURL)
         console.log(`code URL: ${codeURL}`)
         document.getElementById("frame").src = codeURL
@@ -348,7 +345,6 @@ async function main() {
     var s_a; var not_loaded;
 
     function get_s(){
-        var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
         chrome.runtime.sendMessage(extension_id, {message: "get_spreadsheets"},
             function(response) {
                 console.log(response)
