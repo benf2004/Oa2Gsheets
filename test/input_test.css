@@ -431,5 +431,9 @@ p {
     color: #dc3545
 }
 #notes{
-    width: 200px;
+    width: 125px;
+    max-width: 230px;
+    max-height: 100px;
+    font-family: Arial;
+    height: 20px;
 }

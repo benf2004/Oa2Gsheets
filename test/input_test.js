@@ -1,5 +1,5 @@
 // Test URL:
-// https://www.oa2gsheets.com/test/input_test?fileID=1gU8DNChA-6DyCv2esNvbUcO7z86wmk_wuEIgxTpg5m4&o=%5B%220%22,%221%22,%222%22,%223%22,%224%22,%2220%22,%225%22,%2211%22,%226%22,%227%22,%228%22,%229%22,%2210%22,%2212%22,%2213%22,%2217%22,%2214%22,%2215%22%5D&asin=B01LZPZ5ZT&dy=true&d_id=1
+
 async function main() {
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
     var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
@@ -11,7 +11,7 @@ async function main() {
     async function get_cats(id, d_id){
         let response1 = await fetch("https://api.keepa.com/category?key=" + jumbo + "&domain=" + d_id + "&category=" + id)
         let my_data = await response1.json()
-        console.log(my_data)
+        //console.log(my_data)
         let category = my_data['categories'][id]
         return category
     }
@@ -19,9 +19,9 @@ async function main() {
 
 
     function detrmRefPer(price, cats2) {
-        console.log("PRICE:")
-        console.log(price)
-        console.log(cats2)
+       // console.log("PRICE:")
+        //console.log(price)
+        //console.log(cats2)
         const eightPer = [
             'Camera & Photo', 'Full-Size Appliances', "Cell Phone Devices",
             "Consumer Electronics", "Personal Computers", "Video Game Consoles"
@@ -57,8 +57,8 @@ async function main() {
         ];
         var refPer = 0.15
         var catName = cats2[0]["name"]
-        console.log(catName)
-        console.log(catName === "Grocery & Gourmet Food")
+        //console.log(catName)
+        //console.log(catName === "Grocery & Gourmet Food")
         if (catName === "Grocery & Gourmet Food") {
             if (price <= 15){
                 refPer = 0.08
@@ -70,7 +70,7 @@ async function main() {
         else {
             for (let each in cats2) {
                 catName = cats2[each]["name"]
-                console.log("CATEGORY NAME IS: " + catName)
+                //console.log("CATEGORY NAME IS: " + catName)
                 for (let each1 in twelvePer) {
                     if (catName === twelvePer[each1]) {
                         refPer = .12
@@ -146,6 +146,7 @@ async function main() {
 
 // updates necessary stats
     function updateStats() {
+        bod_width = document.getElementById("body").offsetWidth
         //TODO: Determine what other stats to show
         if (document.getElementById("body").offsetWidth < 360) {
             document.getElementById('right').style.marginLeft = "0px"
@@ -164,7 +165,7 @@ async function main() {
         let ship_to_amz = Number(document.getElementById("ship_to_amz").value)
 
 
-        console.log(ship)
+        //console.log(ship)
         const refPer = detrmRefPer(price, cats2)
 
         // vars from keepa
@@ -175,12 +176,12 @@ async function main() {
         let drops = drop30 + "|" + drop90 + "|" + drop180
         let sales_rank = stats[3];
         let refFee = round_2(price * refPer)
-        let totFees = round_2(+refFee + ship + other)
+        let totFees = round_2(+refFee + ship + other + sales_tax + ship_to_amz)
         let profit = round_2(price - totFees - cogs)
         let margin = round_2(profit * 100 / price)
         let roi1 = round_2(profit * 100 / cogs)
         let top_per = ((sales_rank / highest) * 100).toFixed(3)
-        console.log(isSmallLight(dimensions,weight,price))
+        //console.log(isSmallLight(dimensions,weight,price))
         if (isSmallLight(dimensions, weight, price) !== -1){
             document.getElementById('s_l').disabled = false
             if (document.getElementById('s_l').checked === true){
@@ -247,7 +248,7 @@ async function main() {
     id('fba_fbm').addEventListener("click", fill_fba)
 
     // shrink columns
-    console.log(document.getElementById('body').offsetWidth)
+   // console.log(document.getElementById('body').offsetWidth)
     let bod_width = document.getElementById("body").offsetWidth
     if (bod_width < 360) {
         document.getElementById('right').style.marginLeft = "0px"
@@ -258,7 +259,7 @@ async function main() {
     }
 
     // sets asin and fileID vars from URL
-    const jumbo = "bcttbfvkurmk8mqm5hdo5fvdvarqiibhpehs2pshpe535fpkov2u8b107me6q79m";
+    const jumbo = "889kfmf9q6qaj4mepbmrpptne4ava5jqqaien2086eh6ur1vi30f95igacrv0e3n";
     let url = window.location.search
     const urlParams = new URLSearchParams(url);
     const asin = decodeURI(urlParams.get("asin"))
@@ -266,7 +267,7 @@ async function main() {
     is_dynam = decodeURI(urlParams.get('dy'))
     const domain = decodeURI(urlParams.get("d_id"))
     order = urlParams.get("o")
-    console.log(order)
+    //console.log(order)
 
     const object1 = await keepa(asin, domain);
     const product = await object1['products'][0];
@@ -275,12 +276,12 @@ async function main() {
     var height = await mmToIn(product['packageHeight'])
     var width = await mmToIn(product['packageWidth'])
     var dimensions = [length, height, width]
-    console.log(dimensions)
+    //console.log(dimensions)
     dimensions.sort(function(a, b){return b-a})
-    console.log("DIMENSIONS:")
-    console.log(dimensions)
+    //console.log("DIMENSIONS:")
+    //console.log(dimensions)
     var weight = await gramToOz(product['packageWeight'])
-    console.log(weight)
+    //console.log(weight)
     let check_fba = product["fbaFees"]
     let pickPack;
     if (check_fba != null) {
@@ -314,18 +315,43 @@ async function main() {
         document.getElementById("ship").value = sl_fee
     }
     let st;
-    /*chrome.runtime.sendMessage(test_extension, {message: "get_prefs"},
-        function(response) {
-            let my_prefs = response.prefs
-            st = round_2(my_prefs.sales_tax_rate * cogs)
-            document.getElementById('sales_tax').value = st
+    let st_rate; let ship_amz_rate;
 
-    });*/
-    st = .7
+    // gets cog settings from extension
+    chrome.runtime.sendMessage(extension_id, {message: "get_prefs"},
+        function(response) {
+            console.log(response)
+            st_rate = response.sales_tax_rate
+            ship_amz_rate = response.ship_amz_rate
+            //st = round_2(response.sales_tax_rate * cogs)
+            document.getElementById('sales_tax').value = 0
+            id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
+
+    });
     updateStats()
     let cogs;
 
-    async function sendInfo() {
+    var doneTypingInterval = 400;  //time in ms
+    var typingTimer;
+    document.body.onkeyup = function (e){
+        let f = e.target
+        clearTimeout(typingTimer);
+        if (f.value) {
+            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        }
+        function doneTyping(){
+            if (f.id === "sales_tax_def" || f.id === "ship_to_amz_def"){
+                let sales_tax_setting = document.getElementById('sales_tax_def').value
+                st_rate = sales_tax_setting
+                let ship_amz_setting = document.getElementById('ship_to_amz_def').value
+                ship_amz_rate = ship_amz_setting
+                let prefs = {sales_tax_rate: sales_tax_setting, ship_amz_rate: ship_amz_setting}
+                chrome.runtime.sendMessage(extension_id, {message: "set_prefs", prefs: prefs})
+            }
+        }
+    }
+
+    async function sendInfo(token) {
         let stats = updateStats()
         console.log("SENDING")
         document.getElementById("icon").className = "fas fa-spinner fa-spin"
@@ -340,14 +366,23 @@ async function main() {
         let enc_title = encodeURIComponent(title)
         let enc_cat = encodeURIComponent(cat_name)
         console.log("ref per is(extension) : " + refPer)
-        let refURL = "https://oa2gsheets.com/send.html?asin=" + asin + "&dy=" + is_dynam + "&top=" + stats[15] + "&drops=" + stats[8] + "&title=" + enc_title + "&cat=" + enc_cat + "&r=" + stats[9] + "&s=" + ship + "&other=" + other + "&fileID=" + fileID + "&o=" + order + "&cogs=" + cogs + "&sourceurl=" + sourceURL + "&refPer=" + refPer + "&notes=" + notes + "&price=" + price;
+        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&t=${encodeURIComponent(token)}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
         let codeURL = encodeURI(refURL)
         console.log("code URL: " + codeURL)
         document.getElementById("frame").src = codeURL
     }
 
+    async function tokenThenSend(){
+        console.log("hey")
+        chrome.runtime.sendMessage(extension_id, {message: "id"},
+            async function(response) {
+                console.log(response);
+                sendInfo(response.token)
+            });
+    }
+
     function search(){
-        let my_url = "https://www.google.com/search?q=" + title
+        let my_url = `https://www.google.com/search?q=${encodeURIComponent(title)}`
         window.open(my_url, "_blank")
     }
 
@@ -356,10 +391,11 @@ async function main() {
         window.open(my_url, "_blank")
     }
 
-    var s_a; var not_loaded;
+    let s_a;
+    var not_loaded;
 
     function get_s(){
-        chrome.runtime.sendMessage(test_extension, {message: "get_spreadsheets"},
+        chrome.runtime.sendMessage(extension_id, {message: "get_spreadsheets"},
             function(response) {
                 console.log(response)
                 s_a = response
@@ -390,7 +426,8 @@ async function main() {
             }
             not_loaded = false
         }
-
+        document.getElementById('sales_tax_def').value = st_rate
+        document.getElementById('ship_to_amz_def').value = ship_amz_rate
     }
 
     function set_file_id() {
@@ -433,14 +470,30 @@ async function main() {
         delay: [200, 0],
         allowHTML: true
     });
+    let last_sales_tax;
+    function updateSalesTax(){
+        let st;
+        let cogs = id('cogs').value
+        if (typeof cogs === "string"){
+            console.log("TRUE!")
+            st = cogs * st_rate / 100
+        }
+        if (id('sales_tax').value == 0 || id('sales_tax').value == last_sales_tax){
+            console.log('second')
+            id("sales_tax").value = (round_2(st))
+        }
+        last_sales_tax = st
+        console.log(`last sales tax ${last_sales_tax}`)
+    }
 
     document.getElementById("price").addEventListener("input", updateStats);
     document.getElementById("other").addEventListener("input", updateStats);
     document.getElementById("cogs").addEventListener("input", updateStats);
+    document.getElementById("cogs").addEventListener("input", updateSalesTax);
     document.getElementById("notes").addEventListener("input", updateStats);
     document.getElementById("ship").addEventListener("input", updateStats);
     document.getElementById("s_l").addEventListener("click", updateSL)
-    document.getElementById("send").addEventListener("click", sendInfo);
+    document.getElementById("send").addEventListener("click", tokenThenSend);
     document.getElementById("google").addEventListener("click", search)
     document.getElementById("amazon").addEventListener("click", list)
     document.getElementById('settings').addEventListener("click", choose_s)

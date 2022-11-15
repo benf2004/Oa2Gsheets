@@ -333,7 +333,7 @@ async function main() {
     }
 
     function search(){
-        let my_url = `https://www.google.com/search?q=${title}`
+        let my_url = `https://www.google.com/search?q=${encodeURIComponent(title)}`
         window.open(my_url, "_blank")
     }
 

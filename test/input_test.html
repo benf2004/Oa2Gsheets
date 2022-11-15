@@ -7,8 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@18657a9/css/all.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
-    <link href="input.css" rel="stylesheet">
+    <link href="input_test.css" rel="stylesheet">
 <body id="body">
 <div id="div1" class="ignore container mt-3">
     <div class="">
@@ -56,7 +57,7 @@
                 <p><strong id="cat_l">Category: </strong><span id="category"></span></p>
                 <p><strong id="top_l">Top: </strong><span id="top"></span></p>
                 <p><strong id="drops_l">Drops: </strong><span id="drops"></span></p>
-                <p><strong id="notes_l">Notes: </strong><input type="text" id="notes" value="" autocomplete="off" class="inputs"/></p>
+                <p><strong id="notes_l">Notes: </strong><textarea type="text" id="notes" value="" autocomplete="off" class="inputs"></textarea></p>
                 <p><strong id="sourceURL_l">Source URL: </strong><input type="url" id="source" value="" autocomplete="off" class="inputs"/></p>
                 <p><strong id="sl_l">Small & Light: </strong>
                     <label for="s_l" class="toggle-switchy" data-text="false" data-size="xs" data-style="rounded">
@@ -81,8 +82,8 @@
 <input id="s_array" style="display:none">
 <iframe src="" id="frame"></iframe>
 <div id="form_outer" style="display:none">
-    <div>Sales tax: <input class="sm-input" id="sales_tax_def" type="number"> % </div>
-    <div>Ship to AMZ $/pound: <input class="sm-input" id="ship_to_amz_def" type="number"></div>
+    <div>Sales tax: <input class="sm-input" id="sales_tax_def" type="number" value=""> % </div>
+    <div>Ship to AMZ $<input class="sm-input" id="ship_to_amz_def" type="number" value="">/pound</div>
     <form id="form_gs">
         Send to:
         <select id="spreadsheet_choice">
@@ -93,7 +94,7 @@
 
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script></body>
-<script src="input.js"></script>
+<script src="input_test.js"></script>
 <!--script src="/hidden/input_OS.js"></script-->
 <script>
     tippy('#cogs_l', {
@@ -171,6 +172,10 @@
     tippy('#settings', {
         content: "Pick which spreadsheet to send your info, add defaults for $/pound shipping to Amazon & sales tax",
         delay: [200, 0]
+    })
+    tippy('#sales_tax_l',{
+        content: "The sales tax rate multiplied by COGS",
+        delay: [800, 0]
     })
 </script>
 
