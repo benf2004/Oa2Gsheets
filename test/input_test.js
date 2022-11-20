@@ -334,7 +334,7 @@ async function main() {
         document.getElementById("ship").value = sl_fee
     }
     let st;
-    let st_rate; let ship_amz_rate; let other_fee; let target_roi; let min_profit
+    let st_rate; let ship_amz_rate; let other_fee; let target_roi; let min_profit; let ship_set;
 
     // gets settings from extension
     chrome.runtime.sendMessage(extension_id, {message: "get_prefs"},
@@ -345,11 +345,18 @@ async function main() {
             other_fee = response.other_fee
             target_roi = response.target_roi
             min_profit = response.min_profit
+            ship_set = response.fba_fbm
             //st = round_2(response.sales_tax_rate * cogs)
             document.getElementById('sales_tax').value = 0
             id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
             id('other').value = other_fee
             updateStats()
+            console.log(ship_set)
+            if (ship_set === false){
+                id('fba_fbm').checked = false
+                fba_fbm_toggle()
+                console.log('fired')
+            }
     });
     let cogs;
 
@@ -361,6 +368,8 @@ async function main() {
         console.log('File ID: ' + fileID);
         let price = Number(document.getElementById("price").value)
         cogs = Number(document.getElementById("cogs").value)
+        let st = Number(id('sales_tax').value)
+        let ship_amz = Number(id('ship_to_amz').value)
         let ship = Number(document.getElementById("ship").value)
         let other = Number(document.getElementById("other").value)
         let sourceURL = document.getElementById("source").value
@@ -368,7 +377,7 @@ async function main() {
         let enc_title = encodeURIComponent(title)
         let enc_cat = encodeURIComponent(cat_name)
         console.log("ref per is(extension) : " + refPer)
-        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&t=${encodeURIComponent(token)}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
+        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&t=${encodeURIComponent(token)}&st=${st}&s_a=${ship_amz}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
         let codeURL = encodeURI(refURL)
         console.log("code URL: " + codeURL)
         document.getElementById("frame").src = codeURL
@@ -507,6 +516,7 @@ async function main() {
         }
         updateStats()
     }
+
     if(id('fba_fbm').checked === true){
         id('ship').disabled = true
     }

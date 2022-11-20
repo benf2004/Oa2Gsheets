@@ -1,3 +1,10 @@
+/* instructions to add new item to table chooser
+    1. Add to HTML default loader page
+    2. Add to load list with the following template: [id, 1, number in list, ne (non essential for dynam stats) or e (essential), Title]
+    3. Under saveTable, add matching value to id_num_dict
+    4. Add to MyList with matching number in list in line 66 of OA_script.js
+    5. Update implications in OA_Script.js
+*/
 var rd = REDIPS.drag;
 rd.only.divClass.ne = 'extras';
 rd.only.other = 'allow';
@@ -24,7 +31,7 @@ dynam.addEventListener("change", (e) => {
     }
 });
 function load_table(){
-    let load_list = [["date",1,0,"ne","Date"],["asin",1,1,"ne","ASIN"],["title",1,2,"ne","Product Name"],["roi",1,3,"ne","ROI"],["sr",1,4,"ne","Sales Rank"],["cat_name",1,5,"ne","Category name"],["source_url",1,6,"ne","Source URL"],["cogs",1,7,"e","COGS"],["price",1,8,"e","Price"],["profit",1,9,"e","Profit"],["ref_per",1,10,"e","Referral %"],["notes",1,11,"ne","Notes"],["ref_fee",1,12,"e","Referral Fee ($)"],["ship",1,13,"e","Shipping Fee"],["tot_fee",1,14,"e","Total Fees"],["sell_link",1,15,"ne","Seller link"],["margin",1,16,"ne","Gross Margin"],["other_fees",1,17,"e","Other Fees"],["sales_tax"],["proceeds",1,19,"ne","Seller Proceeds"],["top_per",1,20,"ne","Top %"],["drops",1,21,"ne","Drops"]]
+    let load_list = [["date",1,0,"ne","Date"],["asin",1,1,"ne","ASIN"],["title",1,2,"ne","Product Name"],["roi",1,3,"ne","ROI"],["sr",1,4,"ne","Sales Rank"],["cat_name",1,5,"ne","Category name"],["source_url",1,6,"ne","Source URL"],["cogs",1,7,"e","COGS"],["price",1,8,"e","Price"],["profit",1,9,"e","Profit"],["ref_per",1,10,"e","Referral %"],["notes",1,11,"ne","Notes"],["ref_fee",1,12,"e","Referral Fee ($)"],["ship",1,13,"e","Shipping Fee"],["tot_fee",1,14,"e","Total Fees"],["sell_link",1,15,"ne","Seller link"],["margin",1,16,"ne","Gross Margin"],["other_fees",1,17,"e","Other Fees"],["sales_tax", 1, 18, "e", "Sales Tax"],["proceeds",1,19,"ne","Seller Proceeds"],["top_per",1,20,"ne","Top %"],["drops",1,21,"ne","Drops"], ["ship_to_amz",1,22,"e","Ship to AMZ"]]
     let table_load = []
     let not_used = []
     let i = 0
@@ -36,16 +43,14 @@ function load_table(){
         table_load.push(this_list)
         i += 1
     }
-    for (let i = 0; i < 22; i++) {
+    for (let i = 0; i < load_list.length; i++) {
         let item = load_list[i][0]
-        if (item !== "sales_tax"){
-            if (checkList(table_load, item) === false) {
-                load_list[i].splice(1, 1)
-                load_list[i].splice(1, 0, 0)
-                load_list[i].splice(2, 1)
-                load_list[i].splice(2, 0, 0)
-                not_used.push(load_list[i])
-            }
+        if (checkList(table_load, item) === false) {
+            load_list[i].splice(1, 1)
+            load_list[i].splice(1, 0, 0)
+            load_list[i].splice(2, 1)
+            load_list[i].splice(2, 0, 0)
+            not_used.push(load_list[i])
         }
     }
     console.log(not_used)
@@ -128,7 +133,8 @@ function saveTable() {
         "sales_tax": "18",
         "proceeds": "19",
         "top_per": "20",
-        "drops": "21"
+        "drops": "21",
+        "ship_to_amz": "22"
     }
     for(let each of my_order){
         num_order.push(id_num_dict[each])

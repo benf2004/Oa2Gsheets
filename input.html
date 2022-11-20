@@ -17,12 +17,21 @@
             <div class="column">
                 <p><strong id="cogs_l">COGS: </strong> <input type="number" id="cogs" value="" autocomplete="off" class="inputs"/></p>
                 <p><strong id="asin_l">ASIN: </strong><span id="asin"></span></p>
-                <p><strong id="profit_l">Profit ($): </strong><span id="profit"></span></p>
+                <p><strong id="profit_l">Profit: </strong><strong><strong class="green" id="profit"></strong></strong></p>
                 <p><strong id="refFee_l">Referral Fee: </strong><span id="ref_fee"></span></p>
                 <p><strong id="shipFee_l">Ship Fee: </strong> <input type="number" id="ship" value="" autocomplete="off" class="inputs"/> </p>
+                <p><strong id="ship_to_amz_l">Ship To AMZ: </strong> <input type="number" id="ship_to_amz" value="" autocomplete="off" class="inputs"/> </p>
                 <p><strong id="otherFee_l">Other Fees: </strong><input type="number" id="other" value="" autocomplete="off" class="inputs"/> </p>
-                <p><strong id="totFee_l">Total Fees: </strong><span id="total"></span></p>
-                <p><strong id="sourceURL_l">Source URL: </strong><input type="url" id="source" value="" autocomplete="off" class="inputs"/></p>
+                <p><strong id="sales_tax_l">Sales Tax: </strong> <input type="number" id="sales_tax" value="" autocomplete="off" class="inputs"/> </p>
+                <p><strong id="totFee_l">Total Fees: </strong><strong class="red" id="total"></strong></p>
+                <p><strong id="fba_fbm_l"> FBM </strong>
+                    <label for="fba_fbm" class="toggle-switchy" data-text="false" data-size="xs" data-style="rounded">
+                        <input checked type="checkbox" id="fba_fbm">
+                        <span class="toggle">
+                        <span class="switch"></span>
+                     </span>
+                    </label> <strong>FBA</strong>
+                </p>
                 <div class="button" id="send">
                     <div></div>
                     <i id="icon" class="fa-brands fa-google-drive"></i>
@@ -48,15 +57,24 @@
                 <p><strong id="cat_l">Category: </strong><span id="category"></span></p>
                 <p><strong id="top_l">Top: </strong><span id="top"></span></p>
                 <p><strong id="drops_l">Drops: </strong><span id="drops"></span></p>
-                <p><strong id="notes_l">Notes: </strong><input type="text" id="notes" value="" autocomplete="off" class="inputs"/></p>
+                <p><strong id="notes_l">Notes: </strong><textarea type="text" id="notes" value="" maxlength="500" autocomplete="off" class="inputs"></textarea></p>
+                <p><strong id="sourceURL_l">Source URL: </strong><input type="url" id="source" value="" autocomplete="off" class="inputs"/></p>
                 <p><strong id="sl_l">Small & Light: </strong>
-                    <label for="s_l" class="toggle-switchy" data-text="false" data-size="sm" data-style="rounded">
+                    <label for="s_l" class="toggle-switchy" data-text="false" data-size="xs" data-style="rounded">
                         <input disabled type="checkbox" id="s_l">
                         <span class="toggle">
                         <span class="switch"></span>
                      </span>
                     </label>
                 </p>
+                <!--p><strong id="replen_l">Replen: </strong>
+                    <label for="replen" class="toggle-switchy" data-text="false" data-size="xs" data-style="rounded">
+                        <input type="checkbox" id="replen">
+                        <span class="toggle">
+                        <span class="switch"></span>
+                     </span>
+                    </label>
+                </p-->
             </div>
         </div>
     </div>
@@ -65,7 +83,6 @@
 <iframe src="" id="frame"></iframe>
 <div id="form_outer" style="display:none">
     <form id="form_gs">
-        <em id="setup">Go to extension > Gsheets setup to get started</em> <br>
         Send to:
         <select id="spreadsheet_choice">
 
@@ -147,12 +164,16 @@
         delay: [200, 0]
     });
     tippy('#send', {
-        content: 'Send info to your Google Sheet',
+        content: 'Send to Google Sheets',
         delay: [200, 0]
     });
     tippy('#settings', {
-        content: "Pick which spreadsheet to send your info",
+        content: "Pick which spreadsheet to send to",
         delay: [200, 0]
+    })
+    tippy('#sales_tax_l',{
+        content: "The sales tax rate multiplied by COGS",
+        delay: [800, 0]
     })
 </script>
 

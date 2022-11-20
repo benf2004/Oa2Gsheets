@@ -16,7 +16,9 @@
     var cat_name = decodeURIComponent(urlParams.get('cat'));
     var title = decodeURIComponent(urlParams.get('title'));
     var drops = decodeURIComponent(urlParams.get('drops'));
-    var token = decodeURIComponent(urlParams.get('t'))
+    var token = decodeURIComponent(urlParams.get('t'));
+    let sales_tax = decodeURI(urlParams.get('st'));
+    let ship_to_amz = decodeURI(urlParams.get('s_a'))
     var today = new Date();
 	var curDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 	var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
@@ -35,7 +37,8 @@
 
 
         // Sets dynamic statistic array to send to spreadsheet. requires row number.
-    function dynamStats(rowStr, order) {
+    function dynamStats(r, order) {
+        // r = row
         const alpha_dict = {}
         const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         let num = 0
@@ -48,36 +51,30 @@
         console.log("AlPHA DICT:")
         console.log(a)
 
-        // refer to picker id_num_dict to see order
-        let refFee1 = `=ROUND(${a['8']}${rowStr}*${a['10']}${rowStr}, 2)`;
-        let totFees1 = `=${a['12']}${rowStr}+${a['13']}${rowStr}+${a['17']}${rowStr}`;
-        let profit1 = `=${a['8']}${rowStr}-${a['14']}${rowStr}-${a['7']}${rowStr}`;
-        let margin = `=TO_PERCENT(${a['9']}${rowStr}/${a['8']}${rowStr})`;
-        let sales_tax = 0;
-        let roi1 = `=TO_PERCENT(${a['9']}${rowStr}/${a['7']}${rowStr})`;
-        let proceeds = `=${a['8']}${rowStr}-${a['14']}${rowStr}`;
-        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops];
+        // refer to picker id_num_dict to see matching numbers
+        let refFee1 = `=ROUND(${a['8']}${r}*${a['10']}${r}, 2)`;
+        let totFees1 = `=${a['12']}${r}+${a['13']}${r}+${a['17']}${r}+${a['18']}${r}+${a['22']}${r}`;
+        let profit1 = `=${a['8']}${r}-${a['14']}${r}-${a['7']}${r}`;
+        let margin = `=TO_PERCENT(${a['9']}${r}/${a['8']}${r})`;
+        let roi1 = `=TO_PERCENT(${a['9']}${r}/${a['7']}${r})`;
+        let proceeds = `=${a['8']}${r}-${a['14']}${r}`;
+        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops, ship_to_amz];
         console.log(my_list)
         return my_list
     }; // end of dynamic stats function
 
     function staticStats(){
         let refFee1 = price * ref_num
-        let ref_fee = `=ROUND(${refFee1}, 2)`
-        let totFees1 = refFee1 + ship + other
-        let tot_fees = `=ROUND(${totFees1}, 2)`
+        let totFees1 = refFee1 + ship + other + sales_tax + ship_to_amz
         let profit1 = price - totFees1 - cogs
         let roi1 = profit1 / cogs
         let margin = profit1 / price
-        let sales_tax = 0;
         let proceeds = price - totFees1;
-        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, ref_fee, ship, tot_fees, sellLink, margin, other, sales_tax, proceeds, top_per, drops];
+        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops, ship_to_amz];
         return my_list
     }
 
     async function finish(rowFin, order_array) {
-        console.log("row num:" + rowFin)
-        console.log("ROWWWwwYYWY")
         if (is_dynam == "false") {
             data1 = staticStats()
         }

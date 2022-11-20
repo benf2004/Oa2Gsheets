@@ -9,7 +9,7 @@ body {
 input {
     height: 10px;
     padding: 3px;
-    width: 60px;
+    width: 40px;
 }
 
 input::-webkit-outer-spin-button,
@@ -89,7 +89,7 @@ iframe {
     cursor: pointer;
     display: inline-block;
     white-space: nowrap;
-    background: #28bc54;
+    background: #28a745;
     border-radius: 100px;
     border: 0px solid #444;
     padding: 9px 11px 9px 11px;
@@ -383,7 +383,9 @@ CORE STYLES ABOVE - NO TOUCHY
     font-weight: 900;
     font-style: normal
 }
-
+/* #settings {
+    background-color: #6c757d
+} */
 .but1 > div {
     color: #999;
     font-size: 10px;
@@ -407,9 +409,31 @@ CORE STYLES ABOVE - NO TOUCHY
     font-size: initial
 }
 p {
-    margin-bottom: 8px;
+    margin: 8px;
+    padding: 0px;
 }
 
 #send{
-    margin-top: 5px
+    margin-top: 0px
+}
+
+.sm-input{
+    height: 10px;
+    font-size: 9pt;
+    width: 30px;
+}
+
+.green {
+    color: #28a745
+}
+
+.red {
+    color: #dc3545
+}
+#notes{
+    width: 125px;
+    max-width: 230px;
+    max-height: 100px;
+    font-family: Arial;
+    height: 30px;
 }
