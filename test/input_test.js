@@ -223,9 +223,15 @@ async function main() {
         if (document.getElementById('s_l').checked === true){
             let price = Number(document.getElementById("price").value)
             document.getElementById("ship").value = isSmallLight(dimensions, weight, price)
+            id('ship').disabled = true
+            id('ship_to_amz').disabled = false
         }
         else {
             document.getElementById("ship").value = pickPack;
+            id('fba_fbm').checked = false
+            id('ship_to_amz').disabled = true
+            id('ship_to_amz').value = 0
+            id('ship').disabled = false
         }
         updateStats()
     }
@@ -482,10 +488,12 @@ async function main() {
             id('s_l').checked = false
             id('ship_to_amz').value = 0
             id('ship_to_amz').disabled = true
+            id('ship').disabled = false
             id('ship').value = last_ship
         }
         else {
             id('ship_to_amz').disabled = false
+            id('ship').disabled = true
             id('ship').value = pickPack
             id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
         }
@@ -497,8 +505,8 @@ async function main() {
     document.getElementById("cogs").addEventListener("input", updateSalesTax);
     document.getElementById("notes").addEventListener("input", updateStats);
     document.getElementById("ship").addEventListener("input", updateStats);
-    document.getElementById("s_l").addEventListener("click", updateSL)
-    id('fba_fbm').addEventListener('click', fba_fbm_toggle)
+    document.getElementById("s_l").addEventListener("change", updateSL)
+    id('fba_fbm').addEventListener('change', fba_fbm_toggle)
     document.getElementById("send").addEventListener("click", tokenThenSend);
     document.getElementById("google").addEventListener("click", search)
     document.getElementById("amazon").addEventListener("click", list)
