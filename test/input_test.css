@@ -423,11 +423,11 @@ p {
     width: 30px;
 }
 
-#profit{
+.green {
     color: #28a745
 }
 
-#total{
+.red {
     color: #dc3545
 }
 #notes{

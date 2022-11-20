@@ -206,6 +206,13 @@ async function main() {
         if (id('fba_fbm').checked === false){
             last_ship = id('ship').value
         }
+
+        if (profit > 0){
+            id("profit").className = "green"
+        }
+        else {
+            id("profit").className = "red"
+        }
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
         document.getElementById("ref_fee").innerHTML = refFee;
@@ -232,6 +239,7 @@ async function main() {
             id('ship_to_amz').disabled = true
             id('ship_to_amz').value = 0
             id('ship').disabled = false
+            id('ship').value = last_ship
         }
         updateStats()
     }
@@ -499,7 +507,9 @@ async function main() {
         }
         updateStats()
     }
-
+    if(id('fba_fbm').checked === true){
+        id('ship').disabled = true
+    }
     document.getElementById("price").addEventListener("input", updateStats);
     document.getElementById("other").addEventListener("input", updateStats);
     document.getElementById("cogs").addEventListener("input", updateSalesTax);
