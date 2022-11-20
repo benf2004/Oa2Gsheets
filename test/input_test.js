@@ -1,4 +1,4 @@
-// Test URL:
+// Test URL: http://localhost:63342/OaGsheets/test/input_test.html?input_test?fileID=1gU8DNChA-6DyCv2esNvbUcO7z86wmk_wuEIgxTpg5m4&o=%5B%220%22,%221%22,%222%22,%223%22,%224%22,%2220%22,%225%22,%2211%22,%226%22,%227%22,%228%22,%229%22,%2210%22,%2212%22,%2213%22,%2217%22,%2214%22,%2215%22%5D&asin=B01LZPZ5ZT&dy=true&d_id=1
 
 async function main() {
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
@@ -177,6 +177,7 @@ async function main() {
         let sales_rank = stats[3];
         let refFee = round_2(price * refPer)
         let totFees = round_2(+refFee + ship + other + sales_tax + ship_to_amz)
+        console.log(`Ref Fee: ${refFee} Ship: ${ship} Other: ${other} Sales tax: ${sales_tax} Ship to AMZ: ${ship_to_amz}`)
         let profit = round_2(price - totFees - cogs)
         let margin = round_2(profit * 100 / price)
         let roi1 = round_2(profit * 100 / cogs)
@@ -186,6 +187,8 @@ async function main() {
             document.getElementById('s_l').disabled = false
             if (document.getElementById('s_l').checked === true){
                 document.getElementById('ship').value = isSmallLight(dimensions, weight, price)
+                id('fba_fbm').checked = true
+                id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
             }
             // ignore highlight
             if (isSmallLight(dimensions,weight,price) != parseFloat(ship)){
@@ -217,12 +220,11 @@ async function main() {
         if (document.getElementById('s_l').checked === true){
             let price = Number(document.getElementById("price").value)
             document.getElementById("ship").value = isSmallLight(dimensions, weight, price)
-            updateStats()
         }
         else {
             document.getElementById("ship").value = pickPack;
-            updateStats()
         }
+        updateStats()
     }
 
     function mmToIn(val) {
@@ -315,41 +317,24 @@ async function main() {
         document.getElementById("ship").value = sl_fee
     }
     let st;
-    let st_rate; let ship_amz_rate;
+    let st_rate; let ship_amz_rate; let other_fee; let target_roi; let min_profit
 
-    // gets cog settings from extension
+    // gets settings from extension
     chrome.runtime.sendMessage(extension_id, {message: "get_prefs"},
         function(response) {
             console.log(response)
             st_rate = response.sales_tax_rate
             ship_amz_rate = response.ship_amz_rate
+            other_fee = response.other_fee
+            target_roi = response.target_roi
+            min_profit = response.min_profit
             //st = round_2(response.sales_tax_rate * cogs)
             document.getElementById('sales_tax').value = 0
             id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
-
+            id('other').value = other_fee
+            updateStats()
     });
-    updateStats()
     let cogs;
-
-    var doneTypingInterval = 400;  //time in ms
-    var typingTimer;
-    document.body.onkeyup = function (e){
-        let f = e.target
-        clearTimeout(typingTimer);
-        if (f.value) {
-            typingTimer = setTimeout(doneTyping, doneTypingInterval);
-        }
-        function doneTyping(){
-            if (f.id === "sales_tax_def" || f.id === "ship_to_amz_def"){
-                let sales_tax_setting = document.getElementById('sales_tax_def').value
-                st_rate = sales_tax_setting
-                let ship_amz_setting = document.getElementById('ship_to_amz_def').value
-                ship_amz_rate = ship_amz_setting
-                let prefs = {sales_tax_rate: sales_tax_setting, ship_amz_rate: ship_amz_setting}
-                chrome.runtime.sendMessage(extension_id, {message: "set_prefs", prefs: prefs})
-            }
-        }
-    }
 
     async function sendInfo(token) {
         let stats = updateStats()
@@ -484,18 +469,35 @@ async function main() {
         }
         last_sales_tax = st
         console.log(`last sales tax ${last_sales_tax}`)
+        updateStats()
+    }
+
+    function fba_fbm_toggle(){
+        let t = id('fba_fbm')
+        if (t.checked === false){ // not checked
+            id('s_l').checked = false
+            id('ship_to_amz').value = 0
+            id('ship').value = 0
+        }
+        else {
+            id('ship').value = pickPack
+            id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
+        }
+        updateStats()
     }
 
     document.getElementById("price").addEventListener("input", updateStats);
     document.getElementById("other").addEventListener("input", updateStats);
-    document.getElementById("cogs").addEventListener("input", updateStats);
     document.getElementById("cogs").addEventListener("input", updateSalesTax);
     document.getElementById("notes").addEventListener("input", updateStats);
     document.getElementById("ship").addEventListener("input", updateStats);
     document.getElementById("s_l").addEventListener("click", updateSL)
+    id('fba_fbm').addEventListener('click', fba_fbm_toggle)
     document.getElementById("send").addEventListener("click", tokenThenSend);
     document.getElementById("google").addEventListener("click", search)
     document.getElementById("amazon").addEventListener("click", list)
     document.getElementById('settings').addEventListener("click", choose_s)
+    id('sales_tax').addEventListener('input', updateStats)
+    id('ship_to_amz').addEventListener('input', updateStats)
 }
 main()

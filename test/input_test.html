@@ -67,14 +67,14 @@
                      </span>
                     </label>
                 </p>
-                <p><strong id="replen_l">Replen: </strong>
+                <!--p><strong id="replen_l">Replen: </strong>
                     <label for="replen" class="toggle-switchy" data-text="false" data-size="xs" data-style="rounded">
                         <input type="checkbox" id="replen">
                         <span class="toggle">
                         <span class="switch"></span>
                      </span>
                     </label>
-                </p>
+                </p-->
             </div>
         </div>
     </div>
@@ -82,8 +82,6 @@
 <input id="s_array" style="display:none">
 <iframe src="" id="frame"></iframe>
 <div id="form_outer" style="display:none">
-    <div>Sales tax: <input class="sm-input" id="sales_tax_def" type="number" value=""> % </div>
-    <div>Ship to AMZ $<input class="sm-input" id="ship_to_amz_def" type="number" value="">/pound</div>
     <form id="form_gs">
         Send to:
         <select id="spreadsheet_choice">
@@ -166,11 +164,11 @@
         delay: [200, 0]
     });
     tippy('#send', {
-        content: 'Send info to your Google Sheet',
+        content: 'Send to Google Sheets',
         delay: [200, 0]
     });
     tippy('#settings', {
-        content: "Pick which spreadsheet to send your info, add defaults for $/pound shipping to Amazon & sales tax",
+        content: "Pick which spreadsheet to send to",
         delay: [200, 0]
     })
     tippy('#sales_tax_l',{
