@@ -203,6 +203,9 @@ async function main() {
                 document.getElementById("ship").value = pickPack;
             }
         }
+        if (id('fba_fbm').checked === false){
+            last_ship = id('ship').value
+        }
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
         document.getElementById("ref_fee").innerHTML = refFee;
@@ -483,7 +486,6 @@ async function main() {
         }
         else {
             id('ship_to_amz').disabled = false
-            last_ship = id('ship').value
             id('ship').value = pickPack
             id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
         }
