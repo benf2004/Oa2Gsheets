@@ -435,8 +435,6 @@ async function main() {
             }
             not_loaded = false
         }
-        document.getElementById('sales_tax_def').value = st_rate
-        document.getElementById('ship_to_amz_def').value = ship_amz_rate
     }
 
     function set_file_id() {
