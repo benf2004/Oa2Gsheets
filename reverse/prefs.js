@@ -100,5 +100,3 @@ function update_inputs() {
 for (let i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener('change', update_inputs);
 }
-
-console.log(id('roi').value)
