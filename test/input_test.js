@@ -471,15 +471,19 @@ async function main() {
         console.log(`last sales tax ${last_sales_tax}`)
         updateStats()
     }
+    let last_ship = 0
 
     function fba_fbm_toggle(){
         let t = id('fba_fbm')
         if (t.checked === false){ // not checked
             id('s_l').checked = false
             id('ship_to_amz').value = 0
-            id('ship').value = 0
+            id('ship_to_amz').disabled = true
+            id('ship').value = last_ship
         }
         else {
+            id('ship_to_amz').disabled = false
+            last_ship = id('ship').value
             id('ship').value = pickPack
             id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
         }
