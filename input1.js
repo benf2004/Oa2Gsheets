@@ -8,11 +8,13 @@ async function main() {
     }
 
     async function get_cats(id, d_id){
-        let category = ""
+        let category = {name: "not found", highest_rank: -1000000}
         let response1 = await fetch("https://api.keepa.com/category?key=" + jumbo + "&domain=" + d_id + "&category=" + id)
         let my_data = await response1.json()
         //console.log(my_data)
-        category = my_data['categories'][id]
+        if (my_data['categories'][id] !== undefined) {
+            category = my_data['categories'][id]
+        }
         return category
     }
 
