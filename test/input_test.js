@@ -1,5 +1,4 @@
 // Test URL: http://localhost:63342/OaGsheets/test/input_test.html?input_test?fileID=1gU8DNChA-6DyCv2esNvbUcO7z86wmk_wuEIgxTpg5m4&o=%5B%220%22,%221%22,%222%22,%223%22,%224%22,%2220%22,%225%22,%2211%22,%226%22,%227%22,%228%22,%229%22,%2210%22,%2212%22,%2213%22,%2217%22,%2214%22,%2215%22%5D&asin=B01LZPZ5ZT&dy=true&d_id=1
-
 async function main() {
     var extension_id = "nmfejpchamgnejkgfkadokkhpjkmgmam";
     var test_extension = "aapifccbfojjnaalilgfhjgfndkbpgmf"
@@ -19,7 +18,7 @@ async function main() {
 
 
     function detrmRefPer(price, cats2) {
-       // console.log("PRICE:")
+        // console.log("PRICE:")
         //console.log(price)
         //console.log(cats2)
         const eightPer = [
@@ -230,16 +229,12 @@ async function main() {
         if (document.getElementById('s_l').checked === true){
             let price = Number(document.getElementById("price").value)
             document.getElementById("ship").value = isSmallLight(dimensions, weight, price)
-            id('ship').disabled = true
             id('ship_to_amz').disabled = false
         }
         else {
             document.getElementById("ship").value = pickPack;
-            id('fba_fbm').checked = false
             id('ship_to_amz').disabled = true
             id('ship_to_amz').value = 0
-            id('ship').disabled = false
-            id('ship').value = last_ship
         }
         updateStats()
     }
@@ -267,7 +262,7 @@ async function main() {
     id('fba_fbm').addEventListener("click", fill_fba)
 
     // shrink columns
-   // console.log(document.getElementById('body').offsetWidth)
+    // console.log(document.getElementById('body').offsetWidth)
     let bod_width = document.getElementById("body").offsetWidth
     if (bod_width < 360) {
         document.getElementById('right').style.marginLeft = "0px"
@@ -357,7 +352,7 @@ async function main() {
                 fba_fbm_toggle()
                 console.log('fired')
             }
-    });
+        });
     let cogs;
 
     async function sendInfo(token) {
@@ -376,8 +371,9 @@ async function main() {
         let notes = encodeURIComponent(document.getElementById("notes").value)
         let enc_title = encodeURIComponent(title)
         let enc_cat = encodeURIComponent(cat_name)
+        let is_fba = id('fba_fbm').checked
         console.log("ref per is(extension) : " + refPer)
-        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&t=${encodeURIComponent(token)}&st=${st}&s_a=${ship_amz}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
+        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&fba=${is_fba}$t=${encodeURIComponent(token)}&st=${st}&s_a=${ship_amz}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
         let codeURL = encodeURI(refURL)
         console.log("code URL: " + codeURL)
         document.getElementById("frame").src = codeURL
@@ -410,7 +406,7 @@ async function main() {
             function(response) {
                 console.log(response)
                 s_a = response
-        });
+            });
     }
     get_s()
 
@@ -437,8 +433,6 @@ async function main() {
             }
             not_loaded = false
         }
-        document.getElementById('sales_tax_def').value = st_rate
-        document.getElementById('ship_to_amz_def').value = ship_amz_rate
     }
 
     function set_file_id() {
@@ -505,20 +499,15 @@ async function main() {
             id('s_l').checked = false
             id('ship_to_amz').value = 0
             id('ship_to_amz').disabled = true
-            id('ship').disabled = false
-            id('ship').value = last_ship
-        }
+            if (id('ship').value === pickPack || id('ship').value === sl_fee){
+                id('ship').value = last_ship
+            }        }
         else {
             id('ship_to_amz').disabled = false
-            id('ship').disabled = true
             id('ship').value = pickPack
             id('ship_to_amz').value = round_2(ship_amz_rate * (weight/16))
         }
         updateStats()
-    }
-
-    if(id('fba_fbm').checked === true){
-        id('ship').disabled = true
     }
     document.getElementById("price").addEventListener("input", updateStats);
     document.getElementById("other").addEventListener("input", updateStats);
