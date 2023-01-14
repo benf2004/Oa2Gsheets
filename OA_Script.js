@@ -18,7 +18,14 @@
     var drops = decodeURIComponent(urlParams.get('drops'));
     var token = decodeURIComponent(urlParams.get('t'));
     let sales_tax = decodeURI(urlParams.get('st'));
-    let ship_to_amz = decodeURI(urlParams.get('s_a'))
+    let ship_to_amz = decodeURI(urlParams.get('s_a'));
+    let is_FBA = decodeURI(urlParams.get('fba')); let fba_fbm;
+    if (is_FBA == "true"){
+        fba_fbm = "FBA"
+    }
+    else{
+        fba_fbm = "FBM"
+    }
     var today = new Date();
 	var curDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 	var asinLink = '=HYPERLINK("amazon.com/dp/' + asin + '"' + "," + '"' + asin + '"' + ")"
@@ -58,7 +65,7 @@
         let margin = `=TO_PERCENT(${a['9']}${r}/${a['8']}${r})`;
         let roi1 = `=TO_PERCENT(${a['9']}${r}/${a['7']}${r})`;
         let proceeds = `=${a['8']}${r}-${a['14']}${r}`;
-        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops, ship_to_amz];
+        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops, ship_to_amz, fba_fbm];
         console.log(my_list)
         return my_list
     }; // end of dynamic stats function
@@ -70,7 +77,7 @@
         let roi1 = profit1 / cogs
         let margin = profit1 / price
         let proceeds = price - totFees1;
-        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops, ship_to_amz];
+        const my_list = [curDate, asinLink, title, roi1, currentRank, cat_name, sourceURL, cogs, price, profit1, refPer, notes, refFee1, ship, totFees1, sellLink, margin, other, sales_tax, proceeds, top_per, drops, ship_to_amz, fba_fbm];
         return my_list
     }
 
@@ -118,7 +125,7 @@
     };
 
     function getRange(order, row_num){
-        const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA"]
         const range = `A${row_num}:${alphabet[order.length - 1]}${row_num}`
         console.log("range: " + range)
         return range

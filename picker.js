@@ -31,7 +31,7 @@ dynam.addEventListener("change", (e) => {
     }
 });
 function load_table(){
-    let load_list = [["date",1,0,"ne","Date"],["asin",1,1,"ne","ASIN"],["title",1,2,"ne","Product Name"],["roi",1,3,"ne","ROI"],["sr",1,4,"ne","Sales Rank"],["cat_name",1,5,"ne","Category name"],["source_url",1,6,"ne","Source URL"],["cogs",1,7,"e","COGS"],["price",1,8,"e","Price"],["profit",1,9,"e","Profit"],["ref_per",1,10,"e","Referral %"],["notes",1,11,"ne","Notes"],["ref_fee",1,12,"e","Referral Fee ($)"],["ship",1,13,"e","Shipping Fee"],["tot_fee",1,14,"e","Total Fees"],["sell_link",1,15,"ne","Seller link"],["margin",1,16,"ne","Gross Margin"],["other_fees",1,17,"e","Other Fees"],["sales_tax", 1, 18, "e", "Sales Tax"],["proceeds",1,19,"ne","Seller Proceeds"],["top_per",1,20,"ne","Top %"],["drops",1,21,"ne","Drops"], ["ship_to_amz",1,22,"e","Ship to AMZ"]]
+    let load_list = [["date",1,0,"ne","Date"],["asin",1,1,"ne","ASIN"],["title",1,2,"ne","Product Name"],["roi",1,3,"ne","ROI"],["sr",1,4,"ne","Sales Rank"],["cat_name",1,5,"ne","Category name"],["source_url",1,6,"ne","Source URL"],["cogs",1,7,"e","COGS"],["price",1,8,"e","Price"],["profit",1,9,"e","Profit"],["ref_per",1,10,"e","Referral %"],["notes",1,11,"ne","Notes"],["ref_fee",1,12,"e","Referral Fee ($)"],["ship",1,13,"e","Shipping Fee"],["tot_fee",1,14,"e","Total Fees"],["sell_link",1,15,"ne","Seller link"],["margin",1,16,"ne","Gross Margin"],["other_fees",1,17,"e","Other Fees"],["sales_tax", 1, 18, "e", "Sales Tax"],["proceeds",1,19,"ne","Seller Proceeds"],["top_per",1,20,"ne","Top %"],["drops",1,21,"ne","Drops"], ["ship_to_amz",1,22,"e","Ship to AMZ"], ["fbm_fba", 1, 23, "ne", "FBM/FBA"]]
     let table_load = []
     let not_used = []
     let i = 0
@@ -134,7 +134,8 @@ function saveTable() {
         "proceeds": "19",
         "top_per": "20",
         "drops": "21",
-        "ship_to_amz": "22"
+        "ship_to_amz": "22",
+        "fbm_fba": "23"
     }
     for(let each of my_order){
         num_order.push(id_num_dict[each])
