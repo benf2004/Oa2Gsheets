@@ -1,3 +1,4 @@
+
 const q2 = {
     "jeopardy": [
         {
@@ -192,7 +193,7 @@ const q2 = {
         "question": "THIS IS THE LATIN TERM FOR NAVAL SEA BATTLE REENACTMENTS"
     }
 }
-console.log(typeof q2)
+
 $(function(){
     $('#game-load-modal').modal('show');
     chooseTheme = Math.random() < 0.5;
