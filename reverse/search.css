@@ -21,3 +21,15 @@
 .stars{
     color: gold;
 }
+
+.graph{
+
+}
+
+.graph {
+    object-fit: contain;
+    float: right;
+    position: absolute;
+    right: 25px;
+    display: block;
+}

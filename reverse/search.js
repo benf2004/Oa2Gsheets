@@ -353,7 +353,6 @@ async function main() {
             keepa.src = `https://api.keepa.com/graphimage?amazon=1&bb=1&fba=1&fbm=1&salesrank=1&width=410&height=200&cBackground=f8f9fa&key=${key}&domain=${d_id}&asin=${p['asin']}`
         }
         ru(keepa)
-        console.log(id("keepa_col").style.width)
         let weight = round_2(gramToLb(p['packageWeight']))
         let length = round_2(mmToIn(p['packageLength']))
         let height = round_2(mmToIn(p['packageHeight']))
