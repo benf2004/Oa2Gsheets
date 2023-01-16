@@ -8,9 +8,9 @@ body {
 }
 
 /* styles for screens greater than 1100px */
-@media (min-width: 1100px) {
+@media (min-width: 1100px){
 	.about {
-		width: 1050px;
+		width: 1060px;
 	}
 }
 
