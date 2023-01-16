@@ -3,9 +3,31 @@ body {
 }
 
 .about{
-	width: 76%;
 	margin: auto;
 	margin-top: -80px;
+}
+
+/* styles for screens greater than 1100px */
+@media (min-width: 1100px) {
+	.about {
+		width: 1050px;
+	}
+}
+
+/* styles for screens smaller than 1100px */
+@media (max-width: 1099px) {
+	.about {
+		width: 900px;
+	}
+	#outer{
+		width: 50% !important;
+	}
+}
+
+@media (max-width: 1220px) and (min-width: 1100px) {
+	#outer{
+		width: 55% !important;
+	}
 }
 
 div.e{
