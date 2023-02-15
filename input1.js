@@ -378,7 +378,7 @@ async function main() {
         let enc_cat = encodeURIComponent(cat_name)
         let is_fba = id('fba_fbm').checked
         console.log("ref per is(extension) : " + refPer)
-        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&fba=${is_fba}$t=${encodeURIComponent(token)}&st=${st}&s_a=${ship_amz}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
+        let refURL = `https://oa2gsheets.com/send.html?asin=${asin}&fba=${is_fba}&t=${encodeURIComponent(token)}&st=${st}&s_a=${ship_amz}&dy=${is_dynam}&top=${stats[15]}&drops=${stats[8]}&title=${enc_title}&cat=${enc_cat}&r=${stats[9]}&s=${ship}&other=${other}&fileID=${fileID}&o=${order}&cogs=${cogs}&sourceurl=${sourceURL}&refPer=${refPer}&notes=${notes}&price=${price}`;
         let codeURL = encodeURI(refURL)
         console.log("code URL: " + codeURL)
         document.getElementById("frame").src = codeURL
