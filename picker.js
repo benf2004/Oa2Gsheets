@@ -65,7 +65,7 @@ const urlParams = new URLSearchParams(url);
 let ndx = decodeURI(urlParams.get('index_num'))
 let fileID = decodeURI(urlParams.get('f_id'))
 if (fileID != "null"){
-    document.cookie = `fileID=${fileID}; expires=Wed, 26 April 2062 12:00:00 UTC; domain=www.oa2gsheets.com`;
+    document.cookie = `fileID=${fileID}; expires=Wed, 26 April 2062 12:00:00 UTC; domain=oa2gsheets.phooey.foo`;
     document.getElementById("authorize_button").innerHTML = "Switch Gsheet"
 }
 let o = decodeURI(urlParams.get("order"))
@@ -182,7 +182,7 @@ function fill_headers(token){
         fileID = document.getElementById('file_id').value
     }
     console.log(fileID)
-    let send_headers = `https://www.oa2gsheets.com/send?heads=${json_headers}&h=true&fileID=${fileID}&t=${token}`
+    let send_headers = `https://oa2gsheets.phooey.foo/send?heads=${json_headers}&h=true&fileID=${fileID}&t=${token}`
     let encoded = send_headers
     console.log(encoded)
     document.getElementById("send_headers").src = encoded

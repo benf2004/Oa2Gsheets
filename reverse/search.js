@@ -734,7 +734,7 @@ async function main() {
 
     function click_submit(){
         s_id = document.getElementById('seller_search').value
-        window.location.href = `https://www.oa2gsheets.com/reverse/?s_id=${s_id}`
+        window.location.href = `https://oa2gsheets.phooey.foo/reverse/?s_id=${s_id}`
     }
 
     document.getElementById('submit').addEventListener("click", click_submit)
